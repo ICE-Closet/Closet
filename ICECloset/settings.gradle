@@ -1,0 +1,2 @@
+rootProject.name='ICE Closet'
+include ':app'

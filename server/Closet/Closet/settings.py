@@ -25,12 +25,13 @@ SECRET_KEY = '6r2n(wpzz!utzlc2v91#4qsgn!5zpci@klx7iqw6-!r#epyrc&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] # allow all
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig', # add account app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,10 +74,14 @@ WSGI_APPLICATION = 'Closet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+DATABASES = { # modify to mysql
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'closet_db',
+        'USER' : 'root',
+        'PASSWORD' : 'svtcarat0526',
+        'HOST' : 'localhost',
+        'PORT' : '3306',
     }
 }
 

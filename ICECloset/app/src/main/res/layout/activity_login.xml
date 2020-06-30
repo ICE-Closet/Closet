@@ -4,6 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".login">
 
+    <ImageView
+        android:id="@+id/app_name"
+        android:layout_width="379dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/user_pw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/appname" />
+
+    <EditText
+        android:id="@+id/user_id"
+        android:layout_width="261dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@android:drawable/ic_dialog_email"
+        android:hint=" 이메일"
+        android:textColor="#EEE6E6"
+        android:textColorHint="#EEE6E6"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/user_pw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <EditText
+        android:id="@+id/user_pw"
+        android:layout_width="261dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="48dp"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:hint="비밀번호"
+        android:textColorHint="#EEE6E6"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/facebook_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/facebook_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="페이스북 로그인"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/google_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/google_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="구글 로그인"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/signup_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/signup_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:fontFamily="@font/ostrich"
+        android:text="회원가입"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/createBy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/createBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="HUFS ICE Closet Application"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

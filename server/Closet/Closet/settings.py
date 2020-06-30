@@ -32,6 +32,12 @@ ALLOWED_HOSTS = ['*'] # allow all
 
 INSTALLED_APPS = [
     'account.apps.AccountConfig', # add account app
+    'rest_framework',
+    'rest_auth',
+    'django.contrib.sites', # registration
+    #'allauth',# registration
+    #'allauth.account',# registration
+    'rest_auth.registration',# registration
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES':[
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +67,7 @@ ROOT_URLCONF = 'Closet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +89,7 @@ WSGI_APPLICATION = 'Closet.wsgi.application'
 DATABASES = { # modify to mysql
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'closet_db',
+        'NAME': 'closet',
         'USER' : 'root',
         'PASSWORD' : 'svtcarat0526',
         'HOST' : 'localhost',
@@ -110,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -123,3 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_USE_JWT = True # jwt support 활성화
+
+SITE_ID = 1 # registration
+
+AUTH_USER_MODEL = 'account.User'

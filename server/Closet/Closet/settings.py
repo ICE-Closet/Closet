@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,12 +32,13 @@ ALLOWED_HOSTS = ['*'] # allow all
 # Application definition
 
 INSTALLED_APPS = [
-    'account.apps.AccountConfig', # add account app
+    'accounts.apps.AccountsConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_auth',
     'django.contrib.sites', # registration
-    #'allauth',# registration
-    #'allauth.account',# registration
+    'allauth',# registration
+    'allauth.account',# registration
     'rest_auth.registration',# registration
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,10 +49,37 @@ INSTALLED_APPS = [
 ]
 
 # REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES':[
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.BasicAuthentication',
+#     ),
 # }
+
+# JWT_AUTH = {
+#     'JWT_SECRET_KEY': SECRET_KEY,
+#     'JWT_ALGORITHM': 'HS256',
+#     'JWT_ALLOW_REFRESH': True,
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
+# }
+
+# # django-allauth
+# # ------------------------------------------------------------------------------
+# # ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_EMAIL_REQUIRED = True
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# ACCOUNT_ADAPTER = 'connectedwe.users.adapters.AccountAdapter'
+# # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# SOCIALACCOUNT_ADAPTER = 'connectedwe.users.adapters.SocialAccountAdapter'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,4 +169,4 @@ REST_USE_JWT = True # jwt support 활성화
 
 SITE_ID = 1 # registration
 
-AUTH_USER_MODEL = 'account.User'
+#AUTH_USER_MODEL = 'account.User'

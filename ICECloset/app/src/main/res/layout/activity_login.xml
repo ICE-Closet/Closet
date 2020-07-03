@@ -7,6 +7,21 @@
     android:background="@color/colorPrimary"
     tools:context=".login">
 
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="85dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/color_change"
+        android:fontFamily="@font/ostrich"
+        android:text="log in"
+        android:textColor="#EEE6E6"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/facebook_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/app_name"
         android:layout_width="379dp"
@@ -42,7 +57,7 @@
         android:id="@+id/user_pw"
         android:layout_width="261dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="16dp"
         android:drawableLeft="@drawable/password"
         android:fontFamily="@font/ostrich"
         android:hint=" Password"
@@ -52,10 +67,9 @@
         android:textColorHint="#EEE6E6"
         android:textSize="23sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/facebook_btn"
+        app:layout_constraintBottom_toTopOf="@+id/login_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <Button
         android:id="@+id/facebook_btn"

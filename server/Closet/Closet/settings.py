@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import datetime
+from .my_settings import DATABASES, SECRET_KEY, EMAIL
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6r2n(wpzz!utzlc2v91#4qsgn!5zpci@klx7iqw6-!r#epyrc&'
+SECRET_KEY = SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,8 +56,8 @@ INSTALLED_APPS = [
 #     ),
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#         'rest_framework.authentication.BasicAuthentication',
+# #         'rest_framework.authentication.SessionAuthentication',
+# #         'rest_framework.authentication.BasicAuthentication',
 #     ),
 # }
 
@@ -115,16 +117,7 @@ WSGI_APPLICATION = 'Closet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = { # modify to mysql
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'closet',
-        'USER' : 'root',
-        'PASSWORD' : 'svtcarat0526',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
-    }
-}
+DATABASES = DATABASES
 
 
 # Password validation
@@ -169,4 +162,18 @@ REST_USE_JWT = True # jwt support 활성화
 
 SITE_ID = 1 # registration
 
-#AUTH_USER_MODEL = 'account.User'
+# for email
+EMAIL_HOST = EMAIL['EMAIL_HOST']
+EMAIL_PORT = EMAIL['EMAIL_PORT']
+EMAIL_HOST_USER = EMAIL['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = EMAIL['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = EMAIL['EMAIL_USE_TLS']
+DEFAULT_FROM_EMAIL = EMAIL['DEFAULT_FROM_EMAIL']
+
+ACCOUNTS_AUTHENTICATION_METHOD = 'email'
+ACCOUNTS_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNTS_CONFIRM_EMAIL_ON_GET = True
+ACCOUNTS_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/accounts/registration/confirm_email/?verification=1'
+ACCOUNTS_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/registration/confirm_email/?verification=1'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

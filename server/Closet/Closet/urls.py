@@ -25,9 +25,10 @@ from rest_framework import routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls'))
     # path('api-token-auth/', obtain_jwt_token),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    # path('rest-auth/', include('rest_auth.urls')),
+    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
     # path('account/', include('account.urls')),
     #path('', include(router.urls)),
     #path('rest-auth/', include('rest_auth.urls')),

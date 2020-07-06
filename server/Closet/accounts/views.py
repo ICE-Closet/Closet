@@ -83,7 +83,7 @@ def login(request, format=None): # 'msg' app과 상의해서 바꿔야함
                 print("password correct, my user!")
                 if user.is_active == True: # email 인증까지 완료한 회원이면 로그인 성공
                     print("user is_active turns True")
-                    token = jwt.encode({'user':user.id}, SECRET_KEY, algorithm='HS256').decode('UTF-8')
+                    token = jwt.encode({'user':user.id}, SECRET_KEY['secret'], SECRET_KEY['algorithm']).decode('UTF-8')
                     print("token = ", token)
                     return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # login 시 token 발급
                 return JsonResponse({'code':400, 'msg':'not activated account'}, status=201) # email 활성화 되지 않음

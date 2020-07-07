@@ -15,25 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-# from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
-# from account import views
-# from accounts import views
-#router = routers.DefaultRouter()
-#router.register('account', views.UserViewSet)
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('account/', include('allauth.urls')), # social login
-    # path('api-token-auth/', obtain_jwt_token),
-    # path('rest-auth/', include('rest_auth.urls')),
-    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    # path('account/', include('account.urls')),
-    #path('', include(router.urls)),
-    #path('rest-auth/', include('rest_auth.urls')),
-    #path('rest-auth/registration/', include('rest_auth.registration.urls'))
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-
 ]

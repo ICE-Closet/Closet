@@ -185,7 +185,7 @@ REST_USE_JWT = True # jwt support 활성화
 SITE_ID = 1 # registration
 
 # for email
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # backends.consol.EmailBackend 로 하면 터미널에 찍힘
 EMAIL_HOST = EMAIL['EMAIL_HOST']
 EMAIL_PORT = EMAIL['EMAIL_PORT']
 EMAIL_HOST_USER = EMAIL['EMAIL_HOST_USER']

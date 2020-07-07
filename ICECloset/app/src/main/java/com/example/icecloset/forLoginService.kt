@@ -5,12 +5,11 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-interface forSignupService {
+interface forLoginService {
     @FormUrlEncoded
-    @POST("/accounts/signup/")
-    fun requestSignup(
-        @Field("username") s_name:String,
+    @POST("/accounts/login/")
+    fun requestLogin(
         @Field("email") s_email:String,
         @Field("password") s_pw1:String
-    ) : Call<forSignup>
+    ) : Call<forLogin>
 }

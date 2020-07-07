@@ -11,9 +11,6 @@ class menu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        camera_btn.setOnClickListener {
-
-        }
 
         photo_btn.setOnClickListener {
             var intent = Intent(applicationContext, photos::class.java)

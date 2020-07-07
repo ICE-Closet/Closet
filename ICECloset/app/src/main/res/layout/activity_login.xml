@@ -11,15 +11,15 @@
         android:id="@+id/login_btn"
         android:layout_width="85dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="48dp"
         android:background="@drawable/color_change"
         android:fontFamily="@font/ostrich"
         android:text="log in"
         android:textColor="#EEE6E6"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/facebook_btn"
+        app:layout_constraintBottom_toTopOf="@+id/social_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -35,11 +35,12 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/appname" />
 
+
     <EditText
-        android:id="@+id/user_id"
+        android:id="@+id/user_email"
         android:layout_width="261dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:drawableLeft="@drawable/email"
         android:fontFamily="@font/ostrich"
         android:hint=" E-mail"
@@ -51,7 +52,6 @@
         app:layout_constraintBottom_toTopOf="@+id/user_pw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <EditText
         android:id="@+id/user_pw"
@@ -72,22 +72,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/facebook_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="페이스북 로그인"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/google_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/google_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="구글 로그인"
-        android:textSize="20sp"
+        android:id="@+id/social_btn"
+        android:layout_width="126dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/color_change"
+        android:fontFamily="@font/ostrich"
+        android:text="Social login"
+        android:textColor="#EEE6E6"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/signup_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -97,7 +90,7 @@
         android:id="@+id/signup_btn"
         android:layout_width="85dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="56dp"
         android:background="@drawable/color_change"
         android:fontFamily="@font/ostrich"
         android:text="Sign Up"
@@ -112,9 +105,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="HUFS ICE Closet Application"
+        android:text="@2020 HUFS ICE Closet Application"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

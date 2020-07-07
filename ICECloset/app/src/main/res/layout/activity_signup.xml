@@ -16,7 +16,7 @@
         android:ems="10"
         android:fontFamily="@font/ostrich"
         android:hint=" again"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:textColor="#EEE6E6"
         android:textColorHint="#EEE6E6"
         android:textSize="23sp"
@@ -73,7 +73,7 @@
         android:ems="10"
         android:fontFamily="@font/ostrich"
         android:hint=" Password"
-        android:inputType="numberPassword"
+        android:inputType="text|textPassword"
         android:textColor="#EEE6E6"
         android:textColorHint="#EEE6E6"
         android:textSize="23sp"
@@ -96,13 +96,13 @@
         android:textColor="#EEE6E6"
         android:textColorHint="#EEE6E6"
         android:textSize="23sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/complete_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/complete_btn"
         android:layout_width="112dp"
         android:layout_height="41dp"
         android:layout_marginBottom="96dp"

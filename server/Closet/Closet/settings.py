@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'django.contrib.sites', # registration
-    'allauth',# registration
-    'allauth.account',# registration
-    'rest_auth.registration',# registration
+    'django.contrib.sites', # allauth
+    'allauth', # add
+    'allauth.account', # add
+    'allauth.socialaccount', # add
+    'allauth.socialaccount.providers.facebook', # facebook login
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +50,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': (
@@ -69,19 +77,32 @@ INSTALLED_APPS = [
 #     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
 # }
 
-# # django-allauth
-# # ------------------------------------------------------------------------------
-# # ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-# # https://django-allauth.readthedocs.io/en/latest/configuration.html
-# ACCOUNT_AUTHENTICATION_METHOD = 'username'
-# # https://django-allauth.readthedocs.io/en/latest/configuration.html
-# ACCOUNT_EMAIL_REQUIRED = True
-# # https://django-allauth.readthedocs.io/en/latest/configuration.html
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# # https://django-allauth.readthedocs.io/en/latest/configuration.html
-# ACCOUNT_ADAPTER = 'connectedwe.users.adapters.AccountAdapter'
-# # https://django-allauth.readthedocs.io/en/latest/configuration.html
-# SOCIALACCOUNT_ADAPTER = 'connectedwe.users.adapters.SocialAccountAdapter'
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            # 'first_name',
+            # 'last_name',
+            # 'verified',
+            # 'locale',
+            # 'timezone',
+            # 'link',
+            # 'gender',
+            # 'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request : 'ko_KR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.9',
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -106,6 +127,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request', # allauth
             ],
         },
     },
@@ -163,6 +185,7 @@ REST_USE_JWT = True # jwt support 활성화
 SITE_ID = 1 # registration
 
 # for email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = EMAIL['EMAIL_HOST']
 EMAIL_PORT = EMAIL['EMAIL_PORT']
 EMAIL_HOST_USER = EMAIL['EMAIL_HOST_USER']
@@ -176,4 +199,4 @@ ACCOUNTS_CONFIRM_EMAIL_ON_GET = True
 ACCOUNTS_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/accounts/registration/confirm_email/?verification=1'
 ACCOUNTS_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/registration/confirm_email/?verification=1'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = '/accounts/signup' # 임시로

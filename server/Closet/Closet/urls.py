@@ -25,7 +25,8 @@ from rest_framework import routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('account/', include('allauth.urls')), # social login
     # path('api-token-auth/', obtain_jwt_token),
     # path('rest-auth/', include('rest_auth.urls')),
     # path('rest-auth/registration/', include('rest_auth.registration.urls')),

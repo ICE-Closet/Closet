@@ -17,9 +17,6 @@ class menu : AppCompatActivity() {
             startActivity(intent)
         }
 
-        recommend_btn.setOnClickListener {
-            var intent = Intent(applicationContext, recommend::class.java)
-            startActivity(intent)
-        }
+
     }
 }

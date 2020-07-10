@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.icecloset">
-
+    <!--    retrofit permission-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--    Camera permission-->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -15,12 +19,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_config">
+        <provider
+            android:authorities="com.example.icecloset.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
         <activity android:name=".camera"></activity>
         <activity android:name=".aboutClothes" />
         <activity android:name=".main" />
         <activity android:name=".socialAuth" />
         <activity android:name=".photos" />
-        <activity android:name=".recommend" />
         <activity android:name=".menu" />
         <activity android:name=".signup" />
         <activity android:name=".login" />

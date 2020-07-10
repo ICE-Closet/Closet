@@ -20,42 +20,44 @@ class login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
-        var retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.10:88")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        var loginservice: forLoginService = retrofit.create(forLoginService::class.java)
+//        var retrofit = Retrofit.Builder()
+//            .baseUrl("http://192.168.0.10:88")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//
+//        var loginservice: forLoginService = retrofit.create(forLoginService::class.java)
 
         login_btn.setOnClickListener {
-            var s_email = user_email.text.toString()
-            var s_pw = user_pw.text.toString()
-
-            loginservice.requestLogin(s_email,s_pw).enqueue(object :Callback<forLogin>{
-                override fun onFailure(call: Call<forLogin>, t: Throwable) {
-                    Log.e("Login", t.message)
-                    var dialog = AlertDialog.Builder(this@login)
-                    dialog.setTitle("ERROR")
-                    dialog.setMessage("서버와의 통신에 실패하였습니다.")
-                    dialog.show()
-                }
-
-                override fun onResponse(call: Call<forLogin>, response: Response<forLogin>) {
-                    if (response?.isSuccessful) {
-                        var forLogin = response.body()
-                        Log.d("SUCCESS", forLogin?.code)
-                        Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
-
-                        var intent = Intent(applicationContext, main::class.java)
-                        startActivity(intent)
-                    }
-                    else {
-                        var forLogin = response.body()
-                        Log.d("FAIL", forLogin?.code)
-                        Toast.makeText(this@login, "로그인에 실패하였습니다. \n 계정 혹은 비밀번호를 다시 확인하세요.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
+//            var s_email = user_email.text.toString()
+//            var s_pw = user_pw.text.toString()
+//
+//            loginservice.requestLogin(s_email,s_pw).enqueue(object :Callback<forLogin>{
+//                override fun onFailure(call: Call<forLogin>, t: Throwable) {
+//                    Log.e("Login", t.message)
+//                    var dialog = AlertDialog.Builder(this@login)
+//                    dialog.setTitle("ERROR")
+//                    dialog.setMessage("서버와의 통신에 실패하였습니다.")
+//                    dialog.show()
+//                }
+//
+//                override fun onResponse(call: Call<forLogin>, response: Response<forLogin>) {
+//                    if (response?.isSuccessful) {
+//                        var forLogin = response.body()
+//                        Log.d("SUCCESS", forLogin?.code)
+//                        Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
+//
+//                        var intent = Intent(applicationContext, main::class.java)
+//                        startActivity(intent)
+//                    }
+//                    else {
+//                        var forLogin = response.body()
+//                        Log.d("FAIL", forLogin?.code)
+//                        Toast.makeText(this@login, "로그인에 실패하였습니다. \n 계정 혹은 비밀번호를 다시 확인하세요.", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            })
+            var intent = Intent(applicationContext, main::class.java)
+            startActivity(intent)
 
 
         }

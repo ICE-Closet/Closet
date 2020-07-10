@@ -28,7 +28,9 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*'] # allow all
+ALLOWED_HOSTS = [
+    '.amazonaws.com',
+]
 
 
 # Application definition
@@ -41,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sites', # allauth
     'allauth', # add
     'allauth.account', # add
-    'allauth.socialaccount', # add
-    'allauth.socialaccount.providers.facebook', # facebook login
+    # 'allauth.socialaccount', # add
+    # 'allauth.socialaccount.providers.facebook', # facebook login
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,6 +79,7 @@ AUTHENTICATION_BACKENDS = (
 #     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
 # }
 
+"""
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
@@ -102,7 +105,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v2.9',
     }
 }
-
+"""
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -200,3 +203,16 @@ ACCOUNTS_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/accounts/registration/con
 ACCOUNTS_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/accounts/registration/confirm_email/?verification=1'
 
 LOGIN_REDIRECT_URL = '/accounts/signup' # 임시로
+
+# 배포
+ROOT_DIR = os.path.dirname(BASE_DIR)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_DIR,'.static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ROOT_DIR,'.media')
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]

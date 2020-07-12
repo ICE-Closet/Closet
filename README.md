@@ -29,9 +29,13 @@
 ✔️ aws 설정(생고생,,,ㅠㅠㅠ zsh설치한걸 지우는데 이상한걸 지워버려서 aws ssh접속을 못해서 다시 인스턴스 파고 무슨 기본설정도 지워버려서 다시 만들고 또 다시 팠다..)
 
 ##### 7/10 (금)
-🔺 nginx 설정(은근 어려웠다. .config 폴더에 settings 파일들 집어넣고 aws ubuntu에 python 깔고 기본설정하고 django clone했다. scp가 작동이 안되었다.. 왜지?) -> 지금 상위폴더 두개있는데 그냥 srv폴더 바로밑에 project 폴더 두기!! <br>
+🔺 nginx 설정<br>
+1. .config 폴더에 settings 파일들 추가<br>
+2. aws ubuntu에 python 및 pyenv 설정 <br>
+3. srv 폴더 생성, git clone(scp가 작동이 안되었다.. 왜지?) -> 지금 상위폴더 두개있는데 그냥 srv폴더 바로밑에 project 폴더 두기!! <br>
 특정branch만 clone하는 법 : git clone -b {branch_name} --single-branch {저장소 URL} <br>
-ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racingcar
+ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racingcar <br>
+참고사이트 : https://lhy.kr/ec2-ubuntu-deploy <br>
 
 ##### 7/12 (일)
 토요일은 아파서 스킵ㅜ

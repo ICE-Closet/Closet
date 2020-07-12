@@ -6,6 +6,7 @@ from .serializers import AccountSerializer
 from .my_settings import SECRET_KEY, EMAIL
 from .token import account_activation_token
 from .text import message
+from .tokenCheck import *
 
 from django.views import View
 from django.http import HttpResponse, JsonResponse
@@ -28,12 +29,17 @@ def signup(request, format=None):
         return JsonResponse(serializer.data, safe=False)
 
     if request.method == "POST": # email, username이 null일 때도 확인,, email form이 맞는지 확인
-        # data = json.loads(request.body)
+        # data = json.loads(request.body) #insomina
         try:
             email = request.POST.get("email", "")
             pw = request.POST.get("password", "")
             password = bcrypt.hashpw(pw.encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
             username = request.POST.get("username", "")
+
+            # insomnia
+            # email = data['email']
+            # password = bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
+            # username = data['username']
 
             print("email = " + email+" username = " + username)
             myuser = Account.objects.filter(email=email)

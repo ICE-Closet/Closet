@@ -29,7 +29,8 @@ SECRET_KEY = SECRET_KEY
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '.amazonaws.com',
+    '*'
+    # '.amazonaws.com',
 ]
 
 
@@ -41,10 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'django.contrib.sites', # allauth
-    'allauth', # add
-    'allauth.account', # add
-    # 'allauth.socialaccount', # add
-    # 'allauth.socialaccount.providers.facebook', # facebook login
+    # 'allauth', # add
+    # 'allauth.account', # add
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,16 +59,14 @@ AUTHENTICATION_BACKENDS = (
 
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-# #         'rest_framework.authentication.SessionAuthentication',
-# #         'rest_framework.authentication.BasicAuthentication',
-#     ),
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
 
 # JWT_AUTH = {
 #     'JWT_SECRET_KEY': SECRET_KEY,
@@ -79,33 +76,6 @@ AUTHENTICATION_BACKENDS = (
 #     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
 # }
 
-"""
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'INIT_PARAMS': {'cookie': True},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            # 'first_name',
-            # 'last_name',
-            # 'verified',
-            # 'locale',
-            # 'timezone',
-            # 'link',
-            # 'gender',
-            # 'updated_time',
-        ],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request : 'ko_KR',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.9',
-    }
-}
-"""
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -184,8 +154,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_USE_JWT = True # jwt support 활성화
+JWT_AUTH = { 
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3), 
+    'JWT_ALLOW_REFRESH': True, 
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7), 
+}
 
-SITE_ID = 1 # registration
+SITE_ID = 1
 
 # for email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # backends.consol.EmailBackend 로 하면 터미널에 찍힘

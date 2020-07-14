@@ -21,7 +21,7 @@
 ##### 7/7 (화)
 ✔️ 앱으로 signup + 실제 email로 인증메일 전송 + email 인증(is_active가 1로 변경) + login 확인.<br>
 ❗️ facebook 로그인 구현(rest-auth사용. facebook 개발자 홈페이지 가입. 처음 로그인 시도하면 db에 잘 저장되는데 redirect page를 어디로 설정해야하는지, 토큰을 어떻게 받는지 더 알아봐야함. 앱과 연동한 후 확인해봐야함.) -> 알아보니 app 자체에서만 firebase 사용해서 소셜로그인 구현하는거였다..!<br>
-🔺 이메일 인증 링크 현재 192.168.0.1:88 로 전송된다.(text.py 에서 원래 {domain}으로 받아야 하는데 {domain}으로 받으면 로컬호스트로 돼서 사용자가 눌렀을 때 사이트가 뜨지 않는다.<br>
+🔺 이메일 인증 링크 설정 다시.(text.py 에서 {domain}으로 받는데 domain 주소 확인해봐야함!).<br>
 🔺 views.py class Activate 에서 REDIRECT_PAGE 를 지금 my_settings.py 에서 임의로 http://192.168.0.10:88/accounts/email-verify/  정해줬는데 이것도 바꿔야 한다.<br>
 => 아마 sites 부분을 고쳐야 할듯...? aws올려서 ip주소 나오면 그것도 등록해야한다
 

@@ -3,7 +3,7 @@ Description=EC2 Deploy uWSGI service
 After=syslog.target
 
 [Service]
-ExecStart=/home/ubuntu/.pyenv/versions/ipsw/bin/uwsgi -i /srv/Closet/accounts/.config/uwsgi.ini
+ExecStart=/home/ubuntu/.pyenv/versions/ipsw/bin/uwsgi -i /srv/Closet/Closet/.config/uwsgi.ini
 
 Restart=always
 KillSignal=SIGQUIT

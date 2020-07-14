@@ -47,7 +47,7 @@ ssh 접속이 집에서는 되지 않는다(검색해보니 sk브로드밴드 �
 ##### 7/14 (화)
 ✔️ aws ec2 install (requirements.txt 를 install 하려고했는데 잘안되어서 필요한거 명령어 입력해서 설치했다.)<br>
 ✔️ aws ec2 mysql 설치 (mysql ver : 5.7.30) -> aws rds 사용하면 요금나올수도있어서 ubuntu자체에 install 했다. <br>
-✔️ aws 에 django project올리고 runserver해보기 (인바운드에 TCP, port 8080 추가) <br>
+✔️ aws 에 django project올리고 runserver해보기 (인바운드에 TCP, port 8080 추가, settings.py ALLOWED_HOST도 aws 주소 추가) <br>
 <참고사이트> <br>
 https://dejavuqa.tistory.com/317 (ubuntu mysql 설치, 설정) <br>
 https://nachwon.github.io/django-deploy-1-aws/ (aws에서 django 배포. 그냥 runserver하는것) <br>

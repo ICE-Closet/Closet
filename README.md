@@ -41,6 +41,7 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 토요일은 아파서 스킵ㅜ
 ssh 접속이 집에서는 되지 않는다(검색해보니 sk브로드밴드 와이파이로는 접속이 안된다더라..?)<br>
 ✔️ login시 발급되는 token인증 데코레이터 생성(client가 post보낼땐 header에 꼭 token을 포함하여 보내줘야함!) -> 앱과 연동해보기 <br>
+json web token debugger : https://jwt.io/ <br>
 🔺 앱에서 사진찍으면 db에 저장되도록 <br>
 월요일에 할거 : nginx,aws 설정 마저하기, aws고정ip주소로 email 주소 바꾸기
 

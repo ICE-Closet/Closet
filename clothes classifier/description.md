@@ -22,5 +22,7 @@
     
         $ mkdir dataset/charmander<br>
 
-3. 
+    이 모듈을 이용해서 우리가 원하는 옷의 dataset을 구축해야된다.
+3. smallVGGNet을 우리의 dataset으로 학습 시키기
+
 

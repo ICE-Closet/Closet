@@ -7,6 +7,7 @@ from django.http import JsonResponse
 
 # 함수에 @LoginConfirm 데코레이션을 붙여서 사용.
 # 참고 : except jwt.DecodeError:https://wave1994.tistory.com/66?category=872868
+# jwt 해석 : https://jwt.io/
 class LoginConfirm:
     def __init__(self, original_function):
         self.original_function = original_function
@@ -17,7 +18,7 @@ class LoginConfirm:
             if token:
                 token_payload = jwt.decode(token, SECRET_KEY['secret'], SECRET_KEY['algorithm'])
                 user = Account.objects.get(name=token_payload['name']) # 이부분
-                request.user = user
+                request.user = user # ?
                 return self.original_function(self, request, *args, **kwargs)
 
             return JsonResponse({'msg' : 'need login'}, status=401) # app과 맞춰보기

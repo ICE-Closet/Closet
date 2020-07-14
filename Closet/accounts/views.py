@@ -29,17 +29,18 @@ def signup(request, format=None):
         return JsonResponse(serializer.data, safe=False)
 
     if request.method == "POST": # email, username이 null일 때도 확인,, email form이 맞는지 확인
-        # data = json.loads(request.body) #insomina
+        data = json.loads(request.body) #insomina
         try:
+            """
             email = request.POST.get("email", "")
             pw = request.POST.get("password", "")
             password = bcrypt.hashpw(pw.encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
             username = request.POST.get("username", "")
-
+"""
             # insomnia
-            # email = data['email']
-            # password = bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
-            # username = data['username']
+            email = data['email']
+            password = bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
+            username = data['username']
 
             print("email = " + email+" username = " + username)
             myuser = Account.objects.filter(email=email)
@@ -79,17 +80,17 @@ def signup(request, format=None):
 @csrf_exempt
 def login(request, format=None): # 'msg' app과 상의해서 바꿔야함
     if request.method == "POST":
-        # data = json.loads(request.body) # insomnia 로 전송할 때
-        # email = data['email']
-        email = request.POST.get("email", "")
+        data = json.loads(request.body) # insomnia 로 전송할 때
+        email = data['email']
+        #email = request.POST.get("email", "")
         print("login email = " , email)
         myuser = Account.objects.filter(email=email)
         if myuser: # email이 db에 저장되어있으면
             print("email exits")
             user = Account.objects.get(email=email)
             #if bcrypt.checkpw(data['password'].encode('UTF-8'), user.password.encode('UTF-8')):
-            password = request.POST.get("password", "")
-            if bcrypt.checkpw(password.encode('UTF-8'), user.password.encode('UTF-8')):
+            #password = request.POST.get("password", "")
+            if bcrypt.checkpw(data['password'].encode('UTF-8'), user.password.encode('UTF-8')):
                 print("password correct, my user!")
                 if user.is_active == True: # email 인증까지 완료한 회원이면 로그인 성공
                     print("user is_active turns True")

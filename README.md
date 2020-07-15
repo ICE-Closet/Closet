@@ -55,3 +55,11 @@ https://nachwon.github.io/django-deploy-1-aws/ (aws에서 django 배포. 그냥 
 ✔️ uWSGI 설정 <br>
 내일할것: nginx 성공시키기 <br>
 https://rainsound-k.github.io/deploy/2018/05/02/instance-setting-and-django-deploy-part2.html 사이트 4.2부분부터!<br>
+
+##### 7/15 (수)
+🔺 uWSGI 설정, nginx 설정 + 배포 <br>
+설정 완료후 activate 는 뜨는데, Closet 이 no module error 뜬다. 찾아보니 pip 설치 경로문제일수도 있다는데 한번더 찾아봐야겠다. <br>
+venv에서 기본 uwsgi 돌리면 잘돌아감. <br>
+설정들이 다 건드리면 안되는 폴더에 들어있어서 인스턴스 새로 갈아 엎음. python3.7 설정. python3 명령어로 해야함!<br>
+다 갈아엎고 clone한 후에(clone하고 폴더 경로 수정. git 올릴때 유의할것) pip install 하고, mysql연결. <br>
+https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-EC2-nginx%EC%99%80-uwsgi%EB%A1%9C-django-%EC%84%9C%EB%B9%84%EC%8A%A4%ED%95%98%EA%B8%B0 관련설정, 설정파일 경로는 이 사이트 참고했음.

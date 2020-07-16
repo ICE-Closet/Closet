@@ -66,4 +66,7 @@ https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%
 
 ##### 7/16 (목)
 🔺ec2 uwsgi.log를 살펴보는데 다른건 다 괜찮은거같은데 !!! no internal routing support, rebuild with pcre support !!! 이 오류가 뜬다. <br>
-찾아보니 uwsgi install 을 다시하라는데 계속 다시해도 똑같은 에러..ㅜㅜ 일단 사진받는거부터해야겠음
+찾아보니 uwsgi install 을 다시하라는데 계속 다시해도 똑같은 에러..ㅜㅜ 일단 사진받는거부터해야겠음 <br>
+✔️ clothes_category, user_closet model 설정, migrate <br>
+✔️ token 인증(jwt) 데코레이터 작동 확인 <br>
+✔️ post 로 image 받는 것 코드 작성(app과 연동해봐야함!) <br>

@@ -14,10 +14,8 @@
             import os
             # construct the argument parser and parse the arguments
             ap = argparse.ArgumentParser()
-            ap.add_argument("-q", "--query", required=True,
-                help="search query to search Bing Image API for")
-            ap.add_argument("-o", "--output", required=True,
-                help="path to output directory of images")
+            ap.add_argument("-q", "--query", required=True, help="search query to search Bing Image API for") #쿼리는 "피캬츄"이렇게 입력
+            ap.add_argument("-o", "--output", required=True, help="path to output directory of images") #내가 dataset저장할 위치
             args = vars(ap.parse_args())
     
         $ mkdir dataset/charmander<br>

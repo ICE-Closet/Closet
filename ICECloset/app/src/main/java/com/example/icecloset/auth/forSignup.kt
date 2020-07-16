@@ -1,4 +1,4 @@
-package com.example.icecloset
+package com.example.icecloset.auth
 
 data class forSignup (
     val code: String,   // 201 : Success & 400 : 등록된 Email

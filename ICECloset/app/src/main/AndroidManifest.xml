@@ -35,8 +35,8 @@
         <activity android:name=".socialAuth" />
         <activity android:name=".photos" />
         <activity android:name=".menu" />
-        <activity android:name=".signup" />
-        <activity android:name=".login" />
+        <activity android:name=".auth.signup" />
+        <activity android:name=".auth.login" />
         <activity
             android:name=".splashLoading"
             android:theme="@style/SplashTheme">

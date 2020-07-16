@@ -1,4 +1,4 @@
-package com.example.icecloset
+package com.example.icecloset.auth
 
 data class forLogin (
     val code : String,  // 201

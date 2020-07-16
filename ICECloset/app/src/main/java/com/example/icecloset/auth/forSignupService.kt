@@ -1,5 +1,6 @@
-package com.example.icecloset
+package com.example.icecloset.auth
 
+import com.example.icecloset.auth.forSignup
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

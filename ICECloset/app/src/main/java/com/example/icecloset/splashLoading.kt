@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import com.example.icecloset.auth.login
 
 class splashLoading : AppCompatActivity() {
 

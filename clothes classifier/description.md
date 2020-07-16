@@ -42,9 +42,12 @@
     
 3. smallVGGNet을 우리의 dataset으로 학습 시키기
 
-    |CUDA 버전|NVIDA|CUDNN|Python 버전|Tensorflow 버전|Keras 버전| 추가 설치할 라이브러리|
-    |------|---|---|---|---|---|
-    |CUDA 10.1|418.x|CUDNN7.6.4|3.7 버전|2.2|2.4.3| openCV, request, 
-    |테스트1|테스트2|테스트3|
-    |테스트1|테스트2|테스트3|
+    3-1. 사전 준비
+    
+    |구분|CUDA 버전|NVIDA|CUDNN|Python 버전|Tensorflow 버전|Keras 버전| 추가 설치할 라이브러리|
+    |----|------|---|---|---|---|---|---|
+    |학교컴1(효섭)|CUDA 10.1|418.x|CUDNN7.6.4|3.7 버전|2.2|2.4.3| openCV, request
+    |학교컴1(주영)|테스트2|테스트3|
+    
+    3-2. /pyimagesearch/SmallerVGGNet
 

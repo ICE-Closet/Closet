@@ -63,3 +63,7 @@ venv에서 기본 uwsgi 돌리면 잘돌아감. <br>
 설정들이 다 건드리면 안되는 폴더에 들어있어서 인스턴스 새로 갈아 엎음. python3.7 설정. python3 명령어로 해야함!<br>
 다 갈아엎고 clone한 후에(clone하고 폴더 경로 수정. git 올릴때 유의할것) pip install 하고, mysql연결. <br>
 https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-EC2-nginx%EC%99%80-uwsgi%EB%A1%9C-django-%EC%84%9C%EB%B9%84%EC%8A%A4%ED%95%98%EA%B8%B0 관련설정, 설정파일 경로는 이 사이트 참고했음.
+
+##### 7/16 (목)
+🔺ec2 uwsgi.log를 살펴보는데 다른건 다 괜찮은거같은데 !!! no internal routing support, rebuild with pcre support !!! 이 오류가 뜬다. <br>
+찾아보니 uwsgi install 을 다시하라는데 계속 다시해도 똑같은 에러..ㅜㅜ 일단 사진받는거부터해야겠음

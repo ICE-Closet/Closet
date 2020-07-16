@@ -28,9 +28,9 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '.amazonaws.com','.ap-northeast-2.compute.amazonaws.com',"15.164.27.51",
+ALLOWED_HOSTS = ['*'
+    #'localhost', '127.0.0.1',
+    #'.amazonaws.com','.ap-northeast-2.compute.amazonaws.com',"15.164.27.51",
 ]
 
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
+    #'rest_auth',
     'django.contrib.sites', # allauth
     # 'allauth', # add
     # 'allauth.account', # add
@@ -81,7 +81,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -185,7 +185,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_DIR,'.static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(ROOT_DIR,'.media')
+MEDIA_ROOT = os.path.join(ROOT_DIR,'media')
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 
 STATICFILES_DIRS = [

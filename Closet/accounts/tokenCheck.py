@@ -17,8 +17,9 @@ class LoginConfirm:
         try:
             if token:
                 token_payload = jwt.decode(token, SECRET_KEY['secret'], SECRET_KEY['algorithm'])
-                user = Account.objects.get(name=token_payload['name']) # 이부분
+                user = Account.objects.get(id=token_payload['user']) # 이부분
                 request.user = user # ?
+                print(user.id, user.username)
                 return self.original_function(self, request, *args, **kwargs)
 
             return JsonResponse({'msg' : 'need login'}, status=401) # app과 맞춰보기

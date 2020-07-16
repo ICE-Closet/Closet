@@ -1,7 +1,7 @@
 import json
 import bcrypt
 import jwt
-from .models import Account
+from .models import Account, Clothes_category, User_Closet
 from .serializers import AccountSerializer
 from .my_settings import SECRET_KEY, EMAIL
 from .token import account_activation_token
@@ -21,7 +21,6 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 
-@csrf_exempt
 def signup(request, format=None):
     if request.method == "GET":
         queryset = Account.objects.all()
@@ -77,7 +76,6 @@ def signup(request, format=None):
         except ValidationError:
             return JsonResponse({'code':400, 'msg':"VALIDATION ERROR"}, status=201)
 
-@csrf_exempt
 def login(request, format=None): # 'msg' app과 상의해서 바꿔야함
     if request.method == "POST":
         data = json.loads(request.body) # insomnia 로 전송할 때
@@ -122,3 +120,17 @@ class Activate(View):
 
 def email_verify(request):
     return render(request, 'accounts/verify.html')
+
+
+class ClothesInfo(View):
+    @LoginConfirm
+    def post(self,request):
+        data = json.loads(request.body)
+        print("request user id: ", request.user.id)
+        # image = request.FILES.get('image') # app과 맞추기
+        # form = Clothes_category(image=image)
+        # # image 와 옷 정보 값 넘겨받기(app에서 )
+        # form.save() # clothes_category db에 image저장
+        # clothes = Clothes_category.objects.get(image=image) # 해당 옷의 row 가져오기
+        # closet_form = User_Closet(user_id=request.user.name, clothes_id=clothes.id) # foreignkey 로(user, clothes의 pk) 저장
+        return JsonResponse({'code':201, 'msg': 'image ok'}, status=200)

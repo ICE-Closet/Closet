@@ -49,6 +49,6 @@
     |학교컴1(효섭)|CUDA 10.1|418.x|CUDNN7.6.4|3.7 버전|2.2|2.4.3| openCV(opencv-python), request, matplotlib, numpy, imutils, sklearn
     |학교컴1(주영)|테스트2|테스트3|
     
-    //conda install로 안되는건 pip install 사용
+    //conda install로 안되는건 pip install 사용<br>
     3-2. /pyimagesearch/SmallerVGGNet
 

@@ -44,11 +44,41 @@
 
     3-1. 사전 준비
     
-    |구분|CUDA 버전|NVIDA|CUDNN|Python 버전|Tensorflow 버전|Keras 버전| 추가 설치할 라이브러리|
-    |----|------|---|---|---|---|---|---|
-    |학교컴1(효섭)|CUDA 10.1|418.x|CUDNN7.6.4|3.7 버전|2.2|2.4.3| openCV(opencv-python), request, matplotlib, numpy, imutils, sklearn
-    |학교컴1(주영)|테스트2|테스트3|
+    |구분|가상환경 name|CUDA 버전|NVIDA|CUDNN|Python 버전|Tensorflow 버전|Keras 버전| 추가 설치할 라이브러리|
+    |----|----|------|---|---|---|---|---|---|
+    |학교컴1(효섭)|py356|CUDA 10.1|418.x|CUDNN7.6.4|3.7.7 버전|2.2|2.4.3| openCV(opencv-python), request, matplotlib, numpy, imutils, sklearn
+    |학교컴1(주영)|paper|CUDA 10.1|418.x| ?? |3.7.7 버전|2.0| 2.1.3| openCV(opencv-python), request, matplotlib, numpy, imutils, sklearn
     
     //conda install로 안되는건 pip install 사용<br>
-    3-2. /pyimagesearch/SmallerVGGNet
+    3-2. train.py
+    
+        EPOCHS = 75    
+        INIT_LR = 1e-3  #learning rate로 1e-3값은 Adam optimizer
+        BS = 32 #batch size값
+        IMAGE_DIMS = (96, 96, 3) #image는 96*96에 3개의 channel(r,g,b)포함함
+        
+        # 이부분들은 image dataset을 loading하고 loading dataset들 랜덤으로 섞음[loading한 dataset들은 각 카테고리 폴더에 저장되어 있어 이것을 shuffle한다는 의미]
+        # grab the image paths and randomly shuffle them
+        print("[INFO] loading images...")
+        imagePaths = sorted(list(paths.list_images(args["dataset"])))
+        random.seed(42)
+        random.shuffle(imagePaths)
+
+        # initialize the data and labels
+        data = []
+        labels = []
+        
+        #
+        # loop over the input images
+        for imagePath in imagePaths:
+            # load the image, pre-process it, and store it in the data list
+            image = cv2.imread(imagePath)
+            image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
+            image = img_to_array(image)
+            data.append(image)
+
+            # extract set of class labels from the image path and update the
+            # labels list
+            l = label = imagePath.split(os.path.sep)[-2].split("_")
+            labels.append(l)
 

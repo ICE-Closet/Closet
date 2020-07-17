@@ -216,3 +216,6 @@
         # 필요 x
         cv2.imshow("Output", output)
         cv2.waitKey(0)
+        
+        
+        $ python classify.py --model fashion.model --labelbin mlb.pickle --image examples/example_01.jpg

@@ -36,11 +36,19 @@
                 
          🎈 "Latent Factor Model" : 관찰된 데이터와 잠재되어 있는 데이터를 연결시키는 기법
                -> 주어진 평점 데이터로 아직 알지 못하는 사용자와 아이템의 특성을 찾아내는 것
-               (이어서)
-             
+               [우리에게는 사용자의 평점이 나타난 커다란 행렬이 있을때 사용자와 아이템 두 Latent Factor를 알아내고자 함 -> 💡 Matrix Factorization 기법 사용]
+               
+               * R 행렬 : 행(USER), 열(Item)으로 각 행렬에 값으로는 사용자가 아이템에 남긴 평점
+               * Nf : Matrix Factorization 학습 시에 정하는 임의의 차원 수(📃보통 50~200사이로 결정)
+               * X 행렬 : 행(Nf), 열(User) => 사용자 Latent Factor 행렬  
+               * Y 행렬 : 행(Nf), 열(Item) => 아이템 Latent Factor 행렬
+               - X, Y행렬은 우리가 학습시키고자 하는 대상 => 이 행렬들의 값은 아주 작은 랜덤한 값들로 초기화(🚥R에 있는 값을 쪼개어 생성하는 것이 아님!)
+               * xu 와 yi는 각각 특정 사용자와 특정 아이템의 특징 벡터 (Nf x 1 크기의 열 벡터 (column vector))
+               
+               
           
           💡 가장 많이 사용
-          💡 Implicit Dataset 적합
+          💡📃 Implicit Dataset 사용 시 -> 💡 Matrix Factorization 기법 사용
         
     (3) 하이브리드 방법
 

@@ -174,3 +174,45 @@
         plt.legend(loc="upper left")
         plt.savefig(args["plot"])
 
+        
+        $ python train.py --dataset ./dataset --model fashion.model --labelbin mlb.pickle
+        
+4. 옷 분류하기 => 옷 예측하는 부분
+
+    4-1. classify.py
+        
+        # 옷 분류하려는 사진 불러오는 부분
+        image = cv2.imread(args["image"])
+        output = imutils.resize(image, width=400)
+        
+        # train에서 image 전처리 하는 것과 같이 똑같이 setting
+        image = cv2.resize(image, (96, 96))
+        image = image.astype("float") / 255.0
+        image = img_to_array(image)
+        image = np.expand_dims(image, axis=0)
+        
+        # model이랑 label 저장한거 불러오기
+        print("[INFO] loading network...")
+        model = load_model(args["model"])
+        mlb = pickle.loads(open(args["labelbin"], "rb").read())
+        
+        # model.predict -> 내 image파일을 모델의 input으로 넣어 어떤 색과 카테고리인지 예측
+        # 예측 결과는 array([[1,0,0,1]]) 이런 것처럼 two-hot encoding된 array 결과가 나온다. 1이 들어간 index위치를 얻어 idxs에 넣는다
+        print("[INFO] classifying image...")
+        proba = model.predict(image)[0]
+        idxs = np.argsort(proba)[::-1][:2]
+
+        # 이부분 필요 없음 -> 사진에 뭐랑 뭐가 높인지 띄어즈는 거 뿐
+        for (i, j) in enumerate(idxs):
+        # build the label and draw the label on the image
+        label = "{}: {:.2f}%".format(mlb.classes_[j], proba[j] * 100)
+        cv2.putText(output, label, (10, (i * 30) + 25), 
+            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            
+        # 각 label들에 대해 몇 %로 높은지 출력해줌 -> 이게 필요 옷 분류하는 거니까
+        for (label, p) in zip(mlb.classes_, proba):
+            print("{}: {:.2f}%".format(label, p * 100))
+            
+        # 필요 x
+        cv2.imshow("Output", output)
+        cv2.waitKey(0)

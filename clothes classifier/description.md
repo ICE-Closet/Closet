@@ -58,7 +58,6 @@
         IMAGE_DIMS = (96, 96, 3) #image는 96*96에 3개의 channel(r,g,b)포함함
         
         # 이부분들은 image dataset을 loading하고 loading dataset들 랜덤으로 섞음[loading한 dataset들은 각 카테고리 폴더에 저장되어 있어 이것을 shuffle한다는 의미]
-        # grab the image paths and randomly shuffle them
         print("[INFO] loading images...")
         imagePaths = sorted(list(paths.list_images(args["dataset"])))
         random.seed(42)
@@ -68,17 +67,110 @@
         data = []
         labels = []
         
-        #
-        # loop over the input images
+        # ImagePaths(loading한 dataset안에 폴더들)돌면서 데이터 전처리 과정 진행하고 multi-class-labels추출!!
         for imagePath in imagePaths:
-            # load the image, pre-process it, and store it in the data list
             image = cv2.imread(imagePath)
-            image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
-            image = img_to_array(image)
-            data.append(image)
+            image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0])) #image는 96*96사이즈로 resize
+            image = img_to_array(image) #image -> array
+            data.append(image) #image 정보[array로 이루어져있음]를 data에 넣기
 
-            # extract set of class labels from the image path and update the
-            # labels list
-            l = label = imagePath.split(os.path.sep)[-2].split("_")
-            labels.append(l)
+            #우리는 dataset안에 폴더들 이름을 "color_옷카테고리명"으로 지정하였다 [ex "red_longDress"] => 따라서 _를 기준으로 split하면 앞에는 color 뒤에는 카테고리이름을  multi-label로 지정할 수 있다
+            l = label = imagePath.split(os.path.sep)[-2].split("_") 
+            labels.append(l) # labels = [("red","longDress"),("blue","jeans")]이런식으로 저장됨
+            
+        # data의 array의 값을 모두 [0, 1]로 정규화하는 과정 [값이 크면 계산량 크기 때문에 -> 정규화를 해서 계산 간단 및 계산량 줄임]
+        data = np.array(data, dtype="float") / 255.0 # array -> numpy array[정규화한 (0,1)]
+        labels = np.array(labels) #label -> numpy array로 변환
+        print("[INFO] data matrix: {} images ({:.2f}MB)".format(len(imagePaths), data.nbytes / (1024 * 1000.0)))
+        
+        
+        # scikit-learn library’s의 MultiLabelBinarizer를 사용해서 multi label을 분류한다 
+        """
+            예제  labels=[("red","longDress"),("blue","jeans"), ("blue", "longDress"),("red","jeans")]이면
+            mlb.classes_
+                >> array(['red'.'blue','longDress','jeans'], dtype=object)
+            mlb.fit_transform([('red', 'jeans')])
+                >> array([[1,0,0,1]])
+                
+        """
+        print("[INFO] class labels:")
+        mlb = MultiLabelBinarizer()
+        labels = mlb.fit_transform(labels) #two-hot encoding 사용(two-hot encoding은 1이 두번 나오기 때문)
+
+        # loop over each of the possible class labels and show them
+        for (i, label) in enumerate(mlb.classes_):
+            print("{}. {}".format(i + 1, label))
+
+        # data의 80%는 traing용, 20%는 test용
+        (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.2, random_state=42)
+        #Keras에서 제공하는 패키지 "ImageDataGenerator"로 image data학습을 쉽게하도록 해준다
+        """
+            ImageDataGenerator class를 통해 객체 생성할때 파라미터를 전달 -> 데이터 전처리를 쉽게 할 수 있다 => [이미지를 움직여 1장의 사진을 움직여 여러장의 사진 늘리기 => 작은 데이터셋을 가지고 큰 데이터셋으로 늘리는 방법이라고 생각하기 => class당 1000개보다 적은 이미지 데이터셋일 경우 효율적임]
+            👉[참고사이트1](https://m.blog.naver.com/PostView.nhn?blogId=isu112600&logNo=221582003889&proxyReferer=https:%2F%2Fwww.google.com%2F )
+            👉[참고사이트2](https://keraskorea.github.io/posts/2018-10-24-little_data_powerful_model/)
+            
+            width_shift_range = 이미지를 왼쪽 오른쪽으로 움직인다
+            height_shift_range =  이미지를 아래, 위로 움직인다
+            horizontal_flip = 이미지를 위, 아래로 뒤집는다
+            rotation_range = 이미지를 랜덤으로 회전시킨다
+            zoom_range = 이미지를 zoom한다
+            shear_range = 이미지를 전단 변환한다
+        """
+        aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1,
+            height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+            horizontal_flip=True, fill_mode="nearest")
+           
+        
+        # smallerVGGNet 모델 build한다[모델은 /paimage/SmallerVGGNet.py에 존재]
+        #finalAct="sigmoid" => 활성화 함수로 "sigmod"함수 설정 => multi-label 분류에서는 활성화 함수로 sigmod를 사용한다
+        👉[참고사이트3](https://www.kaggle.com/c/imet-2019-fgvc6/discussion/89823)
+        👉[optimizer 설명1](https://forensics.tistory.com/28)
+        👉[optimizer 설명2] (https://wikidocs.net/36033)
+        print("[INFO] compiling model...")
+        model = SmallerVGGNet.build(
+            width=IMAGE_DIMS[1], height=IMAGE_DIMS[0],
+            depth=IMAGE_DIMS[2], classes=len(mlb.classes_),
+            finalAct="sigmoid")
+        # optimizer Adam 사용
+        opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS) #decay: learning rate schedule이다
+        
+        
+        # 모델 구성한다(compile)
+        # loss function으로 binary_crossentropy 사용 => 각 출력 레이블을 독립적 인 Bernoulli 분포로 취급하는 것이므로 각 출력 노드에 독립적으로 불이익주기 위해
+        ## 다시 공부 이해 x 왜 categorical cross-entropy 사용안하는지 이해 x 
+        model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
+
+        # 모델 훈련(fit)
+        print("[INFO] training network...")
+        H = model.fit_generator(
+            aug.flow(trainX, trainY, batch_size=BS),
+            validation_data=(testX, testY),
+            steps_per_epoch=len(trainX) // BS,
+            epochs=EPOCHS, verbose=1)
+         
+        #모델 저장 -> keras는 h5모델로 저장됨(참고)
+        print("[INFO] serializing network...")
+        model.save(args["model"])
+        
+        # mlb.labelbin pickle파일 생성 => 위에서 만든 mlb class내용을 저장하고 classify에서 어떤 label에 해당되는지 확인작업을 위해서 필요
+        print("[INFO] serializing label binarizer...")
+        f = open(args["labelbin"], "wb")
+        f.write(pickle.dumps(mlb))
+        f.close()
+        
+        
+        # 이부분은 이제 내가 훈련 과정을 그래프로 표현하기 위해 matplotlib를 사용함 -> 필요 -> 시각적으로 확인하는 것이 더 정확함
+        # 현재 이부분 오류 있는데 변수 명 오류인 듯 
+        plt.style.use("ggplot")
+        plt.figure()
+        N = EPOCHS
+        plt.plot(np.arange(0, N), H.history["loss"], label="train_loss")
+        plt.plot(np.arange(0, N), H.history["val_loss"], label="val_loss")
+        plt.plot(np.arange(0, N), H.history["acc"], label="train_acc") #이부분 오류 acc 아님 accuracy임 수정할것
+        plt.plot(np.arange(0, N), H.history["val_acc"], label="val_acc")
+        plt.title("Training Loss and Accuracy")
+        plt.xlabel("Epoch #")
+        plt.ylabel("Loss/Accuracy")
+        plt.legend(loc="upper left")
+        plt.savefig(args["plot"])
 

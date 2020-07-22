@@ -14,11 +14,11 @@ class Account(models.Model):
 
 # user가 등록하는 옷들
 class Clothes_category(models.Model):
-    images = models.ImageField(upload_to="%Y/%m/%d", default=False)
-    color = models.CharField(max_length=100)
-    top = models.CharField(max_length=50)
-    bottom = models.CharField(max_length=50)
-    outer = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="%Y/%m/%d", default=False, max_length=255)
+    color = models.CharField(max_length=100, blank=True, null=True)
+    top = models.CharField(max_length=50, blank=True, null=True)
+    bottom = models.CharField(max_length=50, blank=True, null=True)
+    outer = models.CharField(max_length=50, blank=True, null=True)
     class Meta:
         db_table = 'clothes_category'
 

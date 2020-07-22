@@ -21,6 +21,9 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 
+from datetime import datetime
+now = datetime.now()
+
 def signup(request, format=None):
     if request.method == "GET":
         queryset = Account.objects.all()
@@ -28,18 +31,18 @@ def signup(request, format=None):
         return JsonResponse(serializer.data, safe=False)
 
     if request.method == "POST": # email, username이 null일 때도 확인,, email form이 맞는지 확인
-        data = json.loads(request.body) #insomina
+        # data = json.loads(request.body) #insomina
         try:
-            """
-            email = request.POST.get("email", "")
-            pw = request.POST.get("password", "")
-            password = bcrypt.hashpw(pw.encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
-            username = request.POST.get("username", "")
-"""
-            # insomnia
-            email = data['email']
-            password = bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8")
-            username = data['username']
+           
+            email = request.POST.get('email', '')
+            pw = request.POST.get('password', '')
+            password = bcrypt.hashpw(pw.encode('UTF-8'), bcrypt.gensalt()).decode('UTF-8')
+            username = request.POST.get('username', '')
+
+            
+            # email = data['email'] # insomnia
+            # password = bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8") # insomnia
+            # username = data['username'] # insomnia
 
             print("email = " + email+" username = " + username)
             myuser = Account.objects.filter(email=email)
@@ -70,25 +73,25 @@ def signup(request, format=None):
                 return JsonResponse({'code':201, 'msg':'signup success'}, status=201)
 
         except KeyError:
-            return JsonResponse({'code':400, "msg":"INVALID KEY"}, status=201)
+            return JsonResponse({'code':400, 'msg':'INVALID KEY'}, status=201)
         except TypeError:
-            return JsonResponse({"code":400, 'msg':"INVALID_TYPE"}, status=201)
+            return JsonResponse({"code":400, 'msg':'INVALID_TYPE'}, status=201)
         except ValidationError:
-            return JsonResponse({'code':400, 'msg':"VALIDATION ERROR"}, status=201)
+            return JsonResponse({'code':400, 'msg':'VALIDATION ERROR'}, status=201)
 
-def login(request, format=None): # 'msg' app과 상의해서 바꿔야함
+def login(request, format=None): 
     if request.method == "POST":
-        data = json.loads(request.body) # insomnia 로 전송할 때
-        email = data['email']
-        #email = request.POST.get("email", "")
-        print("login email = " , email)
+        # data = json.loads(request.body) # insomnia
+        # email = data['email'] # insomnia
+        email = request.POST.get('email', '')
+        print('login email = ' , email)
         myuser = Account.objects.filter(email=email)
         if myuser: # email이 db에 저장되어있으면
             print("email exits")
             user = Account.objects.get(email=email)
-            #if bcrypt.checkpw(data['password'].encode('UTF-8'), user.password.encode('UTF-8')):
-            #password = request.POST.get("password", "")
-            if bcrypt.checkpw(data['password'].encode('UTF-8'), user.password.encode('UTF-8')):
+            #if bcrypt.checkpw(data['password'].encode('UTF-8'), user.password.encode('UTF-8')): # insomnia
+            password = request.POST.get('password', '')
+            if bcrypt.checkpw(password.encode('UTF-8'), user.password.encode('UTF-8')):
                 print("password correct, my user!")
                 if user.is_active == True: # email 인증까지 완료한 회원이면 로그인 성공
                     print("user is_active turns True")
@@ -99,6 +102,7 @@ def login(request, format=None): # 'msg' app과 상의해서 바꿔야함
             return JsonResponse({'code':1, 'msg':'password incorrect'}, status=201) # email에 매칭된 pw가 틀림
         return JsonResponse({'code':2, 'msg':'not my user'}, status=201) # 해당 email이 db에 없음
 
+# logout 시에는 android 앱에서 토큰을 더이상 넘겨주지 않으면 됨.
 class Activate(View):
     def get(self, request, uidb64, token):
         try:
@@ -125,12 +129,26 @@ def email_verify(request):
 class ClothesInfo(View):
     @LoginConfirm
     def post(self,request):
-        data = json.loads(request.body)
+        # data = json.loads(request.body) # insomnia
         print("request user id: ", request.user.id)
-        # image = request.FILES.get('image') # app과 맞추기
-        # form = Clothes_category(image=image)
-        # # image 와 옷 정보 값 넘겨받기(app에서 )
-        # form.save() # clothes_category db에 image저장
-        # clothes = Clothes_category.objects.get(image=image) # 해당 옷의 row 가져오기
-        # closet_form = User_Closet(user_id=request.user.name, clothes_id=clothes.id) # foreignkey 로(user, clothes의 pk) 저장
+        image = request.FILES.get('image') # app과 맞추기
+        nowDate = now.strftime('%Y/%m/%d') # media dir path
+        print('image name from app: ', image)
+        # top = request.POST.get('top','') # long or short
+        # bottom = request.POST.get('bottom', '') # long_pants or short_pants or long_skirt or short_skirt
+        # outer = request.POST.get('outer', '') # coat or bubble_jacket or cardigan
+        # color = request.POST.get('color', '')
+        # form = Clothes_category(image=image, top=top, bottom=bottom, outer=outer, color=color)
+        form = Clothes_category(image=image)
+        form.save() # clothes_category db에 image저장
+        print("save complete")
+
+        image_path = nowDate+'/'+str(image) # Year/month/day/[pk]_image.jpeg
+        print("new image:", image_path)
+        
+        clothes = Clothes_category.objects.get(image=image_path) # 해당 옷의 row 가져오기
+        print("clothes row id : ", clothes.id)
+        closet_form = User_Closet(user_id=request.user.id, clothes_id=clothes.id) # foreignkey 로(user, clothes의 pk) 저장
+        closet_form.save()
+
         return JsonResponse({'code':201, 'msg': 'image ok'}, status=200)

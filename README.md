@@ -72,5 +72,5 @@ https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%
 ✔️ post 로 image 받는 것 코드 작성(app과 연동해봐야함!) <br>
 
 ##### 7/22 (수)
-✔️ image post 로 받아오기 -> media/[year]/[month]/[day]/[image_name] save (image이름은 token+현재시각) -> 줄여볼까했는데 토큰을 가지고 유일한 이름을 만들어내려면 이게 제일 쉬웠음..
+✔️ image post 로 받아오기 -> media/[year]/[month]/[day]/[image_name] save (image이름은 token+현재시각) -> 줄여볼까했는데 토큰을 가지고 유일한 이름을 만들어내려면 이게 제일 쉬웠음..<br>
 ✔️ user_closet db에 foreign key 저장(옷정보가 들어옴과 동시에 user_id + clothes_id 저장)

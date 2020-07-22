@@ -37,7 +37,7 @@
 
 
         </provider>
-        <activity android:name=".camera"></activity>
+        <activity android:name=".camera.camera"></activity>
         <activity android:name=".aboutClothes" />
         <activity android:name=".main" />
         <activity android:name=".socialAuth" />

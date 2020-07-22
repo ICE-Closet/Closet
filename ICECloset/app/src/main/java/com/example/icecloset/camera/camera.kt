@@ -1,4 +1,4 @@
-package com.example.icecloset
+package com.example.icecloset.camera
 
 import android.app.Activity
 import android.content.Intent
@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.core.graphics.createBitmap
+import com.example.icecloset.R
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.gun0912.tedpermission.PermissionListener
@@ -28,6 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Header
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -36,12 +37,19 @@ import java.util.*
 
 class camera : AppCompatActivity() {
 
+    private val TOKEN = "USERTOKEN"
+
     val REQUEST_IMAGE_CAPTURE = 1 // Camera Permission code
     lateinit var curPhotoPath: String // String type Photo path setting with null pointer
+
+    var userToken: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
+
+        userToken = intent.getStringExtra(TOKEN).toString()
+        Log.d(TOKEN, userToken)
 
         setPermission()
 
@@ -122,12 +130,12 @@ class camera : AppCompatActivity() {
                 bitmap = ImageDecoder.decodeBitmap(decode)
                 imageView.setImageBitmap(bitmap)
             }
-            savePhoto(bitmap)
+            savePhoto(file, bitmap)
         }
     }
 
 
-    private fun savePhoto(bitmap: Bitmap) {
+    private fun savePhoto(file: File, bitmap: Bitmap) {
         val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val fileName = "${timestamp}.jpeg"
@@ -141,11 +149,12 @@ class camera : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
 
         Toast.makeText(this@camera, "촬영한 옷이 앨범에 저장되었습니다", Toast.LENGTH_SHORT).show()
+        sendPhoto(fileName, file)
     }
 
     private fun sendPhoto(fileName : String, file : File) {
         var requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-        var body : MultipartBody.Part = MultipartBody.Part.createFormData("uploaded_file", "_1.jpeg", requestBody)
+        var body : MultipartBody.Part = MultipartBody.Part.createFormData("image", ".jpeg", requestBody)
 
         var gson : Gson = GsonBuilder()
             .setLenient()
@@ -153,11 +162,12 @@ class camera : AppCompatActivity() {
 
         var retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.10:88")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        var cameraservice : forCameraService = retrofit.create(forCameraService::class.java)
-        cameraservice.requestCamera(body).enqueue(object : Callback<forCamera> {
+        var cameraservice : forCameraService = retrofit.create(
+            forCameraService::class.java)
+        cameraservice.requestCamera(userToken = userToken, imageFile = body).enqueue(object : Callback<forCamera> {
             override fun onFailure(call: Call<forCamera>, t: Throwable) {
                 Log.e("Camera", t.message)
                 var dialog = AlertDialog.Builder(this@camera)

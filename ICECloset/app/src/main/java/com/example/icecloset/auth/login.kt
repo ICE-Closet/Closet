@@ -21,6 +21,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class login : AppCompatActivity() {
+    private val TOKEN = "USERTOKEN"
 
     private var callback : SessionCallback = SessionCallback()
 
@@ -59,8 +60,9 @@ class login : AppCompatActivity() {
                         if (code == 201) {
                             Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
                             var intent = Intent(applicationContext, main::class.java).apply {
-                                putExtra("TOKEN", forLogin?.token)
+                                putExtra(TOKEN, forLogin?.token)
                             }
+                            startActivity(intent)
                         }
                         else if (code == 0) {
                             Toast.makeText(this@login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()

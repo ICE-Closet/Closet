@@ -9,13 +9,25 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.graphics.createBitmap
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_camera.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -129,5 +141,42 @@ class camera : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
 
         Toast.makeText(this@camera, "촬영한 옷이 앨범에 저장되었습니다", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun sendPhoto(fileName : String, file : File) {
+        var requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
+        var body : MultipartBody.Part = MultipartBody.Part.createFormData("uploaded_file", "_1.jpeg", requestBody)
+
+        var gson : Gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        var retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.0.10:88")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        var cameraservice : forCameraService = retrofit.create(forCameraService::class.java)
+        cameraservice.requestCamera(body).enqueue(object : Callback<forCamera> {
+            override fun onFailure(call: Call<forCamera>, t: Throwable) {
+                Log.e("Camera", t.message)
+                var dialog = AlertDialog.Builder(this@camera)
+                dialog.setTitle("ERROR")
+                dialog.setMessage("서버와의 통신에 실패하였습니다.")
+                dialog.show()
+            }
+
+            override fun onResponse(call: Call<forCamera>, response: Response<forCamera>) {
+                if (response?.isSuccessful) {
+                    Log.d("Success", "" + response?.body().toString())
+                    var cameraResponse = response.body()
+                    Log.d("CAMERA" , "message : " + cameraResponse?.message)
+                    Log.d("CAMERA" , "code : " + cameraResponse?.code)
+                }
+                else {
+                    Toast.makeText(this@camera, "옷을 다시 촬영해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }

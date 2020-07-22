@@ -55,10 +55,25 @@ class login : AppCompatActivity() {
                     if (response?.isSuccessful) {
                         var forLogin = response.body()
                         Log.d("SUCCESS", forLogin?.code)
-                        Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
+                        val code = forLogin?.code?.let { it1 -> Integer.parseInt(it1) }
+                        if (code == 201) {
+                            Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
+                            var intent = Intent(applicationContext, main::class.java).apply {
+                                putExtra("TOKEN", forLogin?.token)
+                            }
+                        }
+                        else if (code == 0) {
+                            Toast.makeText(this@login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()
+                        }
+                        else if (code == 1) {
+                            Toast.makeText(this@login, "로그인에 실패하였습니다. \n 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        }
+                        else if (code == 2) {
+                            Toast.makeText(this@login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
+                        }
 
-                        var intent = Intent(applicationContext, main::class.java)
-                        startActivity(intent)
+//                        var intent = Intent(applicationContext, main::class.java)
+//                        startActivity(intent)
                     }
                     else {
                         var forLogin = response.body()
@@ -67,8 +82,8 @@ class login : AppCompatActivity() {
                     }
                 }
             })
-            var intent = Intent(applicationContext, main::class.java)
-            startActivity(intent)
+//            var intent = Intent(applicationContext, main::class.java)
+//            startActivity(intent)
 
 
         }
@@ -79,6 +94,7 @@ class login : AppCompatActivity() {
         }
     }
 
+    // Kakao
     @SuppressLint("MissingSuperCall")
     override fun onDestroy() {
         Session.getCurrentSession().removeCallback(callback)

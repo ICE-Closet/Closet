@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.icecloset">
-    <!--    retrofit permission-->
+    <!--    Internet permission-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--    Camera permission-->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -26,8 +27,11 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-            </meta-data>
+                android:resource="@xml/file_paths"/>
+            <meta-data
+                android:name="com.kakao.sdk.AppKey"
+                android:value="@string/kakao_app_key" />
+
         </provider>
         <activity android:name=".camera"></activity>
         <activity android:name=".aboutClothes" />

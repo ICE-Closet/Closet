@@ -46,4 +46,7 @@ dependencies {
     // Camera TedPermission
     implementation 'gun0912.ted:tedpermission:2.2.3'
 
+    // Kakao auth
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
+
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.icecloset.R
 import com.example.icecloset.main
 import com.example.icecloset.socialAuth
+import com.kakao.util.helper.Utility.getKeyHash
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +22,9 @@ class login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        var hask_key = getKeyHash(this)
+        Log.i("HASHKEY", hask_key)
 
 
         var retrofit = Retrofit.Builder()

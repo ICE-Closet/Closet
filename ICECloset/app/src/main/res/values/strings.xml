@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ICE Closet</string>
+    <string name="kakao_app_key">5a0419f1829deae18dcf326a42cf4702</string>
 </resources>

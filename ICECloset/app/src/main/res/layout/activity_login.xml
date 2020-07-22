@@ -7,20 +7,7 @@
     android:background="@color/colorPrimary"
     tools:context=".auth.login">
 
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="85dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="48dp"
-        android:background="@drawable/color_change"
-        android:fontFamily="@font/ostrich"
-        android:text="log in"
-        android:textColor="#EEE6E6"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/social_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.769"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <ImageView
         android:id="@+id/app_name"
@@ -71,26 +58,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <Button
-        android:id="@+id/social_btn"
-        android:layout_width="126dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="28dp"
+        android:id="@+id/login_btn"
+        android:layout_width="85dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/color_change"
         android:fontFamily="@font/ostrich"
-        android:text="Social login"
+        android:text="log in"
         android:textColor="#EEE6E6"
         android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/kakao_login_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.kakao.usermgmt.LoginButton
+        android:id="@+id/kakao_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signup_btn"
         android:layout_width="85dp"
         android:layout_height="32dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="116dp"
         android:background="@drawable/color_change"
         android:fontFamily="@font/ostrich"
         android:text="Sign Up"

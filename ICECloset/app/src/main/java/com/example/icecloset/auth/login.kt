@@ -1,5 +1,6 @@
 package com.example.icecloset.auth
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +8,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.icecloset.R
+import com.example.icecloset.auth.kakao.SessionCallback
 import com.example.icecloset.main
 import com.example.icecloset.socialAuth
+import com.kakao.auth.Session
 import com.kakao.util.helper.Utility.getKeyHash
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -19,13 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class login : AppCompatActivity() {
 
+    private var callback : SessionCallback = SessionCallback()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        var hask_key = getKeyHash(this)
-        Log.i("HASHKEY", hask_key)
-
+        Session.getCurrentSession().addCallback(callback)
 
         var retrofit = Retrofit.Builder()
             .baseUrl("http://192.168.0.10:88")
@@ -70,18 +73,24 @@ class login : AppCompatActivity() {
 
         }
 
-        social_btn.setOnClickListener{
-            var intent = Intent(applicationContext, socialAuth::class.java)
-            startActivity(intent)
-        }
-
         signup_btn.setOnClickListener {
             var intent = Intent(applicationContext, signup::class.java)
             startActivity(intent)
         }
     }
 
+    @SuppressLint("MissingSuperCall")
+    override fun onDestroy() {
+        Session.getCurrentSession().removeCallback(callback)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            Log.i("Log", "Session get current session")
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }
 
 

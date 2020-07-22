@@ -7,6 +7,36 @@
     android:background="@color/colorPrimary"
     tools:context=".camera.camera">
 
+    <TextView
+        android:id="@+id/outer"
+        android:layout_width="87dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ostrich"
+        android:gravity="center|start"
+        android:text="outer"
+        android:textColor="#EEE6E6"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/outer_options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/bottom"
+        android:layout_width="87dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ostrich"
+        android:gravity="center|start"
+        android:text="bottom"
+        android:textColor="#EEE6E6"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="220dp"
@@ -16,22 +46,161 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.349"
+        app:layout_constraintVertical_bias="0.649"
         app:srcCompat="@drawable/clothes" />
 
     <Button
         android:id="@+id/capture"
         android:layout_width="139dp"
         android:layout_height="44dp"
-        android:layout_marginBottom="344dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/color_change"
         android:fontFamily="@font/ostrich"
         android:text="capture"
         android:textColor="#EEE6E6"
-        android:textSize="30sp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.897"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/top"
+        android:layout_width="87dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ostrich"
+        android:gravity="center|start"
+        android:text="top"
+        android:textColor="#EEE6E6"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/top_options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/top_options"
+        android:layout_width="355dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="35dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/top_non"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="non"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/top_short"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="short"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/top_long"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="long"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/bottom_options"
+        android:layout_width="355dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="35dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/outer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/bottom_non"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="non"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/bottom_short"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="short"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/bottom_long"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="long"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/outer_options"
+        android:layout_width="355dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="80dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/outer_non"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="non"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/outer_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="padding"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/outer_cardigan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/ostrich"
+            android:text="cardigan"
+            android:textColor="#EEE6E6"
+            android:textSize="18sp" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

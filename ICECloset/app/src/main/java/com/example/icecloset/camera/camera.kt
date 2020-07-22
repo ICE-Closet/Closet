@@ -38,6 +38,7 @@ import java.util.*
 class camera : AppCompatActivity() {
 
     private val TOKEN = "USERTOKEN"
+    var userTimeStamp: String = ""
 
     val REQUEST_IMAGE_CAPTURE = 1 // Camera Permission code
     lateinit var curPhotoPath: String // String type Photo path setting with null pointer
@@ -153,8 +154,10 @@ class camera : AppCompatActivity() {
     }
 
     private fun sendPhoto(fileName : String, file : File) {
+        userTimeStamp = SimpleDateFormat("HHmmss").format(Date())
+
         var requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-        var body : MultipartBody.Part = MultipartBody.Part.createFormData("image", ".jpeg", requestBody)
+        var body : MultipartBody.Part = MultipartBody.Part.createFormData("image",  userToken + "_" + userTimeStamp + ".jpeg", requestBody)
 
         var gson : Gson = GsonBuilder()
             .setLenient()

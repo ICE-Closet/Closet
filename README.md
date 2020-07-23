@@ -81,5 +81,4 @@ https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%
 ✔️ social login 한것 어떻게 db에 저장하고 처리할 지 고민.. -> https://koreanblacklee.github.io/posts/djangsociallogin/  이 사이트 찾아보고 어떻게 할지 감을 잡았다 <br>
 ✔️ 이렇게 하는게 맞는진 모르겠지만 일단 소셜로그인 db table을생성하고, 기존 account db에 fk로 소셜 추가. <br> 
 앱과 테스트는 아직 해보지 않음. <br>
-
-
+✔️ django+ec2+uwsgi+nginx 설정 완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! <br>

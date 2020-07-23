@@ -32,7 +32,7 @@ class login : AppCompatActivity() {
         Session.getCurrentSession().addCallback(callback)
 
         var retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.10:88")
+            .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

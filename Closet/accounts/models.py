@@ -1,10 +1,18 @@
 from django.db import models
 
+class Social_Login(models.Model):
+    platform = models.CharField(max_length=50) # kakao or google
+    uid = models.CharField(max_length=50) # 고유 id
+
+    class Meta:
+        db_table = 'social_login'
+
 # app user info
 class Account(models.Model):
     email = models.EmailField(max_length=100, unique=True) # email 겸 id
-    password = models.CharField(max_length = 200)
+    password = models.CharField(max_length=200, null=True, blank=True) # social login시 null
     username = models.CharField(max_length=100)
+    social = models.ForeignKey(Social_Login,on_delete=models.CASCADE, null=True, blank=True) # social_login db의 id
     is_active = models.BooleanField(default=False)
     
     def __str__(self):

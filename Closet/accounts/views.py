@@ -1,7 +1,7 @@
 import json
 import bcrypt
 import jwt
-from .models import Account, Clothes_category, User_Closet
+from .models import Social_Login,Account, Clothes_category, User_Closet
 from .serializers import AccountSerializer
 from .my_settings import SECRET_KEY, EMAIL
 from .token import account_activation_token
@@ -32,14 +32,12 @@ def signup(request, format=None):
 
     if request.method == "POST": # email, username이 null일 때도 확인,, email form이 맞는지 확인
         # data = json.loads(request.body) #insomina
-        try:
-           
+        try:           
             email = request.POST.get('email', '')
             pw = request.POST.get('password', '')
             password = bcrypt.hashpw(pw.encode('UTF-8'), bcrypt.gensalt()).decode('UTF-8')
             username = request.POST.get('username', '')
-
-            
+   
             # email = data['email'] # insomnia
             # password = bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt()).decode("UTF-8") # insomnia
             # username = data['username'] # insomnia
@@ -101,6 +99,35 @@ def login(request, format=None):
                 return JsonResponse({'code':0, 'msg':'not activated account'}, status=201) # email 활성화 되지 않음
             return JsonResponse({'code':1, 'msg':'password incorrect'}, status=201) # email에 매칭된 pw가 틀림
         return JsonResponse({'code':2, 'msg':'not my user'}, status=201) # 해당 email이 db에 없음
+
+def kakao_login(request, format=None): # 앱연동 테스트 해보기
+    if request.method == "POST":
+        platform = 'kakao'
+        uid = request.POST.get('uid', '')
+        email = request.POST.get('email', '')
+        username = request.POST.get('username', '')
+
+        myuser = Account.objects.get(email=email)
+        my_social_user = Social_Login.objects.get(uid=uid)
+
+        if myuser : # 같은 email주소가 있다면
+            return JsonResponse({'code':1, 'msg':'duplicated email'}, status=201) # 해당 email이 db에 없음
+        elif my_social_user: # 소셜로그인으로 로그인한적 있으면
+            # token 넘겨주기
+            pass
+        else: # 소셜로그인이 처음이면 -> uid 저장 + user info 저장
+            social_user = Social_Login.objects.create(platform=platform, uid=uid)
+            social = Social_Login.objects.get(uid=uid)
+            user = Account.objects.create(
+                    email = email,
+                    username=username,
+                    is_active=True,
+                    social_id = social.id
+                )
+
+        token = jwt.encode({'user':myuser.id}, SECRET_KEY['secret'], SECRET_KEY['algorithm']).decode('UTF-8')
+        print("token = ", token)
+        return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # 소셜로그인 성공
 
 # logout 시에는 android 앱에서 토큰을 더이상 넘겨주지 않으면 됨.
 class Activate(View):

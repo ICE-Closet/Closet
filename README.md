@@ -11,4 +11,5 @@ Rest API를 안드로이드에서 쉽게 이용할 수 있게 해주는 도구
 
 3. Kakao Auth (Kakao Login)
 
-4. Google Firebase 
+4. Google Firebase (Google Login / Facebook Login)
+~~미완료~~

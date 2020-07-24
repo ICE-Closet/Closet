@@ -5,9 +5,10 @@
 
 ### Tool
 1. Retrofit API  
-Rest API를 안드로이드에서 쉽게 이용할 수 있게 해주는 도구
+Rest API를 안드로이드에서 쉽게 이용할 수 있게 해주는 도구  
 __Complete!__
-2. Camera API - Ted Permission
+
+2. Camera API - Ted Permission  
 __Complete!__
 
 3. Kakao Auth (Kakao Login)  

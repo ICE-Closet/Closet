@@ -1,7 +1,7 @@
 ## ICE Closet - Application(Android)
 
 ### 프로젝트
-* _Machine Learning_을 사용한 사용자 맞춤 코디 추천 스마트 옷장 어플리케이션
+* _Machine Learning_ 을 사용한 사용자 맞춤 코디 추천 스마트 옷장 어플리케이션
 
 ### Tool
 1. Retrofit API  

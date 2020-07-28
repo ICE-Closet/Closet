@@ -2,7 +2,7 @@ import json
 import bcrypt
 import jwt
 from .models import Social_Login,Account, Clothes_category, User_Closet
-from .serializers import AccountSerializer
+from .serializers import AccountSerializer, ClothesSerializer
 from .my_settings import SECRET_KEY, EMAIL
 from .token import account_activation_token
 from .text import message
@@ -155,7 +155,10 @@ def email_verify(request):
 
 
 class ClothesInfo(ListView):
-    model = Clothes_category
+    def get(self, request):
+        queryset = Clothes_category.objects.all()
+        serializer = ClothesSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
     @LoginConfirm
     def post(self,request):
         # data = json.loads(request.body) # insomnia

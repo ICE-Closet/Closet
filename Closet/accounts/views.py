@@ -9,6 +9,7 @@ from .text import message
 from .tokenCheck import *
 
 from django.views import View
+from django.views.generic import ListView
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -153,7 +154,8 @@ def email_verify(request):
     return render(request, 'accounts/verify.html')
 
 
-class ClothesInfo(View):
+class ClothesInfo(ListView):
+    model = Clothes_category
     @LoginConfirm
     def post(self,request):
         # data = json.loads(request.body) # insomnia
@@ -162,16 +164,14 @@ class ClothesInfo(View):
         nowDate = now.strftime('%Y/%m/%d') # media dir path
         print('image name from app: ', image)
         top = request.POST.get('top','') # long or short
-#	print('top:', top)
-        # bottom = request.POST.get('bottom', '') # long_pants or short_pants or long_skirt or short_skirt
-        # outer = request.POST.get('outer', '') # coat or bubble_jacket or cardigan
-        # color = request.POST.get('color', '')
-        # form = Clothes_category(image=image, top=top, bottom=bottom, outer=outer, color=color)
-        form = Clothes_category(image=image, top=top)
+        bottom = request.POST.get('bottom', '') # long_pants or short_pants or long_skirt or short_skirt
+        outer = request.POST.get('outer', '') # coat or bubble_jacket or cardigan
+        color = request.POST.get('color', '')
+        form = Clothes_category(image=image, top=top, bottom=bottom, outer=outer, color=color)
         form.save() # clothes_category db에 image저장
         print("save complete")
 
-        image_path = nowDate+'/'+str(image) # Year/month/day/[pk]_image.jpeg
+        image_path = nowDate+'/'+str(image)
         print("new image:", image_path)
         
         clothes = Clothes_category.objects.get(image=image_path) # 해당 옷의 row 가져오기

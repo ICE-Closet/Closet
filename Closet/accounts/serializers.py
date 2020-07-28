@@ -10,4 +10,4 @@ class ClothesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Clothes_category
-        fields = ('image')
+        fields = ('image', 'color', 'top', 'bottom', 'outer')

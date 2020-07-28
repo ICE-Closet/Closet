@@ -161,12 +161,13 @@ class ClothesInfo(View):
         image = request.FILES.get('image') # app과 맞추기
         nowDate = now.strftime('%Y/%m/%d') # media dir path
         print('image name from app: ', image)
-        # top = request.POST.get('top','') # long or short
+        top = request.POST.get('top','') # long or short
+#	print('top:', top)
         # bottom = request.POST.get('bottom', '') # long_pants or short_pants or long_skirt or short_skirt
         # outer = request.POST.get('outer', '') # coat or bubble_jacket or cardigan
         # color = request.POST.get('color', '')
         # form = Clothes_category(image=image, top=top, bottom=bottom, outer=outer, color=color)
-        form = Clothes_category(image=image)
+        form = Clothes_category(image=image, top=top)
         form.save() # clothes_category db에 image저장
         print("save complete")
 

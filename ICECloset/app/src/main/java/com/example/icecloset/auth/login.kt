@@ -1,6 +1,7 @@
 package com.example.icecloset.auth
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +11,15 @@ import androidx.appcompat.app.AlertDialog
 import com.example.icecloset.R
 import com.example.icecloset.auth.kakao.SessionCallback
 import com.example.icecloset.main
-import com.example.icecloset.socialAuth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.Session
-import com.kakao.util.helper.Utility.getKeyHash
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,13 +30,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 class login : AppCompatActivity() {
     private val TOKEN = "USERTOKEN"
 
-    private var callback : SessionCallback = SessionCallback()
+    private var callback : SessionCallback = SessionCallback()  // Kakao Auth
+
+    // Google Auth
+    val RC_SIGN_IN: Int = 1
+    lateinit var signInClient: GoogleSignInClient
+    lateinit var signInOptions: GoogleSignInOptions
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        Session.getCurrentSession().addCallback(callback)
+        Session.getCurrentSession().addCallback(callback)   // Kakao Auth
+
+
+        // Google Auth
+        auth = FirebaseAuth.getInstance()
+        initializeUI()
+        setupGoogleLogin()
+
 
         var retrofit = Retrofit.Builder()
             .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
@@ -96,18 +116,81 @@ class login : AppCompatActivity() {
         }
     }
 
-    // Kakao
-    @SuppressLint("MissingSuperCall")
+    companion object {  // Google Auth
+        fun getLaunchIntent(from: Context) = Intent(from, login::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+    }
+
+    override fun onStart() {    // Google Auth
+        super.onStart()
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            startActivity(main.getLaunchIntent(this))
+            finish()
+        }
+    }
+
+    private fun initializeUI() {    // Google AUth
+        google_login_btn.setOnClickListener {
+            login()
+        }
+    }
+
+    private fun login() {   // Google Auth
+        val loginIntent: Intent = signInClient.signInIntent
+        startActivityForResult(loginIntent, RC_SIGN_IN)
+    }
+
+
+    @SuppressLint("MissingSuperCall")      // Kakao Auth
     override fun onDestroy() {
         Session.getCurrentSession().removeCallback(callback)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // Kakao Auth
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             Log.i("Log", "Session get current session")
             return
         }
+
+        // Google Auth
+        if (requestCode == RC_SIGN_IN) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) {
+                    googleFirebaseAuth(account)
+                }
+            } catch (e: ApiException) {
+                Toast.makeText(this@login, "Google 로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    // Google Auth
+    private fun googleFirebaseAuth(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                startActivity(main.getLaunchIntent(this))
+            }
+            else {
+                Toast.makeText(this@login, "Google 로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Google Auth
+    private fun setupGoogleLogin() {
+        signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.web_client_id))
+            .requestEmail()
+            .build()
+        signInClient = GoogleSignIn.getClient(this, signInOptions)
     }
 }
 

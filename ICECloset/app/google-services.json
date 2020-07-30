@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "134561620566",
+    "firebase_url": "https://icecloset-5681c.firebaseio.com",
+    "project_id": "icecloset-5681c",
+    "storage_bucket": "icecloset-5681c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134561620566:android:0f8f32be306bea6420d1f7",
+        "android_client_info": {
+          "package_name": "com.example.icecloset"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134561620566-ogbih9c5uudh1kpbekctp5mj4p4o0j5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.icecloset",
+            "certificate_hash": "dee9f537e7d43d57357f9eed71b7d9d9fce43fbe"
+          }
+        },
+        {
+          "client_id": "134561620566-i15slm7lkk71smtbe2v4j2kh838cqeeu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXSgo1yOdBjkncr1L8V0fcVgLESEChzkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134561620566-i15slm7lkk71smtbe2v4j2kh838cqeeu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

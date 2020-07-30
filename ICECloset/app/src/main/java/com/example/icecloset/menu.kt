@@ -12,10 +12,7 @@ class menu : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
 
 
-        photo_btn.setOnClickListener {
-            var intent = Intent(applicationContext, photos::class.java)
-            startActivity(intent)
-        }
+
 
 
     }

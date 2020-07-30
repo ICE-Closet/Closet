@@ -1,12 +1,13 @@
 import json
 import bcrypt
 import jwt
-from .models import Social_Login,Account, Clothes_category, User_Closet
-from .serializers import AccountSerializer, ClothesSerializer
+from .models import Social_Login, Account, Clothes_category, User_Closet
+from .serializers import AccountSerializer, ClothesInfoSerializer, SocialLoginSerializer
 from .my_settings import SECRET_KEY, EMAIL
 from .token import account_activation_token
 from .text import message
 from .tokenCheck import *
+from .social_login import *
 
 from django.views import View
 from django.views.generic import ListView
@@ -101,34 +102,36 @@ def login(request, format=None):
             return JsonResponse({'code':1, 'msg':'password incorrect'}, status=201) # email에 매칭된 pw가 틀림
         return JsonResponse({'code':2, 'msg':'not my user'}, status=201) # 해당 email이 db에 없음
 
-def kakao_login(request, format=None): # 앱연동 테스트 해보기
+def kakao_login(request, format=None): # 앱연동 테스트 해보기, get 넣어주기
+    if request.method == "GET":
+        queryset = Social_Login.objects.filter(platform='kakao')
+        serializer = SocialLoginSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
     if request.method == "POST":
+        data = json.loads(request.body) # insomnia
+        uid = data['uid']
+        email = data['email']
         platform = 'kakao'
+        #uid = request.POST.get('uid', '')
+        #email = request.POST.get('email', '')
+        token = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
+        return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # 소셜로그인 성공
+
+def google_login(request, format=None): # 앱연동 테스트 해보기, get 넣어주기
+    if request.method == "GET":
+        queryset = Social_Login.objects.filter(platform='google')
+        serializer = SocialLoginSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    if request.method == "POST":
+        platform = 'google'
         uid = request.POST.get('uid', '')
         email = request.POST.get('email', '')
-        username = request.POST.get('username', '')
-
-        myuser = Account.objects.get(email=email)
-        my_social_user = Social_Login.objects.get(uid=uid)
-
-        if myuser : # 같은 email주소가 있다면
-            return JsonResponse({'code':1, 'msg':'duplicated email'}, status=201) # 해당 email이 db에 없음
-        elif my_social_user: # 소셜로그인으로 로그인한적 있으면
-            # token 넘겨주기
-            pass
-        else: # 소셜로그인이 처음이면 -> uid 저장 + user info 저장
-            social_user = Social_Login.objects.create(platform=platform, uid=uid)
-            social = Social_Login.objects.get(uid=uid)
-            user = Account.objects.create(
-                    email = email,
-                    username=username,
-                    is_active=True,
-                    social_id = social.id
-                )
-
-        token = jwt.encode({'user':myuser.id}, SECRET_KEY['secret'], SECRET_KEY['algorithm']).decode('UTF-8')
-        print("token = ", token)
+        social_login(platform=platform, uid=uid, email=email)
+        token = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
         return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # 소셜로그인 성공
+
 
 # logout 시에는 android 앱에서 토큰을 더이상 넘겨주지 않으면 됨.
 class Activate(View):
@@ -153,12 +156,12 @@ class Activate(View):
 def email_verify(request):
     return render(request, 'accounts/verify.html')
 
-
 class ClothesInfo(ListView):
     def get(self, request):
         queryset = Clothes_category.objects.all()
-        serializer = ClothesSerializer(queryset, many=True)
+        serializer = ClothesInfoSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
+
     @LoginConfirm
     def post(self,request):
         # data = json.loads(request.body) # insomnia

@@ -16,4 +16,5 @@ __Complete!__
 ~~로그아웃 구현~~
 
 4. Google Firebase (Google Login / Facebook Login)  
-~~미완료~~
+~~로그인&로그아웃 구현~~
+Token 관리

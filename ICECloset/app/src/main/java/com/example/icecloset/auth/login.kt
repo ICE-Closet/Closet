@@ -9,6 +9,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.icecloset.R
+import com.example.icecloset.auth.google.forGoogleLogin
+import com.example.icecloset.auth.google.forGoogleLoginService
 import com.example.icecloset.auth.kakao.SessionCallback
 import com.example.icecloset.main
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,10 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.Session
 import kotlinx.android.synthetic.main.activity_login.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
 class login : AppCompatActivity() {
@@ -37,6 +36,8 @@ class login : AppCompatActivity() {
     lateinit var signInClient: GoogleSignInClient
     lateinit var signInOptions: GoogleSignInOptions
     private lateinit var auth: FirebaseAuth
+
+    lateinit var google_loginservice: forGoogleLoginService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,8 @@ class login : AppCompatActivity() {
 
         var loginservice: forLoginService = retrofit.create(
             forLoginService::class.java)
+
+        google_loginservice = retrofit.create(forGoogleLoginService::class.java)
 
         login_btn.setOnClickListener {
             var s_email = user_email.text.toString()
@@ -93,9 +96,6 @@ class login : AppCompatActivity() {
                         else if (code == 2) {
                             Toast.makeText(this@login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
                         }
-
-//                        var intent = Intent(applicationContext, main::class.java)
-//                        startActivity(intent)
                     }
                     else {
                         var forLogin = response.body()
@@ -104,10 +104,6 @@ class login : AppCompatActivity() {
                     }
                 }
             })
-//            var intent = Intent(applicationContext, main::class.java)
-//            startActivity(intent)
-
-
         }
 
         signup_btn.setOnClickListener {
@@ -133,7 +129,52 @@ class login : AppCompatActivity() {
     }
 
     private fun initializeUI() {    // Google AUth
+        var uid = "a"
+        var email = "a"
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            uid = user.uid
+            Log.d("!!!!!!", uid)
+            email = user.email.toString()
+            Log.d("!!!!!!", email)
+        }
+        else {
+            Log.d("LOG", "No User Data")
+        }
+
         google_login_btn.setOnClickListener {
+            google_loginservice.requestGoogleLogin(uid = uid, email = email).enqueue(object :Callback<forGoogleLogin> {
+                override fun onFailure(call: Call<forGoogleLogin>, t: Throwable) {
+                    Log.e("Login", t.message)
+                    var dialog = AlertDialog.Builder(this@login)
+                    dialog.setTitle("ERROR")
+                    dialog.setMessage("서버와의 통신에 실패하였습니다.")
+                    dialog.show()
+                }
+
+                override fun onResponse(call: Call<forGoogleLogin>, response: Response<forGoogleLogin>) {
+                    if (response?.isSuccessful) {
+                        var forGoogleLogin = response.body()
+                        Log.d("SUCCESS", forGoogleLogin?.code)
+                        val code = forGoogleLogin?.code?.let { it1 -> Integer.parseInt(it1) }
+                        if (code == 201) {
+//                            Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
+                            var intent = Intent(applicationContext, main::class.java).apply {
+                                putExtra(TOKEN, forGoogleLogin?.token)
+                            }
+                            startActivity(intent)
+                        }
+                        else {
+//                            Toast.makeText(this@login, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    else {
+                        var forGoogleLogin = response.body()
+                        Log.d("FAIL", forGoogleLogin?.code)
+                    }
+                }
+            })
             login()
         }
     }
@@ -146,7 +187,9 @@ class login : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")      // Kakao Auth
     override fun onDestroy() {
+//        super.onDestroy()
         Session.getCurrentSession().removeCallback(callback)
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -177,6 +220,15 @@ class login : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 startActivity(main.getLaunchIntent(this))
+//                val user = FirebaseAuth.getInstance().currentUser
+//                user?.let {
+//                    for (profile in it.providerData) {
+//                        val uid = profile.uid
+//                        Log.d("UID", uid)
+//                        val email = profile.email
+//                        Log.d("EMAIL", email)
+//                    }
+//                }
             }
             else {
                 Toast.makeText(this@login, "Google 로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
@@ -193,5 +245,3 @@ class login : AppCompatActivity() {
         signInClient = GoogleSignIn.getClient(this, signInOptions)
     }
 }
-
-

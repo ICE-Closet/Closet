@@ -23,18 +23,18 @@ class main : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        var userToken = intent.getStringExtra(TOKEN).toString()
-//        Log.d(TOKEN, userToken)
+        var userToken = intent.getStringExtra(TOKEN).toString()
+        Log.d(TOKEN, userToken)
 
         initializeUI() // Google Auth
 
 
-//        user_closet.setOnClickListener {
-//            var intent = Intent(applicationContext, aboutClothes::class.java).apply {
-//                putExtra(TOKEN, userToken)
-//            }
-//            startActivity(intent)
-//        }
+        user_closet.setOnClickListener {
+            var intent = Intent(applicationContext, aboutClothes::class.java).apply {
+                putExtra(TOKEN, userToken)
+            }
+            startActivity(intent)
+        }
 
         user_cody.setOnClickListener {
             var intent = Intent(applicationContext, aboutClothes::class.java)

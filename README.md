@@ -82,3 +82,11 @@ https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%
 ✔️ 이렇게 하는게 맞는진 모르겠지만 일단 소셜로그인 db table을생성하고, 기존 account db에 fk로 소셜 추가. <br> 
 앱과 테스트는 아직 해보지 않음. <br>
 ✔️ django+ec2+uwsgi+nginx 설정 완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! <br>
+
+##### ~7/30 (금)
+✔️ social login url(kakao, google) 생성 <br>
+✔️ social login views.py 코드 완료(insomia로 테스트 완료, 앱으로 테스트 해보기) - 두개가 겹쳐서 social_login.py 파일을 만들어서 같게 처리해줌 <br>
+✔️ account db table 과 social_login db table 연결 완료(fk로) <br>
+✔️ nginx + uwsgi 안정적으로 가동 <br>
+✔️ 머신러닝쪽으로 get할 수 있도록 설정해둠.(filter를 사용해서 필요한 것들만 get할 수 있도록 만들기!) <br>
+라즈베리파이로 사용자 토큰 전달방법 공부하기(소켓사용) <br>

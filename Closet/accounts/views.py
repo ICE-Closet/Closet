@@ -109,12 +109,12 @@ def kakao_login(request, format=None): # 앱연동 테스트 해보기, get 넣�
         return JsonResponse(serializer.data, safe=False)
 
     if request.method == "POST":
-        data = json.loads(request.body) # insomnia
-        uid = data['uid']
-        email = data['email']
+        # data = json.loads(request.body) # insomnia
+        # uid = data['uid']
+        # email = data['email']
         platform = 'kakao'
-        #uid = request.POST.get('uid', '')
-        #email = request.POST.get('email', '')
+        uid = request.POST.get('uid', '')
+        email = request.POST.get('email', '')
         token = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
         return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # 소셜로그인 성공
 

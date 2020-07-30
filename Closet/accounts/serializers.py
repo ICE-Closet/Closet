@@ -8,7 +8,7 @@ class AccountSerializer(serializers.ModelSerializer):
 class SocialLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Social_Login
-        fields = ['paltform', 'uid']
+        fields = ['platform', 'uid']
 
 class ClothesInfoSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(use_url=True)

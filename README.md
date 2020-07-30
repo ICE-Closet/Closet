@@ -17,4 +17,5 @@ __Complete!__
 
 4. Google Firebase (Google Login / Facebook Login)  
 ~~로그인&로그아웃 구현~~ <br>
-Token 관리
+Retrofit 구현 완료 <br>
+-> fun initializeUI()에서 uid, e-mail 전송되는거 다시 확인!! (null로 전송됨)

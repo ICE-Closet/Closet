@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Account, Clothes_category, Social_Login
+from .models import *
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account

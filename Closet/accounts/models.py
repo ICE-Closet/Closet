@@ -7,6 +7,16 @@ class Social_Login(models.Model):
     class Meta:
         db_table = 'social_login'
 
+# closet raspberry pi info
+class RaspberryPi(models.Model):
+    ip = models.CharField(max_length=50, unique=True)
+    port = models.CharField(max_length=10)
+    rasp_id = models.CharField(max_length=50)
+    rasp_password = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = 'raspberry_pi'
+
 # app user info
 class Account(models.Model):
     email = models.EmailField(max_length=100, unique=True) # email 겸 id
@@ -14,6 +24,7 @@ class Account(models.Model):
     username = models.CharField(max_length=100)
     social = models.ForeignKey(Social_Login,on_delete=models.CASCADE, null=True, blank=True) # social_login db의 id
     is_active = models.BooleanField(default=False)
+    raspberry = models.ForeignKey(RaspberryPi, on_delete=models.CASCADE, default=True)
     
     def __str__(self):
         return self.username

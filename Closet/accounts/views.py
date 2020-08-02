@@ -1,13 +1,14 @@
 import json
 import bcrypt
 import jwt
-from .models import Social_Login, Account, Clothes_category, User_Closet
-from .serializers import AccountSerializer, ClothesInfoSerializer, SocialLoginSerializer
+from .models import *
+from .serializers import *
 from .my_settings import SECRET_KEY, EMAIL
 from .token import account_activation_token
 from .text import message
 from .tokenCheck import *
 from .social_login import *
+from .sendToken import *
 
 from django.views import View
 from django.views.generic import ListView
@@ -97,6 +98,8 @@ def login(request, format=None):
                     print("user is_active turns True")
                     token = jwt.encode({'user':user.id}, SECRET_KEY['secret'], SECRET_KEY['algorithm']).decode('UTF-8')
                     print("token = ", token)
+                    rasp_socket = sendToken(user.raspberry_id, token)
+                    print(rasp_socket)
                     return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # login 시 token 발급
                 return JsonResponse({'code':0, 'msg':'not activated account'}, status=201) # email 활성화 되지 않음
             return JsonResponse({'code':1, 'msg':'password incorrect'}, status=201) # email에 매칭된 pw가 틀림
@@ -115,8 +118,11 @@ def kakao_login(request, format=None): # 앱연동 테스트 해보기, get 넣�
         platform = 'kakao'
         uid = request.POST.get('uid', '')
         email = request.POST.get('email', '')
-        token = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
-        return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # 소셜로그인 성공
+        result = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
+        print("id:", result['id'], "token : ", result['token'])
+        rasp_socket = sendToken(result['id'], result['token'])
+        print(rasp_socket)
+        return JsonResponse({'code':201, 'msg':'login success', 'token':result['token']}, status=201) # 소셜로그인 성공
 
 def google_login(request, format=None): # 앱연동 테스트 해보기, get 넣어주기
     if request.method == "GET":
@@ -129,8 +135,9 @@ def google_login(request, format=None): # 앱연동 테스트 해보기, get 넣
         uid = request.POST.get('uid', '')
         email = request.POST.get('email', '')
         social_login(platform=platform, uid=uid, email=email)
-        token = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
-        return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # 소셜로그인 성공
+        rasp_socket = sendToken(result['id'], result['token'])
+        print(rasp_socket)
+        return JsonResponse({'code':201, 'msg':'login success', 'token':result['token']}, status=201) # 소셜로그인 성공
 
 
 # logout 시에는 android 앱에서 토큰을 더이상 넘겨주지 않으면 됨.

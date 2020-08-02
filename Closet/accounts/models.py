@@ -24,7 +24,7 @@ class Account(models.Model):
     username = models.CharField(max_length=100)
     social = models.ForeignKey(Social_Login,on_delete=models.CASCADE, null=True, blank=True) # social_login db의 id
     is_active = models.BooleanField(default=False)
-    raspberry = models.ForeignKey(RaspberryPi, on_delete=models.CASCADE, default=True)
+    #raspberry = models.ForeignKey(RaspberryPi, on_delete=models.CASCADE, default=True)
     
     def __str__(self):
         return self.username

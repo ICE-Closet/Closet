@@ -98,8 +98,8 @@ def login(request, format=None):
                     print("user is_active turns True")
                     token = jwt.encode({'user':user.id}, SECRET_KEY['secret'], SECRET_KEY['algorithm']).decode('UTF-8')
                     print("token = ", token)
-                    rasp_socket = sendToken(user.raspberry_id, token)
-                    print(rasp_socket)
+                    # rasp_socket = sendToken(user.raspberry_id, token)
+                    # print(rasp_socket)
                     return JsonResponse({'code':201, 'msg':'login success', 'token':token}, status=201) # login 시 token 발급
                 return JsonResponse({'code':0, 'msg':'not activated account'}, status=201) # email 활성화 되지 않음
             return JsonResponse({'code':1, 'msg':'password incorrect'}, status=201) # email에 매칭된 pw가 틀림

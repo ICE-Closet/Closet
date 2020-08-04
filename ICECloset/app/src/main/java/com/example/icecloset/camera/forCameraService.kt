@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface forCameraService {
     @FormUrlEncoded
-    @Multipart
+//    @Multipart
     @POST("/accounts/clothes_info/")
     fun requestCamera(
         @Header("Authorizations") userToken: String,

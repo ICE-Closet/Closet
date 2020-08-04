@@ -128,9 +128,9 @@ class login : AppCompatActivity() {
         }
     }
 
-    private fun initializeUI() {    // Google AUth
-        var uid = "a"
-        var email = "a"
+    private fun initializeUI() {    // Google Auth
+        var uid = ""
+        var email = ""
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
@@ -159,14 +159,13 @@ class login : AppCompatActivity() {
                         Log.d("SUCCESS", forGoogleLogin?.code)
                         val code = forGoogleLogin?.code?.let { it1 -> Integer.parseInt(it1) }
                         if (code == 201) {
-//                            Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
                             var intent = Intent(applicationContext, main::class.java).apply {
                                 putExtra(TOKEN, forGoogleLogin?.token)
                             }
                             startActivity(intent)
                         }
                         else {
-//                            Toast.makeText(this@login, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@login, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
                     else {

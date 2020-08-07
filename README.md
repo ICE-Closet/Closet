@@ -90,3 +90,10 @@ https://yuddomack.tistory.com/entry/%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EC%8B%
 ✔️ nginx + uwsgi 안정적으로 가동 <br>
 ✔️ 머신러닝쪽으로 get할 수 있도록 설정해둠.(filter를 사용해서 필요한 것들만 get할 수 있도록 만들기!) <br>
 라즈베리파이로 사용자 토큰 전달방법 공부하기(소켓사용) <br>
+
+##### 8/2(일)
+✔️ local에 raspberry pi 모델, 등등 추가 - 아직 ubuntu에 pull 하면 안됨 <br>
+✔️ raspberry pi로 로그인시 토큰 전송하는 코드는 짜놓음. 테스트는 아직 <br>
+앞으로 남은일 <br>
+* 거주지 입력받은것 저장(db추가) 
+* 추천 및 많이 입은 빈도수 어떻게 처리할지...

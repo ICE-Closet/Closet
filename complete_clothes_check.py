@@ -2,6 +2,11 @@ from multiprocessing import Process, Queue
 import RPi.GPIO as GPIO
 import time
 import datetime
+import cv2
+import socket
+import numpy
+
+port = 65000
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -14,8 +19,29 @@ resistorPin = 4
 
 dis1, dis2= 0, 0
 
+def opendoor(check):
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect(("220.67.124.120", port))
+    try:
+        capture = cv2.VideoCapture(0)
+        ret, frame = capture.read()
+
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
+        result, imgencode = cv2.imencode('.jpg', frame, encode_param)
+        data = numpy.array(imgencode)
+        stringData = data.tostring()
+        # check="right"
+        # check="leftt
+        check= check.encode('utf-8')
+        client_socket.send(str(len(check)+len(stringData)).ljust(16).encode())
+        client_socket.send(check+stringData)
+    except:
+        print('Disconnected by Server')
+
+    client_socket.close()
+
+
 def ultra_sensing(q):
-    f_count1, f_count2 = 0, 0
     now1,now2 = datetime.time(12, 23, 10), datetime.time(12, 23, 50)
     while True:
         if q.get():
@@ -32,15 +58,11 @@ def ultra_sensing(q):
             pulse_duration = pulse_end - pulse_start
             dis1 = pulse_duration * 17150
             dis1 = round(dis1, 2)
-            # distance1[0] = distance1[1]
-            # distance[1] = dis1
             print("distance sensor1: ", dis1, "cm")
-            #print("waiting for sensor 2 to send signal")
             time.sleep(0.05)
             GPIO.output(TRIG1, True)
             time.sleep(0.00001)
             GPIO.output(TRIG1, False)
-            #print("reading sensor 2")
             while GPIO.input(ECHO1) == 0:
                 pulse_start2 = time.time()
             while GPIO.input(ECHO1) == 1:
@@ -48,10 +70,7 @@ def ultra_sensing(q):
             pulse_duration2 = pulse_end2 - pulse_start2
             dis2 = pulse_duration2 * 17150
             dis2 = round(dis2, 2)
-            #distance2[0] = distance[1]
-            #distance2[1] = dis2
             print("distance sensor2: ", dis2, "cm")
-            #GPIO.cleanup()
 
             if dis1 <= 10:
                 now1 = datetime.datetime.now()
@@ -59,16 +78,16 @@ def ultra_sensing(q):
             if dis2 <= 10:
                 now2 = datetime.datetime.now()
                 time.sleep(1)
-            #print("f",f_count1,f_count2,"\n")
-            print("t", now2.second - now1.second,"\n")
-            if 1<= now2.second - now1.second <= 3:
-                f_count1,f_count2 =0,0
+            if 1 <= now2.second - now1.second <= 3:
                 now1,now2 = datetime.time(12, 23, 10), datetime.time(12, 23, 50)
                 print("right\n")
-            if 1<= now1.second - now2.second <= 3:
-                f_count1,f_count2 =0,0
+                opendoor("right")
+
+            if 1 <= now1.second - now2.second <= 3:
                 now1,now2 = datetime.time(12, 23, 10), datetime.time(12, 23, 50)
                 print("left\n")
+                opendoor("leftt")
+
         else: pass
 
 def light_sensing(q):
@@ -84,9 +103,9 @@ def light_sensing(q):
 
         while (GPIO.input(resistorPin) == GPIO.LOW):
             diff = time.time() - currentTime
-        diff = diff*10000
+        diff = diff*100000
         print("light:",diff)
-        if diff >= 1:
+        if diff >= 0.9:
             q.put(0)
         else:
             q.put(1)
@@ -113,3 +132,4 @@ if __name__ == "__main__":
 
     proc1.join()
     proc2.join()
+

@@ -25,5 +25,5 @@ def social_login(platform, uid, email):
     myuser = Account.objects.get(email=email)
     token = jwt.encode({'user':myuser.id}, SECRET_KEY['secret'], SECRET_KEY['algorithm']).decode('UTF-8')
     print("token = ", token)
-    result = {'id':myuser.raspberry_id, 'token':token}
+    result = {'token':token}#'raspberryPi':myuser.raspberrypiId
     return result

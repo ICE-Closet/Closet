@@ -120,8 +120,8 @@ def kakao_login(request, format=None): # 앱연동 테스트 해보기, get 넣�
         email = request.POST.get('email', '')
         result = social_login(platform=platform, uid=uid, email=email) # social_login 파일에서 처리
         print("id:", result['id'], "token : ", result['token'])
-        rasp_socket = sendToken(result['id'], result['token'])
-        print(rasp_socket)
+        # rasp_socket = sendToken(result['id'], result['token'])
+        # print(rasp_socket)
         return JsonResponse({'code':201, 'msg':'login success', 'token':result['token']}, status=201) # 소셜로그인 성공
 
 def google_login(request, format=None): # 앱연동 테스트 해보기, get 넣어주기
@@ -135,8 +135,8 @@ def google_login(request, format=None): # 앱연동 테스트 해보기, get 넣
         uid = request.POST.get('uid', '')
         email = request.POST.get('email', '')
         social_login(platform=platform, uid=uid, email=email)
-        rasp_socket = sendToken(result['id'], result['token'])
-        print(rasp_socket)
+        # rasp_socket = sendToken(result['id'], result['token'])
+        # print(rasp_socket)
         return JsonResponse({'code':201, 'msg':'login success', 'token':result['token']}, status=201) # 소셜로그인 성공
 
 

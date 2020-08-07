@@ -9,10 +9,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.icecloset.R
-import com.example.icecloset.auth.google.forGoogleLogin
-import com.example.icecloset.auth.google.forGoogleLoginService
 import com.example.icecloset.auth.kakao.SessionCallback
-import com.example.icecloset.main
+import com.example.icecloset.mainView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -37,7 +35,7 @@ class login : AppCompatActivity() {
     lateinit var signInOptions: GoogleSignInOptions
     private lateinit var auth: FirebaseAuth
 
-    lateinit var google_loginservice: forGoogleLoginService
+//    lateinit var google_loginservice: forGoogleLoginService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +58,7 @@ class login : AppCompatActivity() {
         var loginservice: forLoginService = retrofit.create(
             forLoginService::class.java)
 
-        google_loginservice = retrofit.create(forGoogleLoginService::class.java)
+//        google_loginservice = retrofit.create(forGoogleLoginService::class.java)
 
         login_btn.setOnClickListener {
             var s_email = user_email.text.toString()
@@ -82,7 +80,7 @@ class login : AppCompatActivity() {
                         val code = forLogin?.code?.let { it1 -> Integer.parseInt(it1) }
                         if (code == 201) {
                             Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
-                            var intent = Intent(applicationContext, main::class.java).apply {
+                            var intent = Intent(applicationContext, mainView::class.java).apply {
                                 putExtra(TOKEN, forLogin?.token)
                             }
                             startActivity(intent)
@@ -123,57 +121,57 @@ class login : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
-            startActivity(main.getLaunchIntent(this))
+            startActivity(mainView.getLaunchIntent(this))
             finish()
         }
     }
 
     private fun initializeUI() {    // Google Auth
-        var uid = ""
-        var email = ""
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            uid = user.uid
-            Log.d("!!!!!!", uid)
-            email = user.email.toString()
-            Log.d("!!!!!!", email)
-        }
-        else {
-            Log.d("LOG", "No User Data")
-        }
+//        var uid = ""
+//        var email = ""
+//
+//        val user = FirebaseAuth.getInstance().currentUser
+//        if (user != null) {
+//            uid = user.uid
+//            Log.d("!!!!!!", uid)
+//            email = user.email.toString()
+//            Log.d("!!!!!!", email)
+//        }
+//        else {
+//            Log.d("LOG", "No User Data")
+//        }
 
         google_login_btn.setOnClickListener {
-            google_loginservice.requestGoogleLogin(uid = uid, email = email).enqueue(object :Callback<forGoogleLogin> {
-                override fun onFailure(call: Call<forGoogleLogin>, t: Throwable) {
-                    Log.e("Login", t.message)
-                    var dialog = AlertDialog.Builder(this@login)
-                    dialog.setTitle("ERROR")
-                    dialog.setMessage("서버와의 통신에 실패하였습니다.")
-                    dialog.show()
-                }
-
-                override fun onResponse(call: Call<forGoogleLogin>, response: Response<forGoogleLogin>) {
-                    if (response?.isSuccessful) {
-                        var forGoogleLogin = response.body()
-                        Log.d("SUCCESS", forGoogleLogin?.code)
-                        val code = forGoogleLogin?.code?.let { it1 -> Integer.parseInt(it1) }
-                        if (code == 201) {
-                            var intent = Intent(applicationContext, main::class.java).apply {
-                                putExtra(TOKEN, forGoogleLogin?.token)
-                            }
-                            startActivity(intent)
-                        }
-                        else {
-                            Toast.makeText(this@login, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    else {
-                        var forGoogleLogin = response.body()
-                        Log.d("FAIL", forGoogleLogin?.code)
-                    }
-                }
-            })
+//            google_loginservice.requestGoogleLogin(uid = uid, email = email).enqueue(object :Callback<forGoogleLogin> {
+//                override fun onFailure(call: Call<forGoogleLogin>, t: Throwable) {
+//                    Log.e("Login", t.message)
+//                    var dialog = AlertDialog.Builder(this@login)
+//                    dialog.setTitle("ERROR")
+//                    dialog.setMessage("서버와의 통신에 실패하였습니다.")
+//                    dialog.show()
+//                }
+//
+//                override fun onResponse(call: Call<forGoogleLogin>, response: Response<forGoogleLogin>) {
+//                    if (response?.isSuccessful) {
+//                        var forGoogleLogin = response.body()
+//                        Log.d("SUCCESS", forGoogleLogin?.code)
+//                        val code = forGoogleLogin?.code?.let { it1 -> Integer.parseInt(it1) }
+//                        if (code == 201) {
+//                            var intent = Intent(applicationContext, main::class.java).apply {
+//                                putExtra(TOKEN, forGoogleLogin?.token)
+//                            }
+//                            startActivity(intent)
+//                        }
+//                        else {
+//                            Toast.makeText(this@login, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                    else {
+//                        var forGoogleLogin = response.body()
+//                        Log.d("FAIL", forGoogleLogin?.code)
+//                    }
+//                }
+//            })
             login()
         }
     }
@@ -218,7 +216,7 @@ class login : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                startActivity(main.getLaunchIntent(this))
+                startActivity(mainView.getLaunchIntent(this))
 //                val user = FirebaseAuth.getInstance().currentUser
 //                user?.let {
 //                    for (profile in it.providerData) {

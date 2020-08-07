@@ -37,7 +37,7 @@
         </provider>
         <activity android:name=".camera.camera"></activity>
         <activity android:name=".aboutClothes" />
-        <activity android:name=".main" />
+        <activity android:name=".mainView" />
         <activity android:name=".menu" />
         <activity android:name=".auth.signup" />
         <activity android:name=".auth.login" />

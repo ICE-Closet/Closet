@@ -306,6 +306,9 @@ class camera : AppCompatActivity() {
                     Toast.makeText(this@camera, "촬영한 옷이 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 else {
+                    var cameraResponse = response.body()
+                    Log.d("Failed", "Message : " + cameraResponse?.msg)
+                    Log.d("Failed", "Code : " + cameraResponse?.code)
                     Toast.makeText(this@camera, "옷을 다시 촬영해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }

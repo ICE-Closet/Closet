@@ -9,7 +9,7 @@ import com.example.icecloset.auth.login
 import com.example.icecloset.weather.WeatherResponse
 import com.example.icecloset.weather.WeatherService
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_view.*
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.roundToInt
@@ -24,14 +24,15 @@ class mainView : AppCompatActivity() {
         }
     }
 
+    /* openWeatherAPI */
     var BaseURL = "http://api.openweathermap.org/"
     var AppKey = "1cdf1f631d32bf81a63275b6486282f4"
     var lat = "37.57"
-    var lon = "126.98"
+    var lon = "126.98"  // Seoul
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_view)
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BaseURL)
@@ -59,7 +60,7 @@ class mainView : AppCompatActivity() {
 //                    var r_maxTemp = max_Temp.roundToInt()
                     var r_aveTemp = ave_Temp.roundToInt()
 
-                    val weatherAPIString = "국가 : " + weatherResponse!!.sys!!.country + "\n" + "현재 기온 : " + r_Temp + "평균 기온 : " + r_aveTemp
+                    val weatherAPIString = "국가 : " + weatherResponse!!.sys!!.country + "\n" + "현재 기온 : " + r_Temp + " " + "평균 기온 : " + r_aveTemp
                     weatherAPI.text = weatherAPIString
                 }
             }
@@ -95,18 +96,3 @@ class mainView : AppCompatActivity() {
         FirebaseAuth.getInstance().signOut()
     }
 }
-
-
-
-
-//class Main {
-//    @SerializedName("temp") var temp: Float = 0.toFloat()
-//    //    @SerializedName("humidity") var humidity: Float = 0.toFloat()
-////    @SerializedName("pressure") var pressure: Float = 0.toFloat()
-//    @SerializedName("temp_min") var temp_min: Float = 0.toFloat()
-//    @SerializedName("temp_max") var temp_max: Float = 0.toFloat()
-//}
-//
-//class Sys {
-//    @SerializedName("country") var country: String? = null
-//}

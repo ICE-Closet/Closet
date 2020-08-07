@@ -180,7 +180,8 @@ class ClothesInfo(ListView):
         bottom = request.POST.get('bottom', '') # long_pants or short_pants or long_skirt or short_skirt
         outer = request.POST.get('outer', '') # coat or bubble_jacket or cardigan
         color = request.POST.get('color', '')
-        form = Clothes_category(image=image, top=top, bottom=bottom, outer=outer, color=color)
+        pattern = request.POST.get('pattern', '')
+        form = Clothes_category(image=image, top=top, bottom=bottom, outer=outer, color=color, pattern=pattern)
         form.save() # clothes_category db에 image저장
         print("save complete")
 

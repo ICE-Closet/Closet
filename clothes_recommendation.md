@@ -67,4 +67,13 @@
 #### 옷 추천 코드 or 구성
 👉[옷 추천 논문 정리1](https://github.com/chullhwan-song/Reading-Paper/issues/56)
 👉[옷 추천 논문 정리2](https://github.com/mgibbs1259/Final-Project-Group8)
+👉[옷 추천 이화여대](http://www.jksctxml.co.kr/xml2/5004/784/02806815/02806815.html)
 * 문제는 딥러닝 추천이 정확할지 알고리즘이 정확할지 모르겠음 -> 시간으로 생각하면 알고리즘으로 작성해야될거 같음
+============================================================================
+
+#### 옷 추천
+1. 사용자 데이터가 없기 때문에 Contents-based filerting
+
+  - 옷의 속성 정보 + 사용자 프로파일 => 제품 추천
+  
+2. 데이터가 어느정도 쌓이면 Collaborative filtering

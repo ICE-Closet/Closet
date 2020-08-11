@@ -1,6 +1,6 @@
-package com.example.icecloset.auth.google
+package com.example.icecloset
 
-data class forGoogleLogin (
+data class googleResponse (
     val code : String,  // 201
     val msg : String,
     val token :String

@@ -71,7 +71,6 @@ class mainView : AppCompatActivity() {
 
         initializeUI() // Google Auth
 
-
         user_closet.setOnClickListener {
             var intent = Intent(applicationContext, aboutClothes::class.java).apply {
                 putExtra(TOKEN, userToken)
@@ -79,7 +78,7 @@ class mainView : AppCompatActivity() {
             startActivity(intent)
         }
 
-        user_cody.setOnClickListener {
+        today_cody.setOnClickListener {
             var intent = Intent(applicationContext, aboutClothes::class.java)
             startActivity(intent)
         }

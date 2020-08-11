@@ -54,13 +54,13 @@
         android:text="Your Closet"
         android:textColor="#EEE6E6"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/user_cody"
+        app:layout_constraintBottom_toTopOf="@+id/today_cody"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/user_cody"
+        android:id="@+id/today_cody"
         android:layout_width="250dp"
         android:layout_height="70dp"
         android:layout_marginBottom="44dp"

@@ -13,7 +13,7 @@ __Complete!__
 
 3. Kakao Auth (Kakao Login)  
 ~~Token 관리~~  
-~~로그아웃 구현~~
+~~로그아웃 구현~~ <br>
 -> uid, email 전달 확인 (8/11)
 
 4. Google Firebase (Google Login / Facebook Login)  
@@ -22,5 +22,5 @@ Retrofit 구현 완료 <br>
 -> fun initializeUI()에서 uid, e-mail 전송되는거 다시 확인!! (null로 전송됨) : __Complete!__ <br>
 -> token 전달 잘 되는지 확인 (8/11)
 
-5. Glide Library
+5. Glide Library <br>
 __study__

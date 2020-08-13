@@ -9,8 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
+        android:name="android.hardware.camera" android:required="true" />
 
     <application
         android:name=".auth.kakao.GlobalApplication"
@@ -21,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".todayCody"></activity>
+
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -37,6 +36,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".todayCody"></activity>
         <activity android:name=".camera.camera" />
         <activity android:name=".aboutClothes" />
         <activity android:name=".mainView" />

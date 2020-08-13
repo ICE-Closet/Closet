@@ -15,6 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.divyanshu.colorseekbar.ColorSeekBar
 import com.divyanshu.colorseekbar.ColorSeekBar.OnColorChangeListener
 import com.example.icecloset.R
@@ -49,6 +51,7 @@ class camera : AppCompatActivity() {
 
     var timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     var fileName = "${timestamp}.jpeg"
+    val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
 
 //    var top: String = ""
 //    lateinit var s_top : String
@@ -205,11 +208,11 @@ class camera : AppCompatActivity() {
     private fun setPermission() {
         val permission = object : PermissionListener {
             override fun onPermissionGranted() {    // Permission OK
-                Toast.makeText(this@camera, "Permission granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@camera, "모든 권한이 허용되었습니다.\n사진을 촬영해 주새요.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {  // Permission denied
-                Toast.makeText(this@camera, "Permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@camera, "촬영 권한이 거부되었습니다.\n잠시후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -222,7 +225,7 @@ class camera : AppCompatActivity() {
     }
 
     // 사진 결과값
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {   // 사진 찍고 난 후 결과물
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {     // 이미지를 성공적으로 받을 때
@@ -230,7 +233,12 @@ class camera : AppCompatActivity() {
             val file = File(curPhotoPath)
             if (Build.VERSION.SDK_INT < 28) {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(file))
-                imageView.setImageBitmap(bitmap)
+//                imageView.setImageBitmap(bitmap)
+                Glide.with(this)
+                    .load(folderPath)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(imageView)
             }
             else {
                 val decode = ImageDecoder.createSource(
@@ -239,7 +247,12 @@ class camera : AppCompatActivity() {
                 )
 
                 bitmap = ImageDecoder.decodeBitmap(decode)
-                imageView.setImageBitmap(bitmap)
+//                imageView.setImageBitmap(bitmap)
+                Glide.with(this)
+                    .load(folderPath)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(imageView)
             }
             savePhoto(file, bitmap)
         }
@@ -247,7 +260,7 @@ class camera : AppCompatActivity() {
 
 
     private fun savePhoto(file: File, bitmap: Bitmap) {
-        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
+//        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
 //        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
 //        val fileName = "${timestamp}.jpeg"
         val folder = File(folderPath)

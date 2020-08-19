@@ -43,13 +43,13 @@ class mainView : AppCompatActivity() {
         val call = weatherService.getCurrentWeatherData(lat, lon, AppKey)
         call.enqueue(object : Callback<WeatherResponse> {
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
-                Log.d("FAILED", "message : " + t.message)
+                Log.d("onFailure(Weather)", "message : " + t.message)
             }
 
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 if (response.code() == 200) {
                     val weatherResponse = response.body()
-                    Log.d("SUCCESS", "messsage : " + weatherResponse?.code)
+                    Log.d("onResponse(Weather)", "messsage : " + weatherResponse?.code)
                     var Temperature = weatherResponse!!.main!!.temp - 273.15
                     var min_Temp = weatherResponse!!.main!!.temp_min - 273.15
                     var max_Temp = weatherResponse!!.main!!.temp_max - 273.15
@@ -69,7 +69,9 @@ class mainView : AppCompatActivity() {
         var userToken = intent.getStringExtra(TOKEN).toString()
         Log.d(TOKEN, userToken)
 
-        initializeUI() // Google Auth
+        logout_btn.setOnClickListener {     // Google Auth
+            logout()
+        }
 
         user_closet.setOnClickListener {
             var intent = Intent(applicationContext, aboutClothes::class.java).apply {
@@ -79,14 +81,8 @@ class mainView : AppCompatActivity() {
         }
 
         today_cody.setOnClickListener {
-            var intent = Intent(applicationContext, aboutClothes::class.java)
+            var intent = Intent(applicationContext, todayCody::class.java)
             startActivity(intent)
-        }
-    }
-
-    private fun initializeUI() {
-        logout_btn.setOnClickListener {
-            logout()
         }
     }
 

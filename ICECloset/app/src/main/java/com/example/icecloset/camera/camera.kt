@@ -51,7 +51,7 @@ class camera : AppCompatActivity() {
 
     var timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     var fileName = "${timestamp}.jpeg"
-    val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
+
 
 //    var top: String = ""
 //    lateinit var s_top : String
@@ -235,7 +235,8 @@ class camera : AppCompatActivity() {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(file))
 //                imageView.setImageBitmap(bitmap)
                 Glide.with(this)
-                    .load(folderPath)
+                    .asBitmap()
+                    .load(bitmap)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(imageView)
@@ -249,7 +250,8 @@ class camera : AppCompatActivity() {
                 bitmap = ImageDecoder.decodeBitmap(decode)
 //                imageView.setImageBitmap(bitmap)
                 Glide.with(this)
-                    .load(folderPath)
+                    .asBitmap()
+                    .load(bitmap)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(imageView)
@@ -260,7 +262,7 @@ class camera : AppCompatActivity() {
 
 
     private fun savePhoto(file: File, bitmap: Bitmap) {
-//        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
+        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/"
 //        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
 //        val fileName = "${timestamp}.jpeg"
         val folder = File(folderPath)

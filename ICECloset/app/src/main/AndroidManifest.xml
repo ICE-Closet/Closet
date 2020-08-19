@@ -40,7 +40,6 @@
         <activity android:name=".camera.camera" />
         <activity android:name=".aboutClothes" />
         <activity android:name=".mainView" />
-        <activity android:name=".menu" />
         <activity android:name=".auth.signup" />
         <activity android:name=".auth.login" />
         <activity

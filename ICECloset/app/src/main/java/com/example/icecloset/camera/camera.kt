@@ -58,6 +58,8 @@ class camera : AppCompatActivity() {
     var timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     var fileName = "${timestamp}.jpeg"
 
+    
+
 
 //    var top: String = ""
 //    lateinit var s_top : String
@@ -241,13 +243,13 @@ class camera : AppCompatActivity() {
             val file = File(curPhotoPath)
             if (Build.VERSION.SDK_INT < 28) {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(file))
-//                imageView.setImageBitmap(bitmap)
-                Glide.with(this)
-                    .asBitmap()
-                    .load(bitmap)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(imageView)
+                imageView.setImageBitmap(bitmap)
+//                Glide.with(this)
+//                    .asBitmap()
+//                    .load(bitmap)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .skipMemoryCache(true)
+//                    .into(imageView)
             }
             else {
                 val decode = ImageDecoder.createSource(
@@ -256,13 +258,13 @@ class camera : AppCompatActivity() {
                 )
 
                 bitmap = ImageDecoder.decodeBitmap(decode)
-//                imageView.setImageBitmap(bitmap)
-                Glide.with(this)
-                    .asBitmap()
-                    .load(bitmap)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(imageView)
+                imageView.setImageBitmap(bitmap)
+//                Glide.with(this)
+//                    .asBitmap()
+//                    .load(bitmap)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .skipMemoryCache(true)
+//                    .into(imageView)
             }
             savePhoto(file, bitmap)
         }
@@ -356,32 +358,20 @@ class camera : AppCompatActivity() {
                 rootObject.put("img", "aaa")
 
                 var jsonLength: Int = rootObject.toString().length
-//                Log.d("JSON", String.format("%d", jsonLength))
 
                 var temp: String = String.format("%d", jsonLength)
-//                Log.d("JSON", temp)
                 var length: Int = temp.length
-//                Log.d("JSON", String.format("%d", length))
 
-//                var json : Int = rootObject.length().toString().length
-//                Log.d("JSON", json.toString())
-//
                 var space = "                "
-//                Log.d("JSON", String.format("%d", space.length))
                 space = space.substring(length)
 //                Log.d("JSON", String.format("%d", space.length))
 //
                 var json : String = jsonLength.toString() + space
                 Log.d("JSON", json)
-//                Log.d("JSON", String.format("%d", json.length))
-//
-//                var encodedLength : String = Base64.getEncoder().encodeToString(json.toByteArray())
-                var encodedLength : ByteArray = json.toByteArray()
 
 
-                dos.writeUTF(encodedLength.toString())
-                Log.d("ENCODE", encodedLength.toString())
-//                dos.writeUTF(rootObject.toString())
+                dos.writeBytes(json)
+                dos.writeBytes(rootObject.toString())
 
                 Log.d("NetworkThread", "JSON Length : " + jsonLength)
                 Log.d("NetworkThread", rootObject.toString())

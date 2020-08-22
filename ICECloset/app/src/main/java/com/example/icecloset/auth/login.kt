@@ -96,10 +96,12 @@ class login : AppCompatActivity() {
                         }
                         else if (code == 2) {
                             Toast.makeText(this@login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
+
                         }
                     }
                     else {
                         var forLogin = response.body()
+                        Log.e("FAIL", response.errorBody().toString())
                         Log.d("FAIL", forLogin?.code)
                         Toast.makeText(this@login, "로그인에 실패하였습니다. \n 계정 혹은 비밀번호를 다시 확인하세요.", Toast.LENGTH_SHORT).show()
                     }

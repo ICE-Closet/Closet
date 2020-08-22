@@ -1,47 +1,33 @@
 package com.example.icecloset.camera
 
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
-import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.divyanshu.colorseekbar.ColorSeekBar
-import com.divyanshu.colorseekbar.ColorSeekBar.OnColorChangeListener
+import androidx.core.graphics.drawable.toBitmap
 import com.example.icecloset.R
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_camera.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okio.Utf8
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.io.DataOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.lang.Exception
+import java.io.*
 import java.net.Socket
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,7 +43,9 @@ class camera : AppCompatActivity() {
 
     var timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     var fileName = "${timestamp}.jpeg"
-    
+
+    lateinit var bitmap: Bitmap
+//    var bitmap :Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,7 +126,7 @@ class camera : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {     // 이미지를 성공적으로 받을 때
-            val bitmap: Bitmap
+//            val bitmap: Bitmap
             val file = File(curPhotoPath)
             if (Build.VERSION.SDK_INT < 28) {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(file))
@@ -190,74 +178,49 @@ class camera : AppCompatActivity() {
     private fun sendPhoto() {
         var thread = NetworkThread()
         thread.start()
-//        userTimeStamp = SimpleDateFormat("HHmmss").format(Date())
-
-
-//        var requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-//        var body : MultipartBody.Part = MultipartBody.Part.createFormData("image",  userToken + "_" + userTimeStamp + ".jpeg", requestBody)
-//
-//        var gson : Gson = GsonBuilder()
-//            .setLenient()
-//            .create()
-//
-//        var retrofit = Retrofit.Builder()
-//            .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .build()
-//
-//        var cameraservice : forCameraService = retrofit.create(forCameraService::class.java)
-//
-//        var top = s_top
-//        var bottom = s_bottomChar + "_" + s_bottomStyle
-//        var outer = s_outer
-//
-//        Log.d("CHECK", top)
-//        Log.d("CHECK", bottom)
-//        Log.d("CHECK", outer)
-//
-//        cameraservice.requestCamera(userToken = userToken, imageFile = body).enqueue(object : Callback<forCamera> {
-//            override fun onFailure(call: Call<forCamera>, t: Throwable) {
-//                Log.e("Camera", t.message)
-//                var dialog = AlertDialog.Builder(this@camera)
-//                dialog.setTitle("ERROR")
-//                dialog.setMessage("서버와의 통신에 실패하였습니다.")
-//                dialog.show()
-//            }
-//
-//            override fun onResponse(call: Call<forCamera>, response: Response<forCamera>) {
-//                if (response?.isSuccessful) {
-//                    Log.d("Success", "" + response?.body().toString())
-//                    var cameraResponse = response.body()
-//                    Log.d("CAMERA" , "message : " + cameraResponse?.msg)
-//                    Log.d("CAMERA" , "code : " + cameraResponse?.code)
-//                    Toast.makeText(this@camera, "촬영한 옷이 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show()
-//                }
-//                else {
-//                    var cameraResponse = response.body()
-//                    Log.d("Failed", "Message : " + cameraResponse?.msg)
-//                    Log.d("Failed", "Code : " + cameraResponse?.code)
-//                    Toast.makeText(this@camera, "옷을 다시 촬영해주세요.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        })
     }
 
+
+
     inner class NetworkThread : Thread() {
+        @ExperimentalStdlibApi
         override fun run() {
             try {
                 val socket = Socket("220.67.124.120", 30000)  //220.67.124.185:65000
                 Log.d("NetworkThread", "서버 접속 성공")
 
+                Log.d("BITMAP", bitmap.toString())
+
+
+                val image : ImageView = findViewById(R.id.imageView)
+                val bmp : Bitmap = image.drawable.toBitmap()
+
+                val stream = ByteArrayOutputStream()
+                bmp.compress(Bitmap.CompressFormat.JPEG, 90, stream)
+                val byteArray = stream.toByteArray()
+
+                val aa : String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+                Log.d("AA", aa)
+
+
                 var output = socket.getOutputStream()
                 var dos = DataOutputStream(output)
 
+
+                // Create JSON
                 var rootObject = JSONObject()
                 rootObject.put("token", userToken)
                 rootObject.put("check", "")
-                rootObject.put("img", "aaa")
+//                rootObject.put("img", byteArray.decodeToString())
+                rootObject.put("img", aa)
+                
+                stream.flush()
+                stream.close()
+
 
                 var jsonLength: Int = rootObject.toString().length
 
+                //
                 var temp: String = String.format("%d", jsonLength)
                 var length: Int = temp.length
 
@@ -267,7 +230,6 @@ class camera : AppCompatActivity() {
 //
                 var json : String = jsonLength.toString() + space
                 Log.d("JSON", json)
-
 
                 dos.writeBytes(json)
                 dos.writeBytes(rootObject.toString())

@@ -57,18 +57,7 @@ class camera : AppCompatActivity() {
 
     var timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     var fileName = "${timestamp}.jpeg"
-
     
-
-
-//    var top: String = ""
-//    lateinit var s_top : String
-//    lateinit var s_bottomStyle : String
-//    lateinit var s_bottomChar : String
-//    lateinit var s_outer : String
-
-//    lateinit var view: View
-//    lateinit var colorSeekBar: ColorSeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,96 +78,6 @@ class camera : AppCompatActivity() {
             sendPhoto()
 
         }
-
-//        topGroup.setOnCheckedChangeListener { _, checkedId ->
-//            when(checkedId) {
-//                R.id.top_non -> {
-//                    Log.d("TOP", "Non Selected")
-//                    Toast.makeText(this@camera, "${top_non.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_top = top_non.text as String
-//                }
-//                R.id.top_short -> {
-//                    Log.d("TOP", "Short Selected")
-//                    Toast.makeText(this@camera, "${top_short.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_top = top_short.text as String
-//                }
-//                R.id.top_long -> {
-//                    Log.d("TOP", "Long Selected")
-//                    Toast.makeText(this@camera, "${top_long.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_top = top_long.text as String
-//                }
-//            }
-//        }
-//
-//        bot_style_group.setOnCheckedChangeListener { _, checkedId ->
-//            when(checkedId) {
-//                R.id.bot_style_non -> {
-//                    Log.d("BOTTOM_STYLE", "Non Selected")
-//                    Toast.makeText(this@camera, "${bot_style_non.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_bottomStyle = bot_style_non.text as String
-//                }
-//                R.id.bot_style_pants -> {
-//                    Log.d("BOTTOM_STYLE", "Pants Selected")
-//                    Toast.makeText(this@camera, "${bot_style_pants.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_bottomStyle = bot_style_pants.text as String
-//                }
-//                R.id.bot_style_skirts -> {
-//                    Log.d("BOTTOM_STYLE", "Skirts Selected")
-//                    Toast.makeText(this@camera, "${bot_style_skirts.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_bottomStyle = bot_style_skirts.text as String
-//                }
-//            }
-//        }
-//
-//        bot_char_group.setOnCheckedChangeListener { _, checkedId ->
-//            when(checkedId) {
-//                R.id.bot_char_non -> {
-//                    Log.d("BOTTOM_CHAR", "Non Selected")
-//                    Toast.makeText(this@camera, "${bot_char_non.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_bottomChar = bot_char_non.text as String
-//                }
-//                R.id.bot_char_short -> {
-//                    Log.d("BOTTOM_CHAR", "Short Selected")
-//                    Toast.makeText(this@camera, "${bot_char_short.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_bottomChar = bot_char_short.text as String
-//                }
-//                R.id.bot_char_long -> {
-//                    Log.d("BOTTOM_CHAR", "Long Selected")
-//                    Toast.makeText(this@camera, "${bot_char_long.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_bottomChar = bot_char_long.text as String
-//                }
-//            }
-//        }
-//
-//        outerGroup.setOnCheckedChangeListener { _, checkedId ->
-//            when(checkedId) {
-//                R.id.outer_non -> {
-//                    Log.d("OUTER", "Non Selected")
-//                    Toast.makeText(this@camera, "${outer_non.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_outer = outer_non.text as String
-//                }
-//                R.id.top_short -> {
-//                    Log.d("OUTER", "Padding Selected")
-//                    Toast.makeText(this@camera, "${outer_padding.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_outer = outer_padding.text as String
-//                }
-//                R.id.top_long -> {
-//                    Log.d("OUTER", "Cardigan Selected")
-//                    Toast.makeText(this@camera, "${outer_cardigan.text}이 선택되었습니다.", Toast.LENGTH_SHORT).show()
-//                    s_outer = outer_cardigan.text as String
-//                }
-//            }
-//        }
-
-//        view = findViewById(R.id.view)
-//        colorSeekBar = findViewById(R.id.color_seekbar)
-//
-//        colorSeekBar.setOnColorChangeListener(object : OnColorChangeListener {
-//            override fun onColorChangeListener(i: Int) {
-//                view.setBackgroundColor(i)
-//            }
-//        })
-
     }
 
 

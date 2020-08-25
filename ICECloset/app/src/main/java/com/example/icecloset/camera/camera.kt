@@ -44,7 +44,7 @@ class camera : AppCompatActivity() {
     var timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
     var fileName = "${timestamp}.jpeg"
 
-    lateinit var bitmap: Bitmap
+//    lateinit var bitmap: Bitmap
 //    var bitmap :Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,7 +126,7 @@ class camera : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {     // 이미지를 성공적으로 받을 때
-//            val bitmap: Bitmap
+            val bitmap: Bitmap
             val file = File(curPhotoPath)
             if (Build.VERSION.SDK_INT < 28) {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(file))
@@ -189,8 +189,7 @@ class camera : AppCompatActivity() {
                 val socket = Socket("220.67.124.120", 30000)  //220.67.124.185:65000
                 Log.d("NetworkThread", "서버 접속 성공")
 
-                Log.d("BITMAP", bitmap.toString())
-
+//                Log.d("BITMAP", bitmap.toString())
 
                 val image : ImageView = findViewById(R.id.imageView)
                 val bmp : Bitmap = image.drawable.toBitmap()
@@ -199,8 +198,8 @@ class camera : AppCompatActivity() {
                 bmp.compress(Bitmap.CompressFormat.JPEG, 90, stream)
                 val byteArray = stream.toByteArray()
 
-                val aa : String = Base64.encodeToString(byteArray, Base64.DEFAULT)
-                Log.d("AA", aa)
+                val bitmapImage : String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+                Log.d("NetworkThread", bitmapImage)
 
 
                 var output = socket.getOutputStream()
@@ -212,11 +211,10 @@ class camera : AppCompatActivity() {
                 rootObject.put("token", userToken)
                 rootObject.put("check", "")
 //                rootObject.put("img", byteArray.decodeToString())
-                rootObject.put("img", aa)
+                rootObject.put("img", bitmapImage)
                 
                 stream.flush()
                 stream.close()
-
 
                 var jsonLength: Int = rootObject.toString().length
 

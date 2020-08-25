@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor = "#858585">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="Home"
+        app:cnb_iconColor="@color/home"/>
+
+    <item
+        android:id="@+id/closet"
+        android:icon="@drawable/closet"
+        android:title="My Closet"
+        app:cnb_iconColor="@color/closet"/>
+
+    <item
+        android:id="@+id/like"
+        android:icon="@drawable/like"
+        android:title="Like"
+        app:cnb_iconColor="@color/like"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"
+        app:cnb_iconColor="@color/profile"/>
+
+</menu>

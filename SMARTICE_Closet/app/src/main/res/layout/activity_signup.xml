@@ -139,23 +139,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputName">
 
-        <CheckBox
-            android:id="@+id/m_checkbox"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/round_blue_border"
-            android:text="Male"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/f_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_blue_border"
-            android:text="Female"
-            android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_blue_border"
+                android:text="    Male"
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_blue_border"
+                android:text="    Female"
+                android:textSize="18sp" />
+        </RadioGroup>
     </LinearLayout>
 
     <Button

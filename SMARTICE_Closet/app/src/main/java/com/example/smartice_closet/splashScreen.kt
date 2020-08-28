@@ -19,6 +19,6 @@ class splashScreen : AppCompatActivity() {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
-        }, 3000)    // Login Activity로 넘어가는 delay시간
+        }, 2000)    // Login Activity로 넘어가는 delay시간
     }
 }

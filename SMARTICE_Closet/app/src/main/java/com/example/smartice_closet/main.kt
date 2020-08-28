@@ -36,7 +36,7 @@ class main : AppCompatActivity() {
                         .beginTransaction()
                         .replace(R.id.fragment_container, homeFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
+                        .commitNow()
                 }
 
                 R.id.closet -> {
@@ -44,7 +44,7 @@ class main : AppCompatActivity() {
                         .beginTransaction()
                         .replace(R.id.fragment_container, closetFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
+                        .commitNow()
                 }
 
                 R.id.like -> {
@@ -52,7 +52,7 @@ class main : AppCompatActivity() {
                         .beginTransaction()
                         .replace(R.id.fragment_container, likeFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
+                        .commitNow()
                 }
 
                 R.id.profile -> {
@@ -60,7 +60,7 @@ class main : AppCompatActivity() {
                         .beginTransaction()
                         .replace(R.id.fragment_container, profileFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
+                        .commitNow()
                 }
             }
             true

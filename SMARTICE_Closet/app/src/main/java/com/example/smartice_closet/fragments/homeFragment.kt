@@ -26,6 +26,8 @@ class homeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -38,9 +38,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    // Android Material Design
+    implementation 'com.google.android.material:material:1.0.0'
+
     // Bottom Navigation Bar
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.2.0'
 
     // Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    // Color Picker
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.4'
 }

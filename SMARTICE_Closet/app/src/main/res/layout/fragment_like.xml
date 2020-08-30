@@ -161,6 +161,13 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/topRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/likeTop_iV" />
+
 
                         </RelativeLayout>
 
@@ -198,6 +205,13 @@
                                 android:textAlignment="center"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/bottomRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/likeBottom_iV" />
 
 
                         </RelativeLayout>
@@ -237,6 +251,13 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/outerRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/likeOuter_iV" />
+
 
                         </RelativeLayout>
 
@@ -274,6 +295,13 @@
                                 android:textAlignment="center"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/dressRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="20dp"
+                                android:layout_toRightOf="@id/likeDress_iV" />
 
 
                         </RelativeLayout>

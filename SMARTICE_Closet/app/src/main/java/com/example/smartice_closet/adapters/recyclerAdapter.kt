@@ -1,12 +1,12 @@
-package com.example.smartice_closet
+package com.example.smartice_closet.adapters
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smartice_closet.Model
+import com.example.smartice_closet.R
 import com.example.smartice_closet.fragments.closetFragment
 import kotlinx.android.synthetic.main.row.view.*
 
@@ -47,7 +47,7 @@ class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragme
                 // Outer 사진이 있는 Activity로 전환
             }
             else if (position == 3) {
-                Log.d("onBindViewHolder", "Dress Checked!")
+                Log.d("onBindViewHolder", "Dress5 Checked!")
                 // Dress 사진이 있는 Activity로 전환
             }
         }

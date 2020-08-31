@@ -1,11 +1,15 @@
 package com.example.smartice_closet.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.smartice_closet.R
+import com.example.smartice_closet.camera
+import com.example.smartice_closet.todayCody
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * A simple [Fragment] subclass.
@@ -25,12 +29,18 @@ class homeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        todayCody_cV.setOnClickListener{
+            val intent = Intent(context, todayCody::class.java)
+            startActivity(intent)
+        }
+
+        camer_cV.setOnClickListener {
+            val intent = Intent(context, camera::class.java)
+            startActivity(intent)
+        }
 
 
 
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 }

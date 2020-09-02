@@ -145,7 +145,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/choiceMale"
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/round_blue_border"
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/choiceFemale"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:background="@drawable/round_blue_border"

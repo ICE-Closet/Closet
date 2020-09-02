@@ -2,8 +2,6 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="my_images"
-        path="Android/data/com.example.icecloset/files/Pictures" />
-<!--    <root-path-->
-<!--        name="root"-->
-<!--        path="."/>-->
+        path="Android/data/com.example.smartice_closet/files/Pictures" />
+
 </paths>

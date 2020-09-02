@@ -19,14 +19,14 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.icecloset.fileprovider"
+            android:authorities="com.example.smartice_closet.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        
+
         <activity android:name=".camera"></activity>
         <activity android:name=".todayCody" />
         <activity android:name=".main" />

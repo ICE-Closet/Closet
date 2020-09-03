@@ -1,5 +1,6 @@
 package com.example.smartice_closet.adapters
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,7 @@ class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragme
             if (position == 0) {
                 Log.d("onBindViewHolder", "TOP Checked!")
                 // Top 사진이 있는 Activity로 전환
+                val intent = Intent(context, )
             }
             else if (position == 1) {
                 Log.d("onBindViewHolder", "Bottom Checked!")

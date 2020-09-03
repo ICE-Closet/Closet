@@ -34,8 +34,7 @@ class closetFragment : Fragment() {
         arrayList.add(Model("Outer", "Check your Outer clothing", R.drawable.outerwear))
         arrayList.add(Model("Dress", "Check your Dress clothing", R.drawable.dresswear))
 
-        val Adapter =
-            recyclerAdapter(arrayList, this)
+        val Adapter = recyclerAdapter(arrayList, this)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = Adapter

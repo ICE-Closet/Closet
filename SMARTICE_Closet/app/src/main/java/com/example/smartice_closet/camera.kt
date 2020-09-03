@@ -52,7 +52,6 @@ class camera : AppCompatActivity() {
             sendPhoto()
         }
 
-
     }
 
 

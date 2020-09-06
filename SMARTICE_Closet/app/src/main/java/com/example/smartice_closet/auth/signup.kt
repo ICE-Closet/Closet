@@ -61,22 +61,25 @@ class signup : AppCompatActivity() {
 
                     override fun onResponse(call: Call<signupResponse>, response: Response<signupResponse>) {
                         if (response?.isSuccessful) {
-                            var signup_response = response.body()
-                            Log.d("SIGNUP", "msg : " + signup_response?.msg)
-                            Log.d("SIGNUP", "code : " + signup_response?.code)
+                            if (response.code() == 201) {
+                                var signup_response = response.body()
+                                Log.d("SIGNUP", "msg : " + signup_response?.msg)
+                                Log.d("SIGNUP", "code : " + signup_response?.code)
 
-                            Toast.makeText(this@signup, "회원가입이 완료되었습니다. \n 사용자 이메일 : " + s_email, Toast.LENGTH_LONG).show()
-                            var intent = Intent(applicationContext, Login::class.java).apply {
-                                putExtra(USERNAME, s_name)
+                                Toast.makeText(this@signup, "회원가입이 완료되었습니다. \n 사용자 이메일 : " + s_email, Toast.LENGTH_LONG).show()
+                                var intent = Intent(applicationContext, Login::class.java).apply {
+                                    putExtra(USERNAME, s_name)
+                                }
+                                startActivity(intent)
+                                finish()
                             }
-                            startActivity(intent)
-                            finish()
                         }
                         else {
-                            var signup_response = response.body()
-                            Log.d("ERROR", signup_response?.code)
-                            Toast.makeText(this@signup, "회원가입이 실패하였습니다.", Toast.LENGTH_SHORT).show()
-
+                            if (response.code() == 400) {
+                                var signup_response = response.body()
+                                Log.d("ERROR", signup_response?.code)
+                                Toast.makeText(this@signup, "이미 존재하는 이메일 입니다.", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
 

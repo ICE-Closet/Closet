@@ -98,10 +98,6 @@ class Login : AppCompatActivity() {
                             Toast.makeText(this@Login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()
 
                         }
-//                        var login_response = response.body()
-//                        Log.e("FAIL", response.errorBody().toString())
-//                        Log.d("FAIL", login_response?.code)
-//                        Toast.makeText(this@Login, "로그인에 실패하였습니다. \n 계정 혹은 비밀번호를 다시 확인하세요.", Toast.LENGTH_SHORT).show()
                     }
                 }
             })

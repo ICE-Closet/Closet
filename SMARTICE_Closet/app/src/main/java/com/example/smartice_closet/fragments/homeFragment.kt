@@ -64,10 +64,10 @@ class homeFragment : Fragment() {
 
     private fun setWeather() {
         /* openWeatherAPI */
-        var BaseURL = "http://api.openweathermap.org/"
-        var AppKey = "1cdf1f631d32bf81a63275b6486282f4"
-        var lat = "37.57"
-        var lon = "126.98"  // Seoul
+        val BaseURL = "http://api.openweathermap.org/"
+        val AppKey = "1cdf1f631d32bf81a63275b6486282f4"
+        val lat = "37.57"
+        val lon = "126.98"  // Seoul
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BaseURL)

@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smartice_closet.R
-import com.example.smartice_closet.fragments.homeFragment
 import com.example.smartice_closet.main
 import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,11 +53,13 @@ class Login : AppCompatActivity() {
 
                 override fun onResponse(call: Call<loginResponse>, response: Response<loginResponse>) {
                     if (response?.isSuccessful) {
-                        var login_response = response.body()
-                        Log.d("SUCCESS", login_response?.code)
+                        if (response.code() == 200) {
+                            Log.d("Status 200", "Success")
 
-                        val code = login_response?.code?.let { it -> Integer.parseInt(it) }
-                        if (code == 201) {
+                            val login_response = response.body()
+                            Log.d("STATUS 200", login_response.toString())
+//                            var code = login_response?.code?.let { it -> Integer.parseInt(it) }
+
                             Toast.makeText(this@Login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
                             var intent = Intent(applicationContext, main::class.java).apply {
                                 putExtra(TOKEN, login_response?.token)
@@ -66,25 +68,42 @@ class Login : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         }
-                        else if (code == 0) {
-                            Toast.makeText(this@Login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()
-                        }
-                        else if (code == 1) {
-                            Toast.makeText(this@Login, "로그인에 실패하였습니다. \n 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
-                        }
-                        else if (code == 2) {
-                            Toast.makeText(this@Login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
-
-                        }
                     }
                     else {
-                        var login_response = response.body()
-                        Log.e("FAIL", response.errorBody().toString())
-                        Log.d("FAIL", login_response?.code)
-                        Toast.makeText(this@Login, "로그인에 실패하였습니다. \n 계정 혹은 비밀번호를 다시 확인하세요.", Toast.LENGTH_SHORT).show()
+                        if (response.code() == 400) {
+                            Log.d("Status 400", response.errorBody().toString())
+                            val jsonObject = JSONObject(response.errorBody()!!.string())
+                            Log.d("errorBody", jsonObject.toString())
+                            var cod: String = jsonObject.getString("code")
+                            val msg: String = jsonObject.getString("msg")
+
+                            var code = cod?.let { it -> Integer.parseInt(it) }
+
+                            if (code == 1) {
+                                Log.d("Status 400 - Code 1", msg)
+                                Toast.makeText(this@Login, "로그인에 실패하였습니다. \n 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                            }
+                            else if (code == 2) {
+                                Log.d("Status 400 - Code 2", msg)
+                                Toast.makeText(this@Login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        else if (response.code() == 401) {
+                            Log.d("Status 401", response.errorBody().toString())
+                            val jsonObject = JSONObject(response.errorBody()!!.string())
+                            Log.d("errorBody", jsonObject.toString())
+                            val msg: String = jsonObject.getString("msg")
+
+                            Log.d("Status 401", msg)
+                            Toast.makeText(this@Login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()
+
+                        }
+//                        var login_response = response.body()
+//                        Log.e("FAIL", response.errorBody().toString())
+//                        Log.d("FAIL", login_response?.code)
+//                        Toast.makeText(this@Login, "로그인에 실패하였습니다. \n 계정 혹은 비밀번호를 다시 확인하세요.", Toast.LENGTH_SHORT).show()
                     }
                 }
-
             })
 
         }

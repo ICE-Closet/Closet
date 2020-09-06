@@ -50,7 +50,7 @@ class likeFragment : Fragment() {
         }
 
         for (i in 1..3) {
-            outerWear.add("Outermwear #$i")
+            outerWear.add("Outerwear #$i")
         }
 
         for (i in 1..3) {

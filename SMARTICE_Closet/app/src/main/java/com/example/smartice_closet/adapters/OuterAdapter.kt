@@ -1,5 +1,6 @@
 package com.example.smartice_closet.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ class OuterAdapter(val outerWear : ArrayList<String>) : RecyclerView.Adapter<Out
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.outerName.text = outerWear[position]
+
+
     }
 
 }

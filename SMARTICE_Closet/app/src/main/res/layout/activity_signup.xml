@@ -140,6 +140,7 @@
         app:layout_constraintTop_toBottomOf="@+id/inputName">
 
         <RadioGroup
+            android:id="@+id/sexGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -149,7 +150,8 @@
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/round_blue_border"
-                android:text="    Male"
+                android:text="M"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
             <View
@@ -162,7 +164,8 @@
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:background="@drawable/round_blue_border"
-                android:text="    Female"
+                android:text="F"
+                android:textAlignment="center"
                 android:textSize="18sp" />
         </RadioGroup>
     </LinearLayout>

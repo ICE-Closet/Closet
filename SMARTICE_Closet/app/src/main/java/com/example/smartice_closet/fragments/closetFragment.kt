@@ -39,6 +39,12 @@ class closetFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = Adapter
 
+
+
+
+
     }
+
+
 
 }

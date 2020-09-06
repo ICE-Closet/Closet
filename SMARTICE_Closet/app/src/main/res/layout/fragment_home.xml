@@ -48,7 +48,7 @@
         <View
             android:id="@+id/weatherView"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,21 +57,22 @@
         <TextView
             android:id="@+id/weather"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:text="Weather"
-            android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/weatherView"
             app:layout_constraintEnd_toEndOf="@+id/weatherView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/weatherView"
             app:layout_constraintTop_toTopOf="@+id/weatherView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:columnOrderPreserved="false"

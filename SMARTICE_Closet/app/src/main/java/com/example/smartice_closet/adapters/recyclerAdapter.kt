@@ -1,6 +1,5 @@
 package com.example.smartice_closet.adapters
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,23 +34,26 @@ class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragme
         holder.bindItems(arrayList[position])
 
         holder.itemView.setOnClickListener {
-            if (position == 0) {
-                Log.d("onBindViewHolder", "TOP Checked!")
-                // Top 사진이 있는 Activity로 전환
-                val intent = Intent(context, )
-            }
-            else if (position == 1) {
-                Log.d("onBindViewHolder", "Bottom Checked!")
-                // Bottom 사진이 있는 Activity로 전환
-            }
-            else if (position == 2) {
-                Log.d("onBindViewHolder", "Outer Checked!")
-                // Outer 사진이 있는 Activity로 전환
-            }
-            else if (position == 3) {
-                Log.d("onBindViewHolder", "Dress5 Checked!")
-                // Dress 사진이 있는 Activity로 전환
-            }
+//            if (position == 0) {
+//                Log.d("onBindViewHolder", "TOP Checked!")
+//                // Top 사진이 있는 Activity로 전환
+//
+//
+//            }
+//            else if (position == 1) {
+//                Log.d("onBindViewHolder", "Bottom Checked!")
+//                // Bottom 사진이 있는 Activity로 전환
+//            }
+//            else if (position == 2) {
+//                Log.d("onBindViewHolder", "Outer Checked!")
+//                // Outer 사진이 있는 Activity로 전환
+//            }
+//            else if (position == 3) {
+//                Log.d("onBindViewHolder", "Dress5 Checked!")
+//                // Dress 사진이 있는 Activity로 전환
+//            }
+
+
         }
     }
 }

@@ -213,6 +213,12 @@ class camera : AppCompatActivity() {
 
                 Log.d("NetworkThread", "Send Complete")
 
+                var input = socket.getInputStream()
+                var dis = DataInputStream(input)
+
+                var code = dis.readInt()
+                Log.d("SOCKET Receive ::", String.format("%d", code))
+
                 socket.close()
 
             } catch (e : Exception) {

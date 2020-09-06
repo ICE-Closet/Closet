@@ -1,6 +1,5 @@
-package com.example.icecloset
+package com.example.smartice_closet.auth.google
 
-import com.example.icecloset.auth.google.googleResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

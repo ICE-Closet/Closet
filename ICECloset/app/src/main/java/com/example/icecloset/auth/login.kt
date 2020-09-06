@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.icecloset.R
 import com.example.icecloset.auth.kakao.SessionCallback
 import com.example.icecloset.googleRequest
-import com.example.icecloset.googleResponse
+import com.example.icecloset.auth.google.googleResponse
 import com.example.icecloset.mainView
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn

@@ -1,0 +1,110 @@
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Light measure
+light: 0
+Distance measure
+distance sensor1:  94.33 cm
+distance sensor2:  97.64 cm
+Distance measure
+distance sensor1:  94.74 cm
+distance sensor2:  93.82 cm
+Distance measure
+distance sensor1:  96.53 cm
+distance sensor2:  94.15 cm
+Distance measure
+distance sensor1:  94.82 cm
+distance sensor2:  94.31 cm
+Distance measure
+distance sensor1:  94.33 cm
+distance sensor2:  96.47 cm
+Distance measure
+distance sensor1:  94.4 cm
+distance sensor2:  124.47 cm
+Distance measure
+distance sensor1:  96.46 cm
+distance sensor2:  94.78 cm
+Distance measure
+distance sensor1:  94.73 cm
+distance sensor2:  94.73 cm
+Distance measure
+distance sensor1:  94.85 cm
+distance sensor2:  96.26 cm
+Distance measure
+distance sensor1:  96.15 cm
+distance sensor2:  94.36 cm
+Distance measure
+distance sensor1:  95.2 cm
+distance sensor2:  94.96 cm
+Distance measure
+distance sensor1:  96.03 cm
+distance sensor2:  97.16 cm
+Distance measure
+distance sensor1:  98.18 cm
+distance sensor2:  95.97 cm
+Distance measure
+distance sensor1:  94.86 cm
+distance sensor2:  97.56 cm
+Distance measure
+distance sensor1:  96.49 cm
+distance sensor2:  95.92 cm
+Distance measure
+distance sensor1:  93.94 cm
+distance sensor2:  96.73 cm
+Distance measure
+distance sensor1:  94.39 cm
+distance sensor2:  94.15 cm
+Distance measure
+distance sensor1:  93.94 cm
+distance sensor2:  94.24 cm
+Distance measure
+distance sensor1:  93.99 cm
+distance sensor2:  95.63 cm
+Distance measure
+distance sensor1:  93.98 cm
+distance sensor2:  96.31 cm
+Distance measure
+distance sensor1:  94.78 cm
+distance sensor2:  100.61 cm
+Distance measure
+distance sensor1:  94.32 cm
+distance sensor2:  96.31 cm

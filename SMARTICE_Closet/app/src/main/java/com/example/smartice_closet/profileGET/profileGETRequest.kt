@@ -7,6 +7,6 @@ import retrofit2.http.Header
 interface profileGETRequest {
     @GET("/accounts/mypage/")
     fun getUserInfo(
-        @Header("token") token: String
+        @Header("Authorizations") token: String
     ) : Call<profileGETResponse>
 }

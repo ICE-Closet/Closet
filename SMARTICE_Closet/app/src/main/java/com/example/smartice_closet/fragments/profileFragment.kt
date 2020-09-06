@@ -41,7 +41,7 @@ class profileFragment : Fragment() {
         val bundle = arguments
         val userName = bundle!!.getString(USERNAME)
         val userToken = bundle!!.getString(TOKEN)
-        Log.d("onViewCreated", userName + userToken)
+        Log.d("onViewCreated", userName + "\n" + userToken)
         
         getFromServer(userToken)
 
@@ -68,10 +68,10 @@ class profileFragment : Fragment() {
             .build()
 
         val profileGETService = retrofit.create(profileGETRequest::class.java)
-        val call = userToken?.let { profileGETService.getUserInfo(token = it) }
+        Log.d("Check", userToken)
 
-        if (call != null) {
-            call.enqueue(object : Callback<profileGETResponse> {
+        if (userToken != null) {
+            profileGETService.getUserInfo(token = userToken).enqueue(object : Callback<profileGETResponse> {
                 override fun onFailure(call: Call<profileGETResponse>, t: Throwable) {
                     Log.d("onFailure(ProfileGET)", "message : " + t.message)
                 }
@@ -79,10 +79,9 @@ class profileFragment : Fragment() {
                 override fun onResponse(call: Call<profileGETResponse>, response: Response<profileGETResponse>) {
                     if (response.code() == 200) {
                         val profileResponse = response.body()
-                        Log.d("onResponse(Weather)", "messsage : " + profileResponse?.code)
-                        Log.d("onResponse(Weather)", "messsage : " + profileResponse?.email)
-                        Log.d("onResponse(Weather)", "messsage : " + profileResponse?.raspIp)
-                        Log.d("onResponse(Weather)", "messsage : " + profileResponse?.raspPort)
+                        Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.email)
+                        Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.raspIp)
+                        Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.raspPort)
 
                         var email = profileResponse?.email
                         var raspIp = profileResponse?.raspIp
@@ -109,24 +108,30 @@ class profileFragment : Fragment() {
             .build()
 
         val profilePOSTService = retrofit.create(profilePOSTRequest::class.java)
-        val call = userToken?.let { profilePOSTService.sendUserInfo(token = it, raspIp = userIP, raspPORT = userPORT) }
 
-        if (call != null) {
-            call.enqueue(object : Callback<profilePOSTResponse> {
-                override fun onFailure(call: Call<profilePOSTResponse>, t: Throwable) {
-                    Log.d("onFailure(ProfilePOST)", "message : " + t.message)
-                }
-
-                override fun onResponse(call: Call<profilePOSTResponse>, response: Response<profilePOSTResponse>) {
-                    if (response.code() == 201) {
-                        Toast.makeText(context, "정보가 업데이트 되었습니다.", Toast.LENGTH_SHORT).show()
+        if (userToken != null) {
+            profilePOSTService.sendUserInfo(token = userToken, raspIp = userIP, raspPORT = userPORT)
+                .enqueue(object : Callback<profilePOSTResponse> {
+                    override fun onFailure(call: Call<profilePOSTResponse>, t: Throwable) {
+                        Log.d("onFailure(ProfilePOST)", "message : " + t.message)
                     }
-                    else {
-                        Log.d("onResponse", "ERROR")
-                    }
-                }
 
-            })
+                    override fun onResponse(
+                        call: Call<profilePOSTResponse>,
+                        response: Response<profilePOSTResponse>
+                    ) {
+                        if (response.code() == 201) {
+                            val msg = response.body()?.msg
+                            Log.d("onResponse - code 201", msg)
+                            Toast.makeText(context, "정보 저장이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
+                        } else if (response.code() == 200) {
+                            val msg = response.body()?.msg
+                            Log.d("onResponse - code 200", msg)
+                            Toast.makeText(context, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                })
         }
     }
 

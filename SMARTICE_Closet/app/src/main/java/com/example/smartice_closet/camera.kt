@@ -42,6 +42,8 @@ class camera : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
+        userToken = intent.getStringExtra(TOKEN)
+
         setPermission()
 
         capture_btn.setOnClickListener {
@@ -160,7 +162,7 @@ class camera : AppCompatActivity() {
         @ExperimentalStdlibApi
         override fun run() {
             try {
-                val socket = Socket("220.67.124.120", 30000)  //220.67.124.185:65000
+                val socket = Socket("220.67.124.120", 65000)  //220.67.124.185:65000
                 Log.d("NetworkThread", "서버 접속 성공")
 
 //                Log.d("BITMAP", bitmap.toString())

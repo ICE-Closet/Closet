@@ -3,10 +3,10 @@ package com.example.smartice_closet.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.smartice_closet.R
 import com.example.smartice_closet.camera
 import com.example.smartice_closet.todayCody
@@ -30,6 +30,7 @@ class homeFragment : Fragment() {
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -37,6 +38,13 @@ class homeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val bundle = arguments
+        val userName = bundle!!.getString(USERNAME)
+        val userToken = bundle!!.getString(TOKEN)
+        Log.d("onViewCreated", userName + userToken)
+
+        welcomeUser.text = "Welcome ${userName}"
 
         setWeather()
 
@@ -46,7 +54,9 @@ class homeFragment : Fragment() {
         }
 
         camer_cV.setOnClickListener {
-            val intent = Intent(context, camera::class.java)
+            val intent = Intent(context, camera::class.java).apply {
+                putExtra(TOKEN, userToken)
+            }
             startActivity(intent)
         }
 
@@ -95,3 +105,4 @@ class homeFragment : Fragment() {
         })
     }
 }
+

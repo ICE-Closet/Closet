@@ -61,6 +61,7 @@ class Login : AppCompatActivity() {
                             Toast.makeText(this@Login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
                             var intent = Intent(applicationContext, main::class.java).apply {
                                 putExtra(TOKEN, login_response?.token)
+                                putExtra(USERNAME, login_response?.name)
                             }
                             startActivity(intent)
                             finish()

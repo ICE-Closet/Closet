@@ -46,6 +46,10 @@ class signup : AppCompatActivity() {
 
             Log.d("submit_btn(gender)", s_gender)
 
+//            if ((s_email == null) && (s_pwd1 == null) && (s_pwd2 == null) && (s_name == null) && (s_gender == null)) {
+//                Toast.makeText(this, "모든 항목을 기입 해주세요.", Toast.LENGTH_SHORT).show()
+//            }
+
 
             if (s_pwd1 == s_pwd2) {
                 Log.d("setOnClickListner", "Same Pwd!")

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SMARTICE_Closet</string>
     <string name="web_client_id">337411532408-ad3hqf0gt6naete2fnaj54s444lb1uc7.apps.googleusercontent.com</string>
+    <string name="kakao_app_key">c4fe1f6967536bac92ff4fe1db03c3df</string>
 </resources>

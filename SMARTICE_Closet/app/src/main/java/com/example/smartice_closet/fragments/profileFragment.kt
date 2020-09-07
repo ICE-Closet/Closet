@@ -77,20 +77,21 @@ class profileFragment : Fragment() {
                 }
 
                 override fun onResponse(call: Call<profileGETResponse>, response: Response<profileGETResponse>) {
-                    if (response.code() == 200) {
-                        val profileResponse = response.body()
-                        Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.email)
-                        Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.raspIp)
-                        Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.raspPort)
+                    if (response.isSuccessful) {
+                        if (response.code() == 200) {
+                            val profileResponse = response.body()
+                            Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.email)
+                            Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.raspIp)
+                            Log.d("onResponse(getProfile)", "messsage : " + profileResponse?.raspPort)
 
-                        var email = profileResponse?.email
-                        var raspIp = profileResponse?.raspIp
-                        var raspPort = profileResponse?.raspPort
+                            var email = profileResponse?.email
+                            var raspIp = profileResponse?.raspIp
+                            var raspPort = profileResponse?.raspPort
 
-                        profile_Email_eT.text = Editable.Factory.getInstance().newEditable(email)
-                        profile_IP_eT.text = Editable.Factory.getInstance().newEditable(raspIp)
-                        profile_PORT_eT.text = Editable.Factory.getInstance().newEditable(raspPort)
-
+                            profile_Email_eT.text = Editable.Factory.getInstance().newEditable(email)
+                            profile_IP_eT.text = Editable.Factory.getInstance().newEditable(raspIp)
+                            profile_PORT_eT.text = Editable.Factory.getInstance().newEditable(raspPort)
+                        }
                     }
                 }
             })
@@ -116,18 +117,23 @@ class profileFragment : Fragment() {
                         Log.d("onFailure(ProfilePOST)", "message : " + t.message)
                     }
 
-                    override fun onResponse(
-                        call: Call<profilePOSTResponse>,
-                        response: Response<profilePOSTResponse>
-                    ) {
-                        if (response.code() == 201) {
-                            val msg = response.body()?.msg
-                            Log.d("onResponse - code 201", msg)
-                            Toast.makeText(context, "정보 저장이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
-                        } else if (response.code() == 200) {
-                            val msg = response.body()?.msg
-                            Log.d("onResponse - code 200", msg)
-                            Toast.makeText(context, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                    override fun onResponse(call: Call<profilePOSTResponse>, response: Response<profilePOSTResponse>) {
+                        if (response.isSuccessful) {
+                            if (response.code() == 201) {
+                                val msg = response.body()?.msg
+                                Log.d("onResponse - code 201", msg)
+                                Toast.makeText(context, "정보 저장이 완료 되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            else if (response.code() == 200) {
+                                val msg = response.body()?.msg
+                                Log.d("onResponse - code 200", msg)
+                                Toast.makeText(context, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        else {
+                            if (response.code() == 400) {
+                                Toast.makeText(context, "정보 저장에 실패 하였습니다.\n잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
 

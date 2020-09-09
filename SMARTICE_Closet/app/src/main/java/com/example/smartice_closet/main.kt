@@ -30,6 +30,7 @@ class main : AppCompatActivity() {
         var userToken = intent.getStringExtra(TOKEN).toString()
         var userName = intent.getStringExtra(USERNAME).toString()
 
+
         Log.d(TOKEN, userToken)
         Log.d(USERNAME, userName)
 

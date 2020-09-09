@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.smartice_closet.R
 import com.example.smartice_closet.auth.google.googleRequest
 import com.example.smartice_closet.auth.google.googleResponse
+import com.example.smartice_closet.auth.kakao.SessionCallback
 import com.example.smartice_closet.main
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,13 +21,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.kakao.auth.AuthType
+import com.kakao.auth.Session
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-class Login : AppCompatActivity() {
+class login : AppCompatActivity() {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
@@ -37,6 +39,8 @@ class Login : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
     val RC_SIGN_IN = 9001
+
+    private var callback : SessionCallback = SessionCallback(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +60,8 @@ class Login : AppCompatActivity() {
 
         google_login_btn.setOnClickListener { googleLogin() }
 
+        kakao_login_btn.setOnClickListener { kakaoLogin() }
+
         login_btn.setOnClickListener {
             val retrofit = Retrofit.Builder()
                 .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
@@ -70,7 +76,7 @@ class Login : AppCompatActivity() {
             loginservice.requestLogin(s_email, s_pw).enqueue(object : Callback<loginResponse> {
                 override fun onFailure(call: Call<loginResponse>, t: Throwable) {
                     Log.e("Login", t.message)
-                    var dialog = AlertDialog.Builder(this@Login)
+                    var dialog = AlertDialog.Builder(this@login)
                     dialog.setTitle("ERROR")
                     dialog.setMessage("서버와의 통신에 실패하였습니다.")
                     dialog.show()
@@ -85,7 +91,7 @@ class Login : AppCompatActivity() {
                             Log.d("STATUS 200", login_response.toString())
 //                            var code = login_response?.code?.let { it -> Integer.parseInt(it) }
 
-                            Toast.makeText(this@Login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
                             var intent = Intent(applicationContext, main::class.java).apply {
                                 putExtra(TOKEN, login_response?.token)
                                 putExtra(USERNAME, login_response?.name)
@@ -106,11 +112,11 @@ class Login : AppCompatActivity() {
 
                             if (code == 1) {
                                 Log.d("Status 400 - Code 1", msg)
-                                Toast.makeText(this@Login, "로그인에 실패하였습니다. \n 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@login, "로그인에 실패하였습니다. \n 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                             }
                             else if (code == 2) {
                                 Log.d("Status 400 - Code 2", msg)
-                                Toast.makeText(this@Login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@login, "회원가입 후 로그인 해주세요.", Toast.LENGTH_SHORT).show()
                             }
                         }
                         else if (response.code() == 401) {
@@ -120,7 +126,7 @@ class Login : AppCompatActivity() {
                             val msg: String = jsonObject.getString("msg")
 
                             Log.d("Status 401", msg)
-                            Toast.makeText(this@Login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@login, "이메일이 인증되지 않았습니다. \n 입력하신 이메일로 인증해 주세요.", Toast.LENGTH_SHORT).show()
 
                         }
                     }
@@ -137,12 +143,22 @@ class Login : AppCompatActivity() {
 
     }
 
-    private fun googleLogin() {
-        var signInIntent = googleSignInClient?.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+    private fun kakaoLogin() {
+        Session.getCurrentSession().addCallback(callback)
+        Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Session.getCurrentSession().removeCallback(callback)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            Log.i("Log", "session get current session")
+            return
+        }
+
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN && resultCode == Activity.RESULT_OK) {
@@ -154,6 +170,11 @@ class Login : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun googleLogin() {
+        var signInIntent = googleSignInClient?.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
@@ -193,7 +214,7 @@ class Login : AppCompatActivity() {
         googleLoginRequest.requestGoogleLogin(uid = uid, email = email).enqueue(object : Callback<googleResponse> {
             override fun onFailure(call: Call<googleResponse>, t: Throwable) {
                 Log.e("onFailure", t.message)
-                var dialog = AlertDialog.Builder(this@Login)
+                var dialog = AlertDialog.Builder(this@login)
                 dialog.setTitle("ERROR")
                 dialog.setMessage("서버와의 통신에 실패하였습니다.")
                 dialog.show()
@@ -205,7 +226,7 @@ class Login : AppCompatActivity() {
                         Log.d("Status 200", "Success")
                         var google_Response = response.body()
 
-                        Toast.makeText(this@Login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@login, "로그인에 성공하였습니다. \n 즐거운 하루 되세요.", Toast.LENGTH_SHORT).show()
                         Log.d("onResponse", google_Response?.msg)
                         Log.d("onResponse", google_Response?.name)
                         Log.d("onResponse", google_Response?.token)
@@ -220,7 +241,7 @@ class Login : AppCompatActivity() {
                 }
                 else {
                     if (response.code() == 400) {
-                        Toast.makeText(this@Login, "잠시 후 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@login, "잠시 후 다시 로그인 해주세요.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -233,4 +254,5 @@ class Login : AppCompatActivity() {
 //
 //        sendToServerGoogle(auth?.currentUser)
 //    }
+
 }

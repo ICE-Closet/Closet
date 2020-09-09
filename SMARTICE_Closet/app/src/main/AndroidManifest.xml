@@ -12,6 +12,7 @@
         android:required="true" />
 
     <application
+        android:name=".auth.kakao.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -54,7 +55,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".auth.Login"
+        <activity android:name=".auth.login"
             android:screenOrientation="portrait"/>
     </application>
 

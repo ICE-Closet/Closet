@@ -71,5 +71,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
 
     // Kakao auth
-    implementation 'com.kakao.sdk:v2-user:2.0.0'
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
+
+
 }

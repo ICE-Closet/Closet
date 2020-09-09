@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.smartice_closet.R
@@ -71,7 +70,7 @@ class signup : AppCompatActivity() {
                                 Log.d("SIGNUP", "code : " + signup_response?.code)
 
                                 Toast.makeText(this@signup, "회원가입이 완료되었습니다. \n 사용자 이메일 : " + s_email, Toast.LENGTH_LONG).show()
-                                var intent = Intent(applicationContext, Login::class.java).apply {
+                                var intent = Intent(applicationContext, login::class.java).apply {
                                     putExtra(USERNAME, s_name)
                                 }
                                 startActivity(intent)

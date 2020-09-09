@@ -32,6 +32,7 @@ class login : AppCompatActivity() {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
+    private val USERGENDER = "USERGENDER"
 
     var userToken: String = ""
     var name: String = ""
@@ -95,6 +96,7 @@ class login : AppCompatActivity() {
                             var intent = Intent(applicationContext, main::class.java).apply {
                                 putExtra(TOKEN, login_response?.token)
                                 putExtra(USERNAME, login_response?.name)
+                                putExtra(USERGENDER, login_response?.sex)
                             }
                             startActivity(intent)
                             finish()

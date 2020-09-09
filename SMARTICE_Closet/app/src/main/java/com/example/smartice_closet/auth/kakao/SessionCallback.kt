@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SessionCallback (val context: login): ISessionCallback {
 
     var userToken: String = ""
-    
+
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
 

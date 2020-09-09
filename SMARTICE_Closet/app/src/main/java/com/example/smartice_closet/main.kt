@@ -17,6 +17,7 @@ class main : AppCompatActivity() {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
+    private val USERGENDER = "USERGENDER"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +30,11 @@ class main : AppCompatActivity() {
 
         var userToken = intent.getStringExtra(TOKEN).toString()
         var userName = intent.getStringExtra(USERNAME).toString()
-
+        var userGender = intent.getStringExtra(USERGENDER).toString()
 
         Log.d(TOKEN, userToken)
         Log.d(USERNAME, userName)
+        Log.d(USERGENDER, userGender)
 
         val chipNavigationBar : ChipNavigationBar = findViewById(R.id.bottom_navBar)
         chipNavigationBar.setItemSelected(R.id.home, true)
@@ -44,6 +46,7 @@ class main : AppCompatActivity() {
                     arguments = Bundle().apply {
                         putString(USERNAME, userName)
                         putString(TOKEN, userToken)
+                        putString(USERGENDER, userGender)
                     }
                 })
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -60,6 +63,7 @@ class main : AppCompatActivity() {
                                 arguments = Bundle().apply {
                                     putString(USERNAME, userName)
                                     putString(TOKEN, userToken)
+                                    putString(USERGENDER, userGender)
                                 }
                             })
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -75,6 +79,7 @@ class main : AppCompatActivity() {
                                 arguments = Bundle().apply {
                                     putString(USERNAME, userName)
                                     putString(TOKEN, userToken)
+                                    putString(USERGENDER, userGender)
                                 }
                             })
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -84,7 +89,15 @@ class main : AppCompatActivity() {
                 R.id.like -> {
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_container, likeFragment)
+                        .replace(
+                            R.id.fragment_container,
+                            likeFragment.apply {
+                                arguments = Bundle().apply {
+                                    putString(USERNAME, userName)
+                                    putString(TOKEN, userToken)
+                                    putString(USERGENDER, userGender)
+                                }
+                            })
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commitNow()
                 }
@@ -98,6 +111,7 @@ class main : AppCompatActivity() {
                                 arguments = Bundle().apply {
                                     putString(USERNAME, userName)
                                     putString(TOKEN, userToken)
+                                    putString(USERGENDER, userGender)
                                 }
                             })
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

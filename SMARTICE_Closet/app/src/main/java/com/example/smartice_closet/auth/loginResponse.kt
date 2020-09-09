@@ -4,5 +4,6 @@ data class loginResponse (
     val code : String,
     val msg : String,
     val token : String,
-    val name : String
+    val name : String,
+    val sex : String
 )

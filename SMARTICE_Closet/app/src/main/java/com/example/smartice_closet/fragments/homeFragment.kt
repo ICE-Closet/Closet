@@ -1,5 +1,6 @@
 package com.example.smartice_closet.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,7 @@ class homeFragment : Fragment() {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
+    private val USERGENDER = "USERGENDER"
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,6 +44,20 @@ class homeFragment : Fragment() {
         val bundle = arguments
         val userName = bundle!!.getString(USERNAME)
         val userToken = bundle!!.getString(TOKEN)
+        val userGender = bundle!!.getString(USERGENDER)
+
+        if (userGender == "N") {
+            val genderPickBuilder = AlertDialog.Builder(context)
+            val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog_gender, null)
+
+            genderPickBuilder.setView(dialogView)
+                .setPositiveButton("저장") {dialogInterface, i ->
+
+                }
+                .setNegativeButton("취소") {dialogInterface, i ->
+
+                }
+        }
         Log.d("onViewCreated", userName + userToken)
 
         welcomeUser.text = "Welcome ${userName}"

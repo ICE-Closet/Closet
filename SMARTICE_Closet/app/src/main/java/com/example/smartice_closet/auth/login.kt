@@ -232,10 +232,12 @@ class login : AppCompatActivity() {
                         Log.d("onResponse", google_Response?.msg)
                         Log.d("onResponse", google_Response?.name)
                         Log.d("onResponse", google_Response?.token)
+                        Log.d("onResponse", google_Response?.sex)
 
                         var intent = Intent(applicationContext, main::class.java).apply {
                             putExtra(TOKEN, google_Response?.token)
                             putExtra(USERNAME, google_Response?.name)
+                            putExtra(USERGENDER, google_Response?.sex)
                         }
                         startActivity(intent)
                         finish()

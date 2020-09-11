@@ -1,18 +1,25 @@
 package com.example.smartice_closet.fragments
 
 import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.smartice_closet.R
 import com.example.smartice_closet.camera
+import com.example.smartice_closet.main
 import com.example.smartice_closet.todayCody
 import com.example.smartice_closet.weather.weatherRequest
 import com.example.smartice_closet.weather.weatherResponse
+import kotlinx.android.synthetic.main.custom_alert_dialog_gender.*
+import kotlinx.android.synthetic.main.custom_alert_dialog_gender.view.*
+import kotlinx.android.synthetic.main.custom_alert_dialog_gender.view.dialog_female_btn
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,20 +51,36 @@ class homeFragment : Fragment() {
         val bundle = arguments
         val userName = bundle!!.getString(USERNAME)
         val userToken = bundle!!.getString(TOKEN)
-        val userGender = bundle!!.getString(USERGENDER)
+        var userGender = bundle!!.getString(USERGENDER)
 
-        if (userGender == "N") {
-            val genderPickBuilder = AlertDialog.Builder(context)
-            val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog_gender, null)
+        var realGender = ""
 
-            genderPickBuilder.setView(dialogView)
-                .setPositiveButton("저장") {dialogInterface, i ->
-
-                }
-                .setNegativeButton("취소") {dialogInterface, i ->
-
-                }
-        }
+//        val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog_gender, null)
+//        val genderPickBuilder = AlertDialog.Builder(context)
+//            .setView(dialogView)
+//
+//        if (userGender == "N") {
+//            dialogView.dialog_male_btn.setOnClickListener {
+//                realGender = dialog_male_btn.text.toString()
+//            }
+//            dialogView.dialog_female_btn.setOnClickListener {
+//                realGender = dialog_female_btn.text.toString()
+//            }
+//            genderPickBuilder.setPositiveButton("Save", DialogInterface.OnClickListener { dialog, which ->
+//                val intent = Intent(context, main::class.java).apply {
+//                    putExtra(USERGENDER, userGender)
+//                }
+//                startActivity(intent)
+//                dialog.dismiss()
+//            })
+//            genderPickBuilder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+//                val notCloseDialog: Boolean = false
+//                if (notCloseDialog) {
+//                    dialog.dismiss()
+//                }
+//            })
+//            genderPickBuilder.show()
+//        }
         Log.d("onViewCreated", userName + userToken)
 
         welcomeUser.text = "Welcome ${userName}"

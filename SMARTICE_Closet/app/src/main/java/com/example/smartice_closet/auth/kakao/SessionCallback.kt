@@ -24,6 +24,7 @@ class SessionCallback (val context: login): ISessionCallback {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
+    private val USERGENDER = "USERGENDER"
 
     override fun onSessionOpenFailed(exception: KakaoException?) {
         Log.e("Log","Session Call Back :: onSessionOpenFailed: ${exception?.message}")
@@ -86,10 +87,12 @@ class SessionCallback (val context: login): ISessionCallback {
 
                         userToken = kakao_response?.token.toString()
                         var name = kakao_response?.name.toString()
+                        var gender = kakao_response?.sex.toString()
 
                         var intent = Intent(context, main::class.java).apply {
                             putExtra(TOKEN, userToken)
                             putExtra(USERNAME, name)
+                            putExtra(USERGENDER, gender)
                         }
                         context.startActivity(intent)
                         (context as Activity).finish()

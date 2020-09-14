@@ -53,60 +53,6 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="-75dp"
-            android:padding="20dp">
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/colorAccent"
-                app:cardElevation="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/like" />
-
-                    <TextView
-                        android:id="@+id/clothing_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:fontFamily="monospace"
-                        android:includeFontPadding="false"
-                        android:text="Your Clothing"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/cnt_clothing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/clothing_description"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="5dp"
-                        android:includeFontPadding="false"
-                        android:text="count"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">

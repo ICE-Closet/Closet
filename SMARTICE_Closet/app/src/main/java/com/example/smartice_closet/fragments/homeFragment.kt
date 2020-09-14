@@ -1,8 +1,6 @@
 package com.example.smartice_closet.fragments
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.smartice_closet.R
 import com.example.smartice_closet.camera
+import com.example.smartice_closet.homeDialog.homeDialogRequest
+import com.example.smartice_closet.homeDialog.homeDialogResponse
 import com.example.smartice_closet.main
 import com.example.smartice_closet.todayCody
 import com.example.smartice_closet.weather.weatherRequest
 import com.example.smartice_closet.weather.weatherResponse
-import kotlinx.android.synthetic.main.custom_alert_dialog_gender.*
 import kotlinx.android.synthetic.main.custom_alert_dialog_gender.view.*
 import kotlinx.android.synthetic.main.custom_alert_dialog_gender.view.dialog_female_btn
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -39,6 +38,12 @@ class homeFragment : Fragment() {
     private val TOKEN = "USERTOKEN"
     private val USERGENDER = "USERGENDER"
 
+    var googleGender = ""
+    var userToken = ""
+    var userName = ""
+    var userGender = ""
+
+    var modifiedGender = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -49,39 +54,14 @@ class homeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val bundle = arguments
-        val userName = bundle!!.getString(USERNAME)
-        val userToken = bundle!!.getString(TOKEN)
-        var userGender = bundle!!.getString(USERGENDER)
+        userName = bundle!!.getString(USERNAME).toString()
+        userToken = bundle!!.getString(TOKEN).toString()
+        userGender = bundle!!.getString(USERGENDER).toString()
 
-        var realGender = ""
-
-//        val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog_gender, null)
-//        val genderPickBuilder = AlertDialog.Builder(context)
-//            .setView(dialogView)
-//
-//        if (userGender == "N") {
-//            dialogView.dialog_male_btn.setOnClickListener {
-//                realGender = dialog_male_btn.text.toString()
-//            }
-//            dialogView.dialog_female_btn.setOnClickListener {
-//                realGender = dialog_female_btn.text.toString()
-//            }
-//            genderPickBuilder.setPositiveButton("Save", DialogInterface.OnClickListener { dialog, which ->
-//                val intent = Intent(context, main::class.java).apply {
-//                    putExtra(USERGENDER, userGender)
-//                }
-//                startActivity(intent)
-//                dialog.dismiss()
-//            })
-//            genderPickBuilder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-//                val notCloseDialog: Boolean = false
-//                if (notCloseDialog) {
-//                    dialog.dismiss()
-//                }
-//            })
-//            genderPickBuilder.show()
-//        }
         Log.d("onViewCreated", userName + userToken)
+        Log.d("onViewCreated", userGender)
+
+        setDialogForGoogle(userGender)
 
         welcomeUser.text = "Welcome ${userName}"
 
@@ -99,6 +79,78 @@ class homeFragment : Fragment() {
             startActivity(intent)
         }
 
+    }
+
+    private fun setDialogForGoogle(userGenders: String?) {
+        if (userGenders == "N") {
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.custom_alert_dialog_gender, null)
+            val dialogBuilder = AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setMessage("Please select your gender.")
+
+            val googleDialog = dialogBuilder.show()
+
+            dialogView.dialog_male_btn.setOnClickListener {
+                userGender = dialogView.dialog_male_btn.text.toString()
+                googleDialog.dismiss()
+                Log.d(USERGENDER, userGender)
+
+                sendGenderToServer(userToken, userGender)
+
+                val intent = Intent(context, main::class.java).apply {
+                    putExtra(TOKEN, userToken)
+                    putExtra(USERNAME, userName)
+                    putExtra(USERGENDER, modifiedGender)
+                }
+                startActivity(intent)
+            }
+
+            dialogView.dialog_female_btn.setOnClickListener {
+                userGender = dialogView.dialog_female_btn.text.toString()
+                googleDialog.dismiss()
+                Log.d(USERGENDER, userGender)
+
+                sendGenderToServer(userToken, userGender)
+
+                val intent = Intent(context, main::class.java).apply {
+                    putExtra(TOKEN, userToken)
+                    putExtra(USERNAME, userName)
+                    putExtra(USERGENDER, modifiedGender)
+                }
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun sendGenderToServer(userToken: String, userGender: String) {
+        val newGoogleRetrofit = Retrofit.Builder()
+            .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val googleGenderRequest: homeDialogRequest = newGoogleRetrofit.create(homeDialogRequest::class.java)
+
+        googleGenderRequest.requestHomeDialog(userToken = userToken, userGender = userGender).enqueue(object : Callback<homeDialogResponse> {
+            override fun onFailure(call: Call<homeDialogResponse>, t: Throwable) {
+                Log.e("onFailure", t.message)
+            }
+
+            override fun onResponse(call: Call<homeDialogResponse>, response: Response<homeDialogResponse>) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        Log.d("Status 200", "Success")
+                        var dialog_Response = response.body()
+
+                        Toast.makeText(context, "Successfully saved", Toast.LENGTH_SHORT).show()
+                        Log.d("onResponse", dialog_Response?.msg)
+                        Log.d("onResponse", dialog_Response?.sex)
+
+                        modifiedGender = dialog_Response?.sex.toString()
+                    }
+                }
+                else {   }
+            }
+        })
     }
 
     private fun setWeather() {

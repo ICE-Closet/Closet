@@ -1,0 +1,17 @@
+package com.example.smartice_closet.recommend
+
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Header
+import retrofit2.http.POST
+
+interface recommendRequest {
+    @FormUrlEncoded
+    @POST("/accounts/recommendation/")
+    fun requestRecommend(
+        @Header("Authorizations") token : String,
+        @Field("hashtag") userHashtag : String,
+        @Field("color") userColor : String,
+        @Field("weather") weather : String
+    )
+}

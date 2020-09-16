@@ -1,7 +1,8 @@
-package com.example.smartice_closet
+package com.example.smartice_closet.recommend
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.smartice_closet.R
 
 class recommend : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

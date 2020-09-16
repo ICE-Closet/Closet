@@ -1,23 +1,56 @@
 package com.example.smartice_closet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.example.smartice_closet.auth.loginResponse
+import com.example.smartice_closet.recommend.recommend
+import com.example.smartice_closet.recommend.recommendRequest
 import kotlinx.android.synthetic.main.activity_today_cody.*
+import org.json.JSONObject
 import petrov.kristiyan.colorpicker.ColorPicker
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
 
 class todayCody : AppCompatActivity() {
+
+    private val TOKEN = "USERTOKEN"
+    private val WEATHER = "WEATHER"
+
+    var userColor = ""
+    var userToken = ""
+    var weather = ""
+    var userHashtag = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_today_cody)
 
+        userToken = intent.getStringExtra(TOKEN)
+        weather = intent.getStringExtra(WEATHER)
+
         colorPick_btn.setOnClickListener {
             openColorPicker()
         }
 
+        recommend_btn.setOnClickListener {
+            sendRecommendInfo(userColor)
+        }
         // Retrofit to Server : Token, Weather, Color, Hashtag
+    }
+
+    private fun sendRecommendInfo(userColor: String) {
+        val recommendRetrofit = Retrofit.Builder()
+            .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val recommendService: recommendRequest = recommendRetrofit.create(recommendRequest::class.java)
+
+
     }
 
     private fun openColorPicker() {
@@ -45,7 +78,8 @@ class todayCody : AppCompatActivity() {
 //                        Toast.makeText(applicationContext, "You have to pick one color", Toast.LENGTH_SHORT).show()
 //                    }
 
-                    setColor_tV.text = colorArray[position]
+                    userColor = colorArray[position]
+                    setColor_tV.text = userColor
                 }
 
                 override fun onCancel() {  }

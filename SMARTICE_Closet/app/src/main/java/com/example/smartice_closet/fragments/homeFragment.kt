@@ -37,6 +37,7 @@ class homeFragment : Fragment() {
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
     private val USERGENDER = "USERGENDER"
+    private val WEATHER = "WEATHER"
 
     var googleGender = ""
     var userToken = ""
@@ -44,6 +45,7 @@ class homeFragment : Fragment() {
     var userGender = ""
 
     var modifiedGender = ""
+    var todayWeather = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -68,7 +70,10 @@ class homeFragment : Fragment() {
         setWeather()
 
         todayCody_cV.setOnClickListener{
-            val intent = Intent(context, todayCody::class.java)
+            val intent = Intent(context, todayCody::class.java).apply {
+                putExtra(TOKEN, userToken)
+                putExtra(WEATHER, todayWeather)
+            }
             startActivity(intent)
         }
 
@@ -189,7 +194,8 @@ class homeFragment : Fragment() {
 
                     val weatherAPIString = "Nation : " + weatherResponse!!.sys!!.country + "\n" + "Temperature : " + r_Temp + "\n" + "Average Temperature : " + r_aveTemp
 
-                    weather.text = weatherAPIString
+                    todayWeather = weatherAPIString
+                    weather.text = todayWeather
                 }
             }
 

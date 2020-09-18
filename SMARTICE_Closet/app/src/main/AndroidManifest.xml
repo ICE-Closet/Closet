@@ -20,7 +20,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recommendForUser.recommend"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -36,6 +35,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity
+            android:name=".recommendForUser.recommend"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".userCloset.closetBottom"
             android:screenOrientation="portrait" />

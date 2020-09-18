@@ -3,14 +3,9 @@ package com.example.smartice_closet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.example.smartice_closet.auth.loginResponse
-import com.example.smartice_closet.recommend.recommend
-import com.example.smartice_closet.recommend.recommendRequest
+import com.example.smartice_closet.recommendForUser.recommend
+import com.example.smartice_closet.recommendForUser.recommendRequest
 import kotlinx.android.synthetic.main.activity_today_cody.*
-import org.json.JSONObject
 import petrov.kristiyan.colorpicker.ColorPicker
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -43,14 +38,19 @@ class todayCody : AppCompatActivity() {
     }
 
     private fun sendRecommendInfo(userColor: String) {
-        val recommendRetrofit = Retrofit.Builder()
-            .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val recommendService: recommendRequest = recommendRetrofit.create(recommendRequest::class.java)
-
-
+//        val recommendRetrofit = Retrofit.Builder()
+//            .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//
+//        val recommendService: recommendRequest = recommendRetrofit.create(recommendRequest::class.java)
+//
+//        recommendService.requestRecommend()
+        var intent = Intent(applicationContext, recommend::class.java).apply {
+            putExtra(TOKEN, userToken)
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun openColorPicker() {

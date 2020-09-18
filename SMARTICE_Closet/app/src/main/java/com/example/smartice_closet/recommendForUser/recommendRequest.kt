@@ -1,4 +1,4 @@
-package com.example.smartice_closet.recommend
+package com.example.smartice_closet.recommendForUser
 
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

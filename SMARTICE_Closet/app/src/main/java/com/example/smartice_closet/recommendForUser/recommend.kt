@@ -1,4 +1,4 @@
-package com.example.smartice_closet.recommend
+package com.example.smartice_closet.recommendForUser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

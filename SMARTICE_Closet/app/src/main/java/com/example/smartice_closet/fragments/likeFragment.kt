@@ -68,7 +68,5 @@ class likeFragment : Fragment() {
 
         dressRecyclerView.layoutManager = LinearLayoutManager(context, OrientationHelper.HORIZONTAL, false)
         dressRecyclerView.adapter = DressAdapter(dressWear)
-
-
     }
 }

@@ -1,11 +1,10 @@
 package com.example.smartice_closet.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartice_closet.Model
+import com.example.smartice_closet.models.Model
 import com.example.smartice_closet.R
 import com.example.smartice_closet.fragments.closetFragment
 import kotlinx.android.synthetic.main.row.view.*

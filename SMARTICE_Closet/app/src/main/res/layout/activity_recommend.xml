@@ -59,6 +59,43 @@
                 android:orientation="vertical" >
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/firstCody"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:padding="5dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/firstCody_RV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp" />
+
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <Button
+                    android:id="@+id/recommend1_select_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/round_blue_btn"
+                    android:text="Select this cody"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/secondCody"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -80,7 +117,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <Button
-                    android:id="@+id/recommend1_select_btn"
+                    android:id="@+id/recommend2_select_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
@@ -111,43 +148,6 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp" />
-                    </RelativeLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <Button
-                    android:id="@+id/recommend2_select_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/round_blue_btn"
-                    android:text="Select this cody"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/firstCody"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="5dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardElevation="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:padding="5dp">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/firstCody_RV"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp" />
-
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
 

@@ -6,9 +6,10 @@ import cv2
 import socket
 import numpy
 import json
+import pickle
+import sys
 
-port = 65000
-token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoyfQ.mP_IOdB4LEsJIeeUVaxLpG0k4NlnMesaMhU13J6gQ8M"
+port = 30000
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -20,22 +21,49 @@ resistorPin = 4
 
 dis1, dis2= 0, 0
 
-def opendoor(check):
+def receivetoken():
+    HOST = ''  # all available interfaces
+    PORT = 30000
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print ('Socket created')
+    try:
+        s.bind((HOST, PORT))
+    except socket.error as msg:
+        print ('Bind Failed. Error code: ' + str(msg[0]) + ' Message: ' + msg[1])
+        sys.exit()
+    print ('Socket bind complete')
+    s.listen(10)
+    print ('Socket now listening')
+
+    conn, addr = s.accept()
+    print ('Connected with ' + addr[0] + ':' + str(addr[1]))
+    data = conn.recv(1024)
+    conn.sendall(data)
+    print(data.decode())
+    tok = data.decode()
+    return tok
+    conn.close()
+    s.close()
+
+
+def opendoor(atoken, check):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(("220.67.124.120", port))
+    #token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoyfQ.mP_IOdB4LEsJIeeUVaxLpG0k4NlnMesaMhU13J6gQ8M"
+    token = atoken
     try:
         capture = cv2.VideoCapture(0, cv2.CAP_V4L)
         ret, frame = capture.read()
-
+        #frame = cv2.imread('right.jpg', cv2.IMREAD_COLOR)
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
         result, imgencode = cv2.imencode('.jpg', frame, encode_param)
         data = numpy.array(imgencode)
         stringData = data.tobytes()
-
+	#print(len(stringData())
         d = {"token":token, "check":check, "img":stringData}
-        msg = json.dumps(d)
+        msg = pickle.dumps(d)
         client_socket.send(str(len(msg)).ljust(16).encode())
-        client_socket.send(bytes(msg, encoding="utf-8"))
+        client_socket.send(msg)
     except:
         print('Disconnected by Server')
 
@@ -44,6 +72,8 @@ def opendoor(check):
 
 def ultra_sensing(q):
     now1,now2 = datetime.time(12, 23, 10), datetime.time(12, 23, 50)
+    t = receivetoken()
+    print(t)
     while True:
         if q.get():
             print("Distance measure")
@@ -82,12 +112,12 @@ def ultra_sensing(q):
             if 1 <= now2.second - now1.second <= 3:
                 now1,now2 = datetime.time(12, 23, 10), datetime.time(12, 23, 50)
                 print("right\n")
-                opendoor("right")
+                opendoor(t,"right")
 
             if 1 <= now1.second - now2.second <= 3:
                 now1,now2 = datetime.time(12, 23, 10), datetime.time(12, 23, 50)
                 print("left\n")
-                opendoor("left")
+                opendoor(t, "left")
 
         else: pass
 

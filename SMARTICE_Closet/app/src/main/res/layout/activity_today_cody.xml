@@ -119,111 +119,64 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/view16"
+        app:layout_constraintStart_toStartOf="@id/view16"
         app:layout_constraintTop_toBottomOf="@+id/hashTagChoice" />
 
-    <TableRow
-        android:id="@+id/tableRow"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/view16"
-        app:layout_constraintEnd_toEndOf="@+id/view16"
-        app:layout_constraintStart_toStartOf="@+id/view16"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/view17"
+        app:layout_constraintStart_toStartOf="@id/view17"
         app:layout_constraintTop_toTopOf="@+id/view17">
 
         <RadioGroup
-            android:id="@+id/hashTagBtn_grp"
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="32dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/a_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="a" />
 
-                <RadioButton
-                    android:id="@+id/hashCasual_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="15dp"
-                    android:text="# Casual"
-                    android:textColor="@color/home"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <RadioButton
-                    android:id="@+id/hashOffice_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="15dp"
-                    android:text="# Office Look"
-                    android:textColor="@color/home"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/hashCasual_btn"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <RadioButton
-                    android:id="@+id/hashTravel_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="# Travel"
-                    android:textColor="@color/home"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hashCasual_btn" />
-
-                <RadioButton
-                    android:id="@+id/hashModern_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text="# Modern Chic"
-                    android:textColor="@color/home"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/hashTravel_btn"
-                    app:layout_constraintTop_toBottomOf="@+id/hashOffice_btn" />
-
-                <RadioButton
-                    android:id="@+id/hasCamput_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="50dp"
-                    android:text="# Campus"
-                    android:textColor="@color/home"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/hashModern_btn"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <RadioButton
-                    android:id="@+id/hashSimple_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="12dp"
-                    android:text="# Simple Basic"
-                    android:textColor="@color/home"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hashTravel_btn" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <RadioButton
+                android:id="@+id/b_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:padding="8dp"
+                android:text="b" />
         </RadioGroup>
-    </TableRow>
+
+        <RadioGroup
+            android:id="@+id/radioGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="32dp">
+
+            <RadioButton
+                android:id="@+id/c_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="c" />
+
+            <RadioButton
+                android:id="@+id/d_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:padding="8dp"
+                android:text="d" />
+        </RadioGroup>
+    </LinearLayout>
 
     <Button
         android:id="@+id/recommend_btn"
@@ -238,5 +191,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view16" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

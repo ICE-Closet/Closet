@@ -1,5 +1,6 @@
 package com.example.smartice_closet.recommendForUser
 
+import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
@@ -13,5 +14,5 @@ interface recommendRequest {
         @Field("hashtag") userHashtag : String,
         @Field("color") userColor : String,
         @Field("weather") weather : String
-    )
+    ) : Call<recommendResponse>
 }

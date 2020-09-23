@@ -31,6 +31,4 @@ class recommend3Adapter(val cody3List : ArrayList<recommend3>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(cody3List[position])
     }
-
-
 }

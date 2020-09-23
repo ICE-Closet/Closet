@@ -194,8 +194,8 @@ class homeFragment : Fragment() {
 
                     val weatherAPIString = "Nation : " + weatherResponse!!.sys!!.country + "\n" + "Temperature : " + r_Temp + "\n" + "Average Temperature : " + r_aveTemp
 
-                    todayWeather = weatherAPIString
-                    weather.text = todayWeather
+                    todayWeather = r_Temp.toString()
+                    weather.text = weatherAPIString
                 }
             }
 

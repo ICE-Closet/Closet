@@ -2,7 +2,9 @@ import cv2
 import socket 
 import numpy 
 import pickle 
-import json 
+import json
+import base64
+
 port = 65000 
 token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoyfQ.mP_IOdB4LEsJIeeUVaxLpG0k4NlnMesaMhU13J6gQ8M"
 
@@ -19,12 +21,11 @@ def opendoor(check):
         result, imgencode = cv2.imencode('.jpg', frame, encode_param)
         data = numpy.array(imgencode)
         stringData = data.tostring() #tobytes()
-        x = json.loads(stringData.decode("utf-8"))
-        
-        print(type(x))
-        d = {"token":token, "check":check, "img":stringData}
+        #print(str(stringData))
+        #base64.encodebytes(img).decode("utf-8")
+        d = {"token":token, "check":check, "img":base64.encodebytes(stringData).decode("utf-8")}
         #dd = d.decode()
-        msg = json.dumps(str(d))
+        msg = json.dumps(d)
         #print(msg)
         #l1 = len(msg) + 7 + len(stringData)
         #msg = json.dump(d)
@@ -38,4 +39,4 @@ def opendoor(check):
 
     client_socket.close()
 
-opendoor("leftkk")
+opendoor("left")

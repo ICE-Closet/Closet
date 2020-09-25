@@ -13,6 +13,7 @@ port = 30000
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+
 TRIG = 20
 ECHO = 21
 TRIG1 = 23

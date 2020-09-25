@@ -22,12 +22,19 @@ def opendoor(atoken, check):
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
         result, imgencode = cv2.imencode('.jpg', frame, encode_param)
         data = numpy.array(imgencode)
-        stringData = data.tostring()
-
+        stringData = data.tostring() #tobytes()
+        #print(str(stringData))
+        #base64.encodebytes(img).decode("utf-8")
         d = {"token":token, "check":check, "img":base64.encodebytes(stringData).decode("utf-8")}
+        #dd = d.decode()
         msg = json.dumps(d)
+        #print(msg)
+        #l1 = len(msg) + 7 + len(stringData)
+        #msg = json.dump(d)
+        print(len(msg))
         client_socket.send(str(len(msg)).ljust(16).encode())
-        client_socket.send(msg)
+        
+        client_socket.send(bytes(msg,encoding="utf-8"))
     except:
         print('Disconnected by Server')
 

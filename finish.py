@@ -10,6 +10,7 @@ import pickle
 import sys
 
 port = 30000
+port2 = 65000
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -49,7 +50,7 @@ def receivetoken():
 
 def opendoor(atoken, check):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(("220.67.124.120", port))
+    client_socket.connect(("220.67.124.120", port2))
     #token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoyfQ.mP_IOdB4LEsJIeeUVaxLpG0k4NlnMesaMhU13J6gQ8M"
     token = atoken
     try:
@@ -59,12 +60,18 @@ def opendoor(atoken, check):
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
         result, imgencode = cv2.imencode('.jpg', frame, encode_param)
         data = numpy.array(imgencode)
-        stringData = data.tobytes()
-	#print(len(stringData())
-        d = {"token":token, "check":check, "img":stringData}
-        msg = pickle.dumps(d)
+        stringData = data.tostring() #tobytes()
+        #print(str(stringData))
+        #base64.encodebytes(img).decode("utf-8")
+        d = {"token":token, "check":check, "img":base64.encodebytes(stringData).decode("utf-8")}
+        #dd = d.decode()
+        msg = json.dumps(d)
+        #print(msg)
+        #l1 = len(msg) + 7 + len(stringData)
+        #msg = json.dump(d)
         client_socket.send(str(len(msg)).ljust(16).encode())
-        client_socket.send(msg)
+        
+        client_socket.send(bytes(msg,encoding="utf-8"))
     except:
         print('Disconnected by Server')
 

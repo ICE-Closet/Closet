@@ -52,7 +52,7 @@
         android:id="@+id/colorChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="32dp"
         android:text="1. Choose Color :"
         android:textSize="24sp"
@@ -83,7 +83,7 @@
         android:id="@+id/setColor_tV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
+        android:layout_marginStart="165dp"
         android:layout_marginTop="32dp"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -95,7 +95,7 @@
     <View
         android:id="@+id/view16"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="230dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view15" />
@@ -104,79 +104,44 @@
         android:id="@+id/hashTagChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="32dp"
-        android:text="2. Choose Hashtag"
+        android:text="2. Choose Hashtag :"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/view16"
+        app:layout_constraintEnd_toStartOf="@+id/setHashtag_tV"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/view16"
         app:layout_constraintTop_toBottomOf="@+id/view15" />
 
-    <View
-        android:id="@+id/view17"
+
+    <TextView
+        android:id="@+id/setHashtag_tV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="195dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/view16"
+        app:layout_constraintStart_toStartOf="@+id/view16"
+        app:layout_constraintTop_toBottomOf="@+id/view15" />
+
+    <Button
+        android:id="@+id/hashtag_dialog_btn"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_blue_btn"
+        android:text="open hashtag dialog"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
         app:layout_constraintEnd_toEndOf="@id/view16"
-        app:layout_constraintStart_toStartOf="@id/view16"
+        app:layout_constraintStart_toStartOf="@+id/view16"
         app:layout_constraintTop_toBottomOf="@+id/hashTagChoice" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@+id/view17"
-        app:layout_constraintStart_toStartOf="@id/view17"
-        app:layout_constraintTop_toTopOf="@+id/view17">
-
-        <RadioGroup
-            android:id="@+id/radioGroup1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="32dp">
-
-            <RadioButton
-                android:id="@+id/a_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="a" />
-
-            <RadioButton
-                android:id="@+id/b_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="8dp"
-                android:text="b" />
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/radioGroup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="32dp">
-
-            <RadioButton
-                android:id="@+id/c_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="c" />
-
-            <RadioButton
-                android:id="@+id/d_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:padding="8dp"
-                android:text="d" />
-        </RadioGroup>
-    </LinearLayout>
 
     <Button
         android:id="@+id/recommend_btn"
@@ -186,6 +151,7 @@
         android:layout_marginEnd="64dp"
         android:background="@drawable/round_blue_btn"
         android:text="recommend"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

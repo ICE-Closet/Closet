@@ -73,6 +73,7 @@ class homeFragment : Fragment() {
             val intent = Intent(context, todayCody::class.java).apply {
                 putExtra(TOKEN, userToken)
                 putExtra(WEATHER, todayWeather)
+                putExtra(USERGENDER, userGender)
             }
             startActivity(intent)
         }

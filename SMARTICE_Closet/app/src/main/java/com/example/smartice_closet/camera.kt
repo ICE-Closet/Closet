@@ -216,8 +216,8 @@ class camera : AppCompatActivity() {
                 var input = socket.getInputStream()
                 var dis = DataInputStream(input)
 
-                var code = dis.readInt()
-                Log.d("SOCKET Response ::", String.format("%d", code))
+                var code = dis.readBytes().decodeToString()
+                Log.d("SOCKET Response ::", code)
 
                 socket.close()
 

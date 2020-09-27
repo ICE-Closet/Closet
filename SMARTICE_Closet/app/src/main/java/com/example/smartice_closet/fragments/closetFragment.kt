@@ -1,5 +1,6 @@
 package com.example.smartice_closet.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartice_closet.models.Model
 import com.example.smartice_closet.R
 import com.example.smartice_closet.adapters.recyclerAdapter
+import com.example.smartice_closet.userCloset.viewUserCloset
 import kotlinx.android.synthetic.main.fragment_closet.*
 
 /**
@@ -42,32 +44,16 @@ class closetFragment : Fragment() {
 
         val arrayList = ArrayList<Model>()
         arrayList.add(
-            Model(
-                "Top",
-                "Check your Top clothing",
-                R.drawable.topwear
-            )
+            Model("Top", "Check your Top clothing", R.drawable.topwear)
         )
         arrayList.add(
-            Model(
-                "Bottom",
-                "Check your Bottom clothing",
-                R.drawable.bottomwear
-            )
+            Model("Bottom", "Check your Bottom clothing", R.drawable.bottomwear)
         )
         arrayList.add(
-            Model(
-                "Outer",
-                "Check your Outer clothing",
-                R.drawable.outerwear
-            )
+            Model("Outer", "Check your Outer clothing", R.drawable.outerwear)
         )
         arrayList.add(
-            Model(
-                "Dress",
-                "Check your Dress clothing",
-                R.drawable.dresswear
-            )
+            Model("Dress", "Check your Dress clothing", R.drawable.dresswear)
         )
 
         val Adapter = recyclerAdapter(arrayList, this)
@@ -76,11 +62,5 @@ class closetFragment : Fragment() {
         recyclerView.adapter = Adapter
 
 
-
-
-
     }
-
-
-
 }

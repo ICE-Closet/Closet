@@ -5,25 +5,12 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smartice_closet.recommendForUser.recommend
 import com.example.smartice_closet.recommendForUser.recommendRequest
 import com.example.smartice_closet.recommendForUser.recommendResponse
 import kotlinx.android.synthetic.main.activity_today_cody.*
-import kotlinx.android.synthetic.main.custom_dialog_female_hashtag.*
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.*
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.campus_rbtn
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.casual_rbtn
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.modern_rbtn
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.office_rbtn
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.simple_rbtn
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.travel_rbtn
-import kotlinx.android.synthetic.main.custom_dialog_male_hashtag.view.*
 import petrov.kristiyan.colorpicker.ColorPicker
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,6 +24,9 @@ class todayCody : AppCompatActivity() {
     private val WEATHER = "WEATHER"
     private val USERGENDER = "USERGENDER"
     private val USERHASHTAG = "USERHASHTAG"
+    private val FIRST = "FIRSTCODY"
+    private val SECOND = "SECONDCODY"
+    private val THIRD = "THIRDCODY"
 
     var userColor = ""
     var userToken = ""
@@ -126,18 +116,35 @@ class todayCody : AppCompatActivity() {
                             Log.d("Status 200", "Success")
                             var recommendResponse = response.body()
 
-                            Toast.makeText(applicationContext, "Successfully recommended\nIf you like our recommend, Choose them!!", Toast.LENGTH_SHORT).show()
+
+
+                            var firstCody = recommendResponse?.mediaUrl?.firstCody
+                            var secondCody = recommendResponse?.mediaUrl?.secondCody
+                            var thirdCody = recommendResponse?.mediaUrl?.thirdCody
+
+
                             Log.d("onResponse", recommendResponse?.msg)
                             Log.d("onResponse", recommendResponse?.mediaUrl.toString())
-                            Log.d("first", recommendResponse?.mediaUrl?.firstCody.toString())
-                            Log.d("second", recommendResponse?.mediaUrl?.secondCody.toString())
-                            Log.d("third", recommendResponse?.mediaUrl?.thirdCody.toString())
 
-                            var intent = Intent(applicationContext, recommend::class.java).apply {
-                                putExtra(TOKEN, userToken)
+                            Log.d("first", firstCody.toString())
+                            Log.d("second", secondCody.toString())
+                            Log.d("third", thirdCody.toString())
+
+                            if (firstCody != null && secondCody != null && thirdCody != null) {
+                                Toast.makeText(applicationContext, "If you like our recommend, Choose them!!", Toast.LENGTH_SHORT).show()
+
+                                var intent = Intent(applicationContext, recommend::class.java).apply {
+                                    putExtra(TOKEN, userToken)
+                                    putStringArrayListExtra(FIRST, firstCody as java.util.ArrayList<String>)
+                                    putStringArrayListExtra(SECOND, secondCody as java.util.ArrayList<String>)
+                                    putStringArrayListExtra(THIRD, thirdCody as ArrayList<String>)
+                                }
+                                startActivity(intent)
+                                finish()
                             }
-                            startActivity(intent)
-                            finish()
+                            else {
+                                Toast.makeText(applicationContext, "Not recommended", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                     else { }
@@ -169,7 +176,7 @@ class todayCody : AppCompatActivity() {
             .setRoundColorButton(true)
             .setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
                 override fun onChooseColor(position: Int, color: Int) {
-                    val colorArray = arrayOf("black", "white", "blue", "red", "gray", "yellow", "khaki", "beige")
+                    val colorArray = arrayOf("black", "white", "blue", "red", "gray", "yellow", "khaki", "beige", "pink", "purple")
 
 //                    if (position == null) {       // 색 안눌렀을때 꺼지는거 예외처리 해볼래? 시름말구
 //                        Toast.makeText(applicationContext, "You have to pick one color", Toast.LENGTH_SHORT).show()

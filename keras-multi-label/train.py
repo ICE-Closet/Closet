@@ -35,9 +35,11 @@ args = vars(ap.parse_args())
 
 # initialize the number of epochs to train for, initial learning rate,
 # batch size, and image dimensions
-EPOCHS = 75
+EPOCHS = 280
+#6:75
 INIT_LR = 1e-3
 BS = 32
+#32
 IMAGE_DIMS = (96, 96, 3)
 
 # grab the image paths and randomly shuffle them

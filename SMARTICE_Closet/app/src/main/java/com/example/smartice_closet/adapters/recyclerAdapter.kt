@@ -13,10 +13,21 @@ import com.example.smartice_closet.fragments.closetFragment
 import com.example.smartice_closet.userCloset.viewUserCloset
 import kotlinx.android.synthetic.main.row.view.*
 
-class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragment) : RecyclerView.Adapter<recyclerAdapter.ViewHolder>() {
+class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragment,val userToken:String) : RecyclerView.Adapter<recyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    private var CATEGORIES = "CATEGORIES"
+    private var TOKEN = "USERTOKEN"
 
+    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, viewUserCloset::class.java).apply {
+                    putExtra(TOKEN, userToken)
+                    putExtra(CATEGORIES, "${itemView.titleTv.text}")
+                }
+                itemView.context.startActivity(intent)
+            }
+        }
         fun bindItems(model: Model) {
             itemView.titleTv.text = model.title
             itemView.descriptionTv.text = model.des
@@ -35,28 +46,5 @@ class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragme
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(arrayList[position])
-
-        holder.itemView.setOnClickListener {
-            if (position == 0) {
-
-                // Top 사진이 있는 Activity로 전환
-
-
-            }
-            else if (position == 1) {
-                Log.d("onBindViewHolder", "Bottom Checked!")
-                // Bottom 사진이 있는 Activity로 전환
-            }
-            else if (position == 2) {
-                Log.d("onBindViewHolder", "Outer Checked!")
-                // Outer 사진이 있는 Activity로 전환
-            }
-            else if (position == 3) {
-                Log.d("onBindViewHolder", "Dress5 Checked!")
-                // Dress 사진이 있는 Activity로 전환
-            }
-
-
-        }
     }
 }

@@ -57,15 +57,15 @@ class recommend : AppCompatActivity() {
         Log.d(THIRD, thirdCody.toString())
 
         recommend1_select_btn.setOnClickListener {
-            sendSelectFirstCody()
+            sendFirstCody()
         }
 
         recommend2_select_btn.setOnClickListener {
-            sendSelectSecondCody()
+            sendSecondCody()
         }
 
         recommend3_select_btn.setOnClickListener {
-            sendSelectThirdCody()
+            sendThirdCody()
         }
 
 //        val cody1List = arrayListOf<recommend1>()
@@ -108,7 +108,7 @@ class recommend : AppCompatActivity() {
         thirdCody_RV.adapter = recommend3Adapter(cody3List)
     }
 
-    private fun sendSelectFirstCody() {
+    private fun sendFirstCody() {
         val selectRetrofit = Retrofit.Builder()
             .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
             .addConverterFactory(GsonConverterFactory.create())
@@ -151,7 +151,7 @@ class recommend : AppCompatActivity() {
         })
     }
 
-    private fun sendSelectSecondCody() {
+    private fun sendSecondCody() {
         val selectRetrofit = Retrofit.Builder()
             .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
             .addConverterFactory(GsonConverterFactory.create())
@@ -194,7 +194,7 @@ class recommend : AppCompatActivity() {
         })
     }
 
-    private fun sendSelectThirdCody() {
+    private fun sendThirdCody() {
         val selectRetrofit = Retrofit.Builder()
             .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
             .addConverterFactory(GsonConverterFactory.create())

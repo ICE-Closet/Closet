@@ -23,6 +23,7 @@ class closetFragment : Fragment() {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
+    var userToken = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,26 +38,26 @@ class closetFragment : Fragment() {
 
         val bundle = arguments
         val userName = bundle!!.getString(USERNAME)
-        val userToken = bundle!!.getString(TOKEN)
+        userToken = bundle!!.getString(TOKEN).toString()
         Log.d("onViewCreated", userName + userToken)
 
         userCloset.text = "${userName}'s Closet"
 
         val arrayList = ArrayList<Model>()
         arrayList.add(
-            Model("Top", "Check your Top clothing", R.drawable.topwear)
+            Model("top", "Check your Top clothing", R.drawable.topwear)
         )
         arrayList.add(
-            Model("Bottom", "Check your Bottom clothing", R.drawable.bottomwear)
+            Model("bottom", "Check your Bottom clothing", R.drawable.bottomwear)
         )
         arrayList.add(
-            Model("Outer", "Check your Outer clothing", R.drawable.outerwear)
+            Model("outer", "Check your Outer clothing", R.drawable.outerwear)
         )
         arrayList.add(
-            Model("Dress", "Check your Dress clothing", R.drawable.dresswear)
+            Model("dress", "Check your Dress clothing", R.drawable.dresswear)
         )
 
-        val Adapter = recyclerAdapter(arrayList, this)
+        val Adapter = recyclerAdapter(arrayList, this, userToken)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = Adapter

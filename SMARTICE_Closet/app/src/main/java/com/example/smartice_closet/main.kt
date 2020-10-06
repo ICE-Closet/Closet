@@ -93,7 +93,7 @@ class main : AppCompatActivity() {
                             R.id.fragment_container,
                             likeFragment.apply {
                                 arguments = Bundle().apply {
-                                    putString(USERNAME, userName)
+//                                    putString(USERNAME, userName)
                                     putString(TOKEN, userToken)
                                     putString(USERGENDER, userGender)
                                 }

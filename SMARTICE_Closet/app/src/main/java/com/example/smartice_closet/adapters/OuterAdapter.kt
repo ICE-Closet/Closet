@@ -6,12 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.smartice_closet.R
+import com.example.smartice_closet.models.outerFrequencies
+import kotlinx.android.synthetic.main.row_outer.view.*
+import kotlinx.android.synthetic.main.row_top.view.*
 
-class OuterAdapter(val outerWear : ArrayList<String>) : RecyclerView.Adapter<OuterAdapter.ViewHolder>() {
+class OuterAdapter(val outerWear : ArrayList<outerFrequencies>) : RecyclerView.Adapter<OuterAdapter.ViewHolder>() {
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val outerName : TextView = itemView.findViewById(R.id.outerName)
+        fun bindItems(data : outerFrequencies) {
+            Glide.with(itemView.context)
+                .load(data.image)
+                .into(itemView.outerFrequency_iV)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,9 +32,7 @@ class OuterAdapter(val outerWear : ArrayList<String>) : RecyclerView.Adapter<Out
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.outerName.text = outerWear[position]
-
-
+        holder.bindItems(outerWear[position])
     }
 
 }

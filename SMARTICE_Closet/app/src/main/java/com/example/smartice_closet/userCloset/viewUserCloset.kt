@@ -34,6 +34,8 @@ class viewUserCloset : AppCompatActivity() {
         clothesCategory = intent.getStringExtra(CATEGORIES)
         Log.d(CATEGORIES, clothesCategory)
 
+        userCategory.text = "Your ${clothesCategory} clothes"
+
         getUserClothes()
 
 

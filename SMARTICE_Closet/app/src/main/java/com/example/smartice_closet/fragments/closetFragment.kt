@@ -23,6 +23,7 @@ class closetFragment : Fragment() {
 
     private val USERNAME = "USERNAME"
     private val TOKEN = "USERTOKEN"
+    private val GENDER = "USERGENDER"
     var userToken = ""
 
     override fun onCreateView(
@@ -39,9 +40,12 @@ class closetFragment : Fragment() {
         val bundle = arguments
         val userName = bundle!!.getString(USERNAME)
         userToken = bundle!!.getString(TOKEN).toString()
-        Log.d("onViewCreated", userName + userToken)
+        val userGender = bundle!!.getString(GENDER)
+
+        Log.d("onViewCreated", userName + userToken + userGender)
 
         userCloset.text = "${userName}'s Closet"
+
 
         val arrayList = ArrayList<Model>()
         arrayList.add(

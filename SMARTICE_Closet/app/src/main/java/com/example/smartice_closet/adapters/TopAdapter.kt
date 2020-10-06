@@ -5,13 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.smartice_closet.R
+import com.example.smartice_closet.models.topFrequencies
+import kotlinx.android.synthetic.main.row_top.view.*
 
-class TopAdapter(val topWear : ArrayList<String>) : RecyclerView.Adapter<TopAdapter.ViewHolder>() {     // String을 Image로 바꿔야함
+class TopAdapter(val topWear : ArrayList<topFrequencies>) : RecyclerView.Adapter<TopAdapter.ViewHolder>() {     // String을 Image로 바꿔야함
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val topName: TextView = itemView.findViewById(R.id.topName)     // TextView를 ImageView로 바꿔야 함
-
+        fun bindItems(data : topFrequencies) {
+            Glide.with(itemView.context)
+                .load(data.image)
+                .into(itemView.topFrequency_iV)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +30,6 @@ class TopAdapter(val topWear : ArrayList<String>) : RecyclerView.Adapter<TopAdap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.topName.text = topWear[position]
+        holder.bindItems(topWear[position])
     }
 }

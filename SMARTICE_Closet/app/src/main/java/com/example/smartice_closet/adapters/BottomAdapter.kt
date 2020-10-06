@@ -6,12 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.smartice_closet.R
+import com.example.smartice_closet.models.bottomFrequencies
+import kotlinx.android.synthetic.main.row_bottom.view.*
 
-class BottomAdapter (val bottomWear : ArrayList<String>) : RecyclerView.Adapter<BottomAdapter.ViewHolder>() {
+class BottomAdapter (val bottomWear : ArrayList<bottomFrequencies>) : RecyclerView.Adapter<BottomAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val bottomName : TextView = itemView.findViewById(R.id.bottomName)
+        fun bindItems(data : bottomFrequencies) {
+            Glide.with(itemView.context)
+                .load(data.image)
+                .into(itemView.bottomFrequency_iV)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +31,6 @@ class BottomAdapter (val bottomWear : ArrayList<String>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bottomName.text = bottomWear[position]
+        holder.bindItems(bottomWear[position])
     }
 }

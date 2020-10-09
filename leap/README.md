@@ -5,6 +5,7 @@
 - On Widnows OS
   
       사용한 python version: 2.7.5
+      필요한 leap 파일 다운로드 url: https://developer.leapmotion.com/releases/leap-motion-orion-321
       필요한 파일: Leap.py, LeapPyhon.pyd, Leap.lib, LeapPython.dll
       실행 예제 파일: Sample.py
       테스트 코드: leapdirection.py
@@ -12,6 +13,7 @@
 - On Raspbian OS
 
       사용한 python version: 2.7.5
+      필요한 leap 파일 다운로드 url: https://developer.leapmotion.com/legacy-v2/
       필요한 파일: Leap.py, LeapPyhon.pyd, Leap.lib, LeapPython.so
       실행 예제 파일: Sample.py
       테스트 코드: ??

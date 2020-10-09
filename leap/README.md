@@ -20,6 +20,7 @@
 ##### Leap motion을 이용하여 direction detection
 [leapdirection.py]
 
+``` python
 import Leap, sys, math
 from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
 from Leap import SwipeGesture
@@ -60,3 +61,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+```

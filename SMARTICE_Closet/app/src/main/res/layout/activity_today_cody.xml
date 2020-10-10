@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="32dp"
-        android:text="2. Choose Hashtag :"
+        android:text="2. Choose Style :"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/setHashtag_tV"
@@ -128,11 +128,11 @@
         app:layout_constraintTop_toBottomOf="@+id/view15" />
 
     <Button
-        android:id="@+id/hashtag_dialog_btn"
+        android:id="@+id/style_dialog_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_blue_btn"
-        android:text="open hashtag dialog"
+        android:text="open style dialog"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"

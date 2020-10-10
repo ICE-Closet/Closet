@@ -23,7 +23,6 @@ class todayCody : AppCompatActivity() {
     private val TOKEN = "USERTOKEN"
     private val WEATHER = "WEATHER"
     private val USERGENDER = "USERGENDER"
-    private val USERHASHTAG = "USERHASHTAG"
     private val FIRST = "FIRSTCODY"
     private val SECOND = "SECONDCODY"
     private val THIRD = "THIRDCODY"
@@ -32,7 +31,7 @@ class todayCody : AppCompatActivity() {
     var userToken = ""
     var weather = ""
     var userGender = ""
-    var userHashtag = ""
+    var userStyle = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,24 +45,24 @@ class todayCody : AppCompatActivity() {
             openColorPicker()
         }
 
-        hashtag_dialog_btn.setOnClickListener {
-            openHashtagDialog()
+        style_dialog_btn.setOnClickListener {
+            openstyleDialog()
         }
 
         recommend_btn.setOnClickListener {
-            sendRecommendInfo(userColor, weather, userToken, userHashtag)
+            sendRecommendInfo(userColor, weather, userToken, userStyle)
         }
     }
 
-    private fun openHashtagDialog() {
+    private fun openstyleDialog() {
         if (userGender == "M") {
-            val maleHashtagList = arrayOf("campus", "casual", "modern", "office", "simple", "travel")
+            val maleStyleList = arrayOf("campus", "casual", "modern", "office", "simple", "travel")
             val MdialogBuilder = AlertDialog.Builder(this)
-                .setTitle("Choose only one Fashion Hashtag")
+                .setTitle("Choose only one Fashion Style")
 
-                .setSingleChoiceItems(maleHashtagList, -1) { dialogInterface: DialogInterface?, i: Int ->
-                    userHashtag = maleHashtagList[i]
-                    setHashtag_tV.text = userHashtag
+                .setSingleChoiceItems(maleStyleList, -1) { dialogInterface: DialogInterface?, i: Int ->
+                    userStyle = maleStyleList[i]
+                    setHashtag_tV.text = userStyle
                     dialogInterface?.dismiss()
                 }
 
@@ -81,8 +80,8 @@ class todayCody : AppCompatActivity() {
                 .setTitle("Choose only one Fashion Hashtag")
 
                 .setSingleChoiceItems(femaleHashtagList, -1) { dialogInterface: DialogInterface?, i: Int ->
-                    userHashtag = femaleHashtagList[i]
-                    setHashtag_tV.text = userHashtag
+                    userStyle = femaleHashtagList[i]
+                    setHashtag_tV.text = userStyle
                     dialogInterface?.dismiss()
                 }
 
@@ -96,8 +95,8 @@ class todayCody : AppCompatActivity() {
 
     }
 
-    private fun sendRecommendInfo(userColor: String, weather: String, userToken: String, userHashtag: String) {
-        if (userColor != "" && userHashtag != "") {
+    private fun sendRecommendInfo(userColor: String, weather: String, userToken: String, userStyle: String) {
+        if (userColor != "" && userStyle != "") {
             val recommendRetrofit = Retrofit.Builder()
                 .baseUrl("http://ec2-13-124-208-47.ap-northeast-2.compute.amazonaws.com:8000")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -105,7 +104,7 @@ class todayCody : AppCompatActivity() {
 
             val userRecommendRequest: recommendRequest = recommendRetrofit.create(recommendRequest::class.java)
 
-            userRecommendRequest.requestRecommend(token = userToken, userHashtag = userHashtag, userColor = userColor, weather = weather).enqueue(object : Callback<recommendResponse> {
+            userRecommendRequest.requestRecommend(token = userToken, userHashtag = userStyle, userColor = userColor, weather = weather).enqueue(object : Callback<recommendResponse> {
                 override fun onFailure(call: Call<recommendResponse>, t: Throwable) {
                     Log.e("onFailure", t.message)
                 }
@@ -152,7 +151,7 @@ class todayCody : AppCompatActivity() {
             })
         }
         else {
-            Toast.makeText(this, "You have to select both color and fashion hashtag", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "You have to select both color and fashion style", Toast.LENGTH_SHORT).show()
         }
 
     }

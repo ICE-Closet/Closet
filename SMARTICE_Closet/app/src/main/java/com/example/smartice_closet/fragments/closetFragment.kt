@@ -51,16 +51,16 @@ class closetFragment : Fragment() {
 
         val arrayList = ArrayList<Model>()
         arrayList.add(
-            Model("top", "Check your Top clothing", R.drawable.topwear)
+            Model("top", "Check your Top clothes", R.drawable.topwear)
         )
         arrayList.add(
-            Model("bottom", "Check your Bottom clothing", R.drawable.bottomwear)
+            Model("bottom", "Check your Bottom clothes", R.drawable.bottomwear)
         )
         arrayList.add(
-            Model("outer", "Check your Outer clothing", R.drawable.outerwear)
+            Model("outer", "Check your Outer clothes", R.drawable.outerwear)
         )
         arrayList.add(
-            Model("dress", "Check your Dress clothing", R.drawable.dresswear)
+            Model("dress", "Check your Dress clothes", R.drawable.dresswear)
         )
 
         val Adapter = recyclerAdapter(arrayList, this, userToken, userGender)

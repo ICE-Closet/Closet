@@ -11,7 +11,7 @@ interface recommendRequest {
     @POST("/accounts/recommendation/")
     fun requestRecommend(
         @Header("Authorizations") token : String,
-        @Field("hashtag") userHashtag : String,
+        @Field("style") userStyle : String,
         @Field("color") userColor : String,
         @Field("weather") weather : String
     ) : Call<recommendResponse>

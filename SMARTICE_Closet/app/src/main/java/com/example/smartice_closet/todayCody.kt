@@ -75,7 +75,7 @@ class todayCody : AppCompatActivity() {
         }
 
         else if (userGender == "F") {
-            val femaleHashtagList = arrayOf("campus", "casual", "femi", "lovely", "modern", "ofice", "simple", "travel")
+            val femaleHashtagList = arrayOf("campus", "casual", "femi", "lovely", "modern", "office", "simple", "travel")
             val FdialogBuilder = AlertDialog.Builder(this)
                 .setTitle("Choose only one Fashion Hashtag")
 
@@ -104,7 +104,7 @@ class todayCody : AppCompatActivity() {
 
             val userRecommendRequest: recommendRequest = recommendRetrofit.create(recommendRequest::class.java)
 
-            userRecommendRequest.requestRecommend(token = userToken, userHashtag = userStyle, userColor = userColor, weather = weather).enqueue(object : Callback<recommendResponse> {
+            userRecommendRequest.requestRecommend(token = userToken, userStyle = userStyle, userColor = userColor, weather = weather).enqueue(object : Callback<recommendResponse> {
                 override fun onFailure(call: Call<recommendResponse>, t: Throwable) {
                     Log.e("onFailure", t.message)
                 }

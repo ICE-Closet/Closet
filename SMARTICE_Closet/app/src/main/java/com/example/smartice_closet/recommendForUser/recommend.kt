@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import com.example.smartice_closet.R
@@ -58,14 +59,17 @@ class recommend : AppCompatActivity() {
 
         recommend1_select_btn.setOnClickListener {
             sendFirstCody()
+            Toast.makeText(applicationContext, "Now you can get our 1st recommend cody.\nThank you", Toast.LENGTH_LONG).show()
         }
 
         recommend2_select_btn.setOnClickListener {
             sendSecondCody()
+            Toast.makeText(applicationContext, "Now you can get our 2nd recommend cody.\nThank you", Toast.LENGTH_LONG).show()
         }
 
         recommend3_select_btn.setOnClickListener {
             sendThirdCody()
+            Toast.makeText(applicationContext, "Now you can get our 3rd recommend cody.\nThank you", Toast.LENGTH_LONG).show()
         }
 
 //        val cody1List = arrayListOf<recommend1>()

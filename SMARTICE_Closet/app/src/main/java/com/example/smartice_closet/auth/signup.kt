@@ -45,52 +45,55 @@ class signup : AppCompatActivity() {
 
             Log.d("submit_btn(gender)", s_gender)
 
-//            if ((s_email == null) && (s_pwd1 == null) && (s_pwd2 == null) && (s_name == null) && (s_gender == null)) {
-//                Toast.makeText(this, "모든 항목을 기입 해주세요.", Toast.LENGTH_SHORT).show()
-//            }
+            if (s_email != "" && s_pwd1 != "" && s_pwd2 != "" && s_name != "" && s_gender != "") {
+                if (s_pwd1 == s_pwd2) {
+                    Log.d("setOnClickListner", "Same Pwd!")
 
+                    signupservice.requestSignup(s_name, s_email, s_pwd1, s_gender).enqueue(object : Callback<signupResponse> {
+                        override fun onFailure(call: Call<signupResponse>, t: Throwable) {
+                            Log.e("회원가입", t.message)
+                            var dialog = AlertDialog.Builder(this@signup)
+                            dialog.setTitle("Error")
+                            dialog.setMessage("서버와의 통신이 실패하였습니다.")
+                            dialog.show()
+                        }
 
-            if (s_pwd1 == s_pwd2) {
-                Log.d("setOnClickListner", "Same Pwd!")
+                        override fun onResponse(call: Call<signupResponse>, response: Response<signupResponse>) {
+                            if (response?.isSuccessful) {
+                                if (response.code() == 201) {
+                                    var signup_response = response.body()
+                                    Log.d("SIGNUP", "msg : " + signup_response?.msg)
+                                    Log.d("SIGNUP", "code : " + signup_response?.code)
 
-                signupservice.requestSignup(s_name, s_email, s_pwd1, s_gender).enqueue(object : Callback<signupResponse> {
-                    override fun onFailure(call: Call<signupResponse>, t: Throwable) {
-                        Log.e("회원가입", t.message)
-                        var dialog = AlertDialog.Builder(this@signup)
-                        dialog.setTitle("Error")
-                        dialog.setMessage("서버와의 통신이 실패하였습니다.")
-                        dialog.show()
-                    }
-
-                    override fun onResponse(call: Call<signupResponse>, response: Response<signupResponse>) {
-                        if (response?.isSuccessful) {
-                            if (response.code() == 201) {
-                                var signup_response = response.body()
-                                Log.d("SIGNUP", "msg : " + signup_response?.msg)
-                                Log.d("SIGNUP", "code : " + signup_response?.code)
-
-                                Toast.makeText(this@signup, "회원가입이 완료되었습니다. \n 사용자 이메일 : " + s_email, Toast.LENGTH_LONG).show()
-                                var intent = Intent(applicationContext, login::class.java).apply {
-                                    putExtra(USERNAME, s_name)
+                                    Toast.makeText(this@signup, "회원가입이 완료되었습니다. \n 사용자 이메일 : " + s_email, Toast.LENGTH_LONG).show()
+                                    var intent = Intent(applicationContext, login::class.java).apply {
+                                        putExtra(USERNAME, s_name)
+                                    }
+                                    startActivity(intent)
+                                    finish()
                                 }
-                                startActivity(intent)
-                                finish()
+                            }
+                            else {
+                                if (response.code() == 400) {
+                                    var signup_response = response.body()
+                                    Log.d("ERROR", signup_response?.code)
+                                    Toast.makeText(this@signup, "이미 존재하는 이메일 입니다.", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
-                        else {
-                            if (response.code() == 400) {
-                                var signup_response = response.body()
-                                Log.d("ERROR", signup_response?.code)
-                                Toast.makeText(this@signup, "이미 존재하는 이메일 입니다.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
 
-                })
+                    })
+                }
+                else {
+                    Toast.makeText(this, "비밀번호가 일치하지 않습니다.\n다시 입력하세요", Toast.LENGTH_SHORT).show()
+                }
             }
             else {
-                Toast.makeText(this, "비밀번호가 일치하지 않습니다.\n다시 입력하세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "모든 항목을 기입 해주세요.", Toast.LENGTH_SHORT).show()
             }
+
+
+
         }
     }
 }

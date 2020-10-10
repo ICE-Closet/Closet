@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/userCloset_cV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
@@ -14,37 +15,37 @@
 
         <ImageView
             android:id="@+id/image"
-            android:src="@mipmap/ic_launcher"
             android:layout_width="75dp"
-            android:layout_height="75dp" />
+            android:layout_height="75dp"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/titleTv"
-            android:text="Title"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/image"
-            android:layout_toEndOf="@id/image"
+            android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"/>
+            android:layout_toEndOf="@id/image"
+            android:layout_toRightOf="@id/image"
+            android:text="Title"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/descriptionTv"
-            android:text="Description"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/image"
-            android:layout_toEndOf="@id/image"
-            android:layout_marginLeft="15dp"
+            android:layout_below="@id/titleTv"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/titleTv"/>
+            android:layout_toEndOf="@id/image"
+            android:layout_toRightOf="@id/image"
+            android:text="Description"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

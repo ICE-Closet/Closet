@@ -13,7 +13,7 @@ import com.example.smartice_closet.fragments.closetFragment
 import com.example.smartice_closet.userCloset.viewUserCloset
 import kotlinx.android.synthetic.main.row.view.*
 
-class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragment,val userToken:String) : RecyclerView.Adapter<recyclerAdapter.ViewHolder>() {
+class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragment, val userToken:String, val userGender: String) : RecyclerView.Adapter<recyclerAdapter.ViewHolder>() {
 
     private var CATEGORIES = "CATEGORIES"
     private var TOKEN = "USERTOKEN"
@@ -28,6 +28,7 @@ class recyclerAdapter(val arrayList: ArrayList<Model>, val context: closetFragme
                 itemView.context.startActivity(intent)
             }
         }
+
         fun bindItems(model: Model) {
             itemView.titleTv.text = model.title
             itemView.descriptionTv.text = model.des

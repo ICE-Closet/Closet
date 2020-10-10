@@ -48,7 +48,7 @@ def receivetoken():
     s.close()
 
 
-def opendoor(atoken, check):
+def sendml(atoken, check):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(("220.67.124.120", port2))
     #token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoyfQ.mP_IOdB4LEsJIeeUVaxLpG0k4NlnMesaMhU13J6gQ8M"

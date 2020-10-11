@@ -193,7 +193,7 @@ class camera : AppCompatActivity() {
                 stream.close()
 
                 var jsonLength: Int = rootObject.toString().length
-
+ 
 
                 var temp: String = String.format("%d", jsonLength)
                 var length: Int = temp.length

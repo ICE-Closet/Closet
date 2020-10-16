@@ -26,6 +26,7 @@
 <br>
 <br>
 
+### **Major Applications**
 **1. Backend Server** - Django ([API_SERVER](https://github.com/ICE-Closet/Closet/tree/API_Server))
 > 주요 기능
 >   - [Check clothes status](https://github.com/ICE-Closet/Closet/blob/API_Server/Closet/accounts/views/clothes_info.py): 라즈베리파이로 부터 옷의 정보와 옷의 상태를

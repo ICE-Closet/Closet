@@ -19,7 +19,11 @@
 
 [![N|Solid](https://i.ibb.co/qCwrBHZ/qq.png)](https://github.com/ICE-Closet/Closet/graphs/contributors)
 
-### **SMARTICE Project**
+## **SMARTICE Project**
+### **Usecase Diagram**
+
+
+<br>
 <br>
 
 **1. Backend Server** - Django ([API_SERVER](https://github.com/ICE-Closet/Closet/tree/API_Server))

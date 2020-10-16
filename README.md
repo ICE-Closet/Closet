@@ -1,6 +1,6 @@
 # SMARTICE Closet
-# RaspberryPi, Sensors, MachineLearning을 이용한 SMARTICE Closet
-# SMARTICE Closet MOBILE APPLICATION
+## RaspberryPi, Sensors, MachineLearning을 이용한 SMARTICE Closet
+## SMARTICE Closet MOBILE APPLICATION
 
 [![GitHub forks](https://img.shields.io/github/forks/ICE-Closet/Closet)](https://github.com/ICE-Closet/Closet/network) [![GitHub stars](https://img.shields.io/github/stars/ICE-Closet/Closet)](https://github.com/ICE-Closet/Closet/stargazers) [![GitHub license](https://img.shields.io/github/license/ICE-Closet/Closet)](https://github.com/ICE-Closet/Closet/blob/master/LICENSE) [![AWS](https://img.shields.io/badge/Amazon%20AWS-%23232F3E?logo=amazon-aws&logoColor=white)](https://aws.amazon.com/ko/free/?trk=ps_a134p000003yHYmAAM&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=Google&sc_category=Core-Main&sc_country=KR&sc_geo=APAC&sc_outcome=acq&sc_detail=aws&sc_content=Brand_Core_aws_e&sc_segment=444218215904&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Core-Main|Core|KR|EN|Text&s_kwcid=AL!4422!3!444218215904!e!!g!!aws&ef_id=CjwKCAjwiaX8BRBZEiwAQQxGx2XOkTu_Tu8g0unvps-CYtT0OWOZFI3dswH1GM3tlS3TZ_c9zjO8SRoCa84QAvD_BwE:G:s&s_kwcid=AL!4422!3!444218215904!e!!g!!aws) [![Django](https://img.shields.io/badge/Django-Python-orange?logo=Django)](https://www.djangoproject.com/) [![Android](https://img.shields.io/badge/Android-Kotlin-3DDC84?logo=android&logoColor=white)](https://developer.android.com/?hl=ko) [![DeepLearning](https://img.shields.io/badge/tensorflow-Python-orange?logo=tensorflow&logoColor=white)](http://tensorflow.org/)
 
@@ -21,7 +21,7 @@
 
 ## **SMARTICE Project**
 ### **Usecase Diagram**
-
+![usecase](https://user-images.githubusercontent.com/47167335/96278969-194e9180-1011-11eb-87db-aad476a169ae.png)
 
 <br>
 <br>

@@ -38,9 +38,10 @@
 > 주요 기능
 >   - [Take a picture of clothes](https://github.com/ICE-Closet/Closet/blob/Android_Studio/SMARTICE_Closet/app/src/main/java/com/example/smartice_closet/camera.kt
 ): 사용자가 자신의 옷을 등록하기 위해 옷 사진을 촬영한다.
->   - Browse clothes: 사용자가 촬영하고 저장한 옷을 카테고리(상의, 하의, 아우터, 드레스)별로 보여준다.
->   - Show frequently worn clothes: 사용자가 자주 입었던 카테고리 별 옷을 보여준다.
->   - Recommend clothes: 사용자는 스타일과 원하는 색을 선택하여 옷 추천 서비스를 제공받는다
+>   - [Browse clothes](https://github.com/ICE-Closet/Closet/blob/Android_Studio/SMARTICE_Closet/app/src/main/java/com/example/smartice_closet/fragments/closetFragment.kt
+): 사용자가 촬영하고 저장한 옷을 카테고리(상의, 하의, 아우터, 드레스)별로 보여준다.
+>   - [Show frequently worn clothes](https://github.com/ICE-Closet/Closet/blob/Android_Studio/SMARTICE_Closet/app/src/main/java/com/example/smartice_closet/fragments/likeFragment.kt): 사용자가 자주 입었던 카테고리 별 옷을 보여준다.
+>   - [Recommend clothes](https://github.com/ICE-Closet/Closet/blob/Android_Studio/SMARTICE_Closet/app/src/main/java/com/example/smartice_closet/recommendForUser/recommend.kt): 사용자는 스타일과 원하는 색을 선택하여 옷 추천 서비스를 제공받는다
 <br>
 
 **3. Deep Learning** - ML([ML](https://github.com/ICE-Closet/Closet/tree/ML) & [hyoseop](https://github.com/ICE-Closet/Closet/tree/hyoseop))

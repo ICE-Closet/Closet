@@ -15,7 +15,7 @@ class Mycloset():
         self.PORT = 30000
         self.PORT2 = 65000
         self.HOST = ''
-        self.MLHOST = '220.67.124.120'
+        self.MLHOST = '#####'
 
         # sensor pin
         GPIO.setmode(GPIO.BCM)
